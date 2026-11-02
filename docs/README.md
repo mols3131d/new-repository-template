@@ -1,20 +1,19 @@
 # Documentation
 
-Start here when deciding **where project knowledge belongs**. This template contains real setup documentation, but no application architecture, published API, user workflow or deployment system yet.
+This template separates project documentation by its reader and responsibility. Only areas with a real purpose are created; add narrower directories when a project has enough material to justify them.
 
-| Area | When to use it |
+| Area | Responsibility |
 | --- | --- |
-| [Development](development/README.md) | Contributor workflows, local environments, tools, testing and development-time checks |
-| [Guides](guides/README.md) | Task-based instructions for people **using** the resulting project |
-| [Architecture](architecture/README.md) | System boundaries, design rationale, data flows and consequential technical decisions |
-| [Operations](operations/README.md) | Deployment, running services, monitoring, incident response and recovery procedures |
-| [Reference](reference/README.md) | Stable API, CLI, configuration, schema and other lookup-oriented contracts |
+| [Development](development/README.md) | Contributing, local development, verification and development practices |
+| [Tools](tools/README.md) | Tool selection, setup, configuration, commands and update boundaries |
+| [Guides](guides/README.md) | Task-based instructions for people using the resulting project |
+| [Architecture](architecture/README.md) | System structure, dependencies, design rationale and technical decisions |
 
-## Add documentation where it is owned
+## Extending the structure
 
-- Choose the reader's question first, then the narrowest applicable area. A feature may have separate guides, design rationale and contract reference **only if** those distinct documents are needed.
-- Do not duplicate executable configuration or source contracts in prose: link to their actual owner (for example, [mise.toml](../mise.toml) and [rulesync.jsonc](../rulesync.jsonc)). Keep a single maintained explanation for each decision or procedure.
-- Add a topic folder or nested entrypoint when real material needs a separate owner or navigation; avoid one folder per file, empty taxonomies, generated inventories and speculative templates.
-- Treat current behavior, proposals and planned work differently. Write instructions for an actual project only after the corresponding implementation or operating practice exists.
+- Place each document with the nearest owner of its subject, not wherever there is space. Tool-specific maintenance belongs in `tools/`; contributor workflows belong in `development/`.
+- Avoid copying values from native source files. Tool versions and tasks live in [mise.toml](../mise.toml); external Skill selection lives in [rulesync.jsonc](../rulesync.jsonc). Link rather than restate maintained inventories.
+- Create a nested topic directory or an entrypoint only when multiple related documents or a distinct ownership boundary make navigation worthwhile. Do not create placeholder taxonomies.
+- Separate implemented facts from proposals and unverified assumptions. A new document is not proof the corresponding product behavior exists.
 
-The repository [README](../README.md) is the initial setup entrypoint and [AGENTS.md](../AGENTS.md) owns the baseline agent instructions. This documentation map routes human-maintained project knowledge; it does not override those sources or upstream Agent Skills.
+The repository [README](../README.md) provides first-use instructions and [AGENTS.md](../AGENTS.md) owns the agent working baseline. This index routes documentation but does not replace either.

@@ -6,7 +6,7 @@ This file owns the repository-wide agent working agreement. Apply the runtime's 
 
 - Confirm repository, ref/branch, intended changes, relevant paths, and current working state before making edits.
 - Read [README.md](README.md), relevant [development guidance](docs/development/README.md), and the [documentation map](docs/README.md) for documentation changes. A repository created from this template must replace placeholders with actual project facts.
-- Discover relevant Skills through the **runtime's native mechanism**. The dependency selection is owned by [rulesync.jsonc](rulesync.jsonc), with scope and lifecycle described in [agent-assets.md](docs/development/agent-assets.md). Select only task-relevant Skills and read their canonical installed content and required resources.
+- Discover relevant Skills through the **runtime's native mechanism**. The dependency selection is owned by [rulesync.jsonc](rulesync.jsonc), with scope and lifecycle described in [Rulesync guidance](docs/tools/rulesync.md). Select only task-relevant Skills and read their canonical installed content and required resources.
 - The manifest and lockfile are declarations, not proof of install or loading. If Skill discovery fails, inspect the actual installation/projection and applicable source; do not claim a Skill was applied from its name alone.
 
 ## Work safely
@@ -20,7 +20,7 @@ This file owns the repository-wide agent working agreement. Apply the runtime's 
 ## Verify honestly
 
 - Use the real project's established build, lint, and test commands when they exist; never infer an executable command from this template.
-- For shared Markdown and configuration checks, consult [shared tooling](docs/development/tooling.md). Explicit formatting commands may rewrite files; review their diff.
+- For shared Markdown and configuration checks, consult [shared tools](docs/tools/README.md). Explicit formatting commands may rewrite files; review their diff.
 - If a tool, dependency, test, independent agent, or runtime is unavailable, distinguish verified work from partial, skipped, or unverified work. Optional omissions cannot stand in for required verification.
 - Check the actual diff and relevant documentation, and state material limitations and next steps. A PR, check mark, or generated output does not grant merge permission.
 

@@ -1,5 +1,5 @@
 # Guides
 
-Place **user-oriented, task-based instructions** here when the derived project has real behavior to teach: first use, common tasks, or integrations. Guide readers through an outcome and link to detailed contracts under [Reference](../reference/README.md) instead of reproducing them.
+This area owns **task-based instructions for users of the resulting project**: starting to use it, accomplishing a common task or integrating with an existing feature.
 
-The repository template does not yet define a product or user workflow. Add guides when that functionality exists; keep contributor setup and development commands in [Development](../development/README.md).
+The template does not implement a product workflow, so add guides only when the functionality exists. Ground steps in observed behavior and link directly to the applicable implementation or native contract when details matter. Contributor setup belongs in [Development](../development/README.md).

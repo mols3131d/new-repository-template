@@ -1,5 +1,5 @@
 # Architecture
 
-Document the derived project's **implemented or explicitly proposed** system structure and the reasoning behind consequential design decisions here. Typical subjects are component responsibilities, boundaries, data flow, important constraints and tradeoffs.
+Use this area for the derived project's implemented or explicitly proposed system structure and decisions: component responsibilities, boundaries, data flow, constraints and meaningful tradeoffs.
 
-This template does not prescribe an application architecture. Add design documents as decisions become meaningful; group related decisions in a narrower directory only when there is enough material to benefit from it. Link to actual code and authoritative contracts in [Reference](../reference/README.md) rather than treating diagrams or plans as implementation proof.
+The template does not prescribe a product architecture. Add documents as real decisions emerge, and group them into a narrower subdirectory only when that grouping improves ownership or discovery. Link to source code and authoritative schemas/configuration instead of treating diagrams or plans as implementation proof.
