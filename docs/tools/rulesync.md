@@ -8,6 +8,6 @@ After reviewing the source and requested targets and authorizing remote download
 
 Reinstall a previously established revision with `rulesync install --frozen` followed by `rulesync generate`. To deliberately move upstream Skill revisions, use `mise run agents-refresh`, inspect the lock/diff and then commit the intended update. `mise run agents-check` performs structural doctor/preview, not end-to-end runtime behavior evaluation.
 
-The manifest or lock does not prove that a target agent discovered a Skill. Inspect actual installation/projection and verify activation in a representative runtime before making that claim. The configured bootstrap has not yet been executed in this PR, so no verified `rulesync.lock` is included.
+The manifest or lock does not prove that a target agent discovered a Skill. Inspect actual installation/projection and verify activation in a representative runtime before making that claim. The template ships no pre-resolved `rulesync.lock`; the first authorized installation must resolve, inspect and commit it before reproducibility can be claimed.
 
 Keep the source upstream unless explicitly adopting ownership into this project. Do not hand-edit installed curated dependencies or generated vendor projections; if a derived project adds a locally maintained Skill, choose and document its own canonical source rather than copying the upstream body.

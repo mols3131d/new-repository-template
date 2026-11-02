@@ -14,7 +14,7 @@ mise run agents-setup
 mise run check
 ```
 
-The first `agents-setup` downloads selected upstream Skills, writes `rulesync.lock`, generates native Skill projections and maintains Rulesync's generated ignore entries. **Review and commit** the new lock and intended ignore changes; no install or generation has been executed as part of this template PR. Reinstall from an established lock with `rulesync install --frozen`, and explicitly refresh upstream Skills using `mise run agents-refresh`.
+The first `agents-setup` resolves selected upstream Skills, writes `rulesync.lock`, generates native Skill projections and maintains Rulesync's generated ignore entries. **Review and commit** the new lock and intended ignore changes. This template does not ship a pre-resolved lockfile, so the first install is a deliberate dependency-resolution step. Reinstall from an established lock with `rulesync install --frozen`, and explicitly refresh upstream Skills using `mise run agents-refresh`.
 
 ## Included foundation
 
