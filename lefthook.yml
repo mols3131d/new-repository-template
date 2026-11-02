@@ -1,0 +1,12 @@
+# Git hooks are opt-in: inspect existing hooks/core.hooksPath before 'lefthook install'.
+# Hooks check files; they do not auto-fix, re-stage or rewrite user changes.
+no_tty: true
+
+pre-commit:
+  commands:
+    markdown:
+      glob: "*.md"
+      run: mise exec -- rumdl check {staged_files}
+    biome:
+      glob: "*.{json,jsonc,js,jsx,ts,tsx,mjs,cjs,mts,cts}"
+      run: mise exec -- biome check {staged_files}

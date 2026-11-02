@@ -1,0 +1,8 @@
+[global]
+flavor = "gfm"
+# Avoid forced prose wrapping; keep Markdown with raw HTML and frontmatter usable.
+disable = ["MD013", "MD033", "MD041"]
+exclude = [
+  ".rulesync/skills/.curated/**",
+  "node_modules/**",
+]

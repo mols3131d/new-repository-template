@@ -1,0 +1,49 @@
+# Common repository tooling. A derived project may change its application runtime
+# independently after reviewing compatibility with these tools.
+[tools]
+node = "26.13.0"
+rumdl = "0.3.2"
+"npm:@biomejs/biome" = "2.6.3"
+lefthook = "2.2.2"
+"npm:rulesync" = "43.2.0"
+
+[settings]
+task.run_auto_install = false
+
+[tasks.agents-setup]
+description = "Resolve external Skills, generate native projections, and maintain generated ignore entries"
+run = [
+  "rulesync install",
+  "rulesync generate",
+  "rulesync gitignore --targets claudecode,codexcli,copilot,copilotcli,antigravity-ide,antigravity-cli,agentsskills --features skills",
+]
+
+[tasks.agents-check]
+description = "Validate Rulesync configuration and preview generation (not runtime activation)"
+run = [
+  "rulesync doctor --strict",
+  "rulesync generate --dry-run",
+]
+
+[tasks.agents-refresh]
+description = "Explicitly update upstream Skill revisions and regenerate target projections"
+run = [
+  "rulesync install --update",
+  "rulesync generate",
+]
+
+[tasks.format]
+description = "Format Markdown and Biome-supported files across the repository; writes changes"
+run = [
+  "rumdl fmt .",
+  "biome format --write .",
+]
+
+[tasks.check]
+description = "Read-only Markdown, Biome and hook configuration checks; not an application test suite"
+run = [
+  "rumdl check .",
+  "rumdl fmt --check .",
+  "biome check .",
+  "lefthook validate",
+]

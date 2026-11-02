@@ -1,0 +1,51 @@
+{
+  "$schema": "https://github.com/dyoshikawa/rulesync/releases/latest/download/config-schema.json",
+  "targets": {
+    "claudecode": ["skills"],
+    "codexcli": ["skills"],
+    "copilot": ["skills"],
+    "copilotcli": ["skills"],
+    "antigravity-ide": ["skills"],
+    "antigravity-cli": ["skills"],
+    "agentsskills": ["skills"]
+  },
+  "outputRoots": ["."],
+  "sources": [
+    {
+      "source": "mols3131d/mols-agent-assets",
+      "skills": [
+        "artifact-consistency-inspector",
+        "check-dependencies",
+        "code-flow-map",
+        "coding-context",
+        "github-context",
+        "mols-agent-asset",
+        "mols-agent-asset-find",
+        "mols-chatbot-bootstrap",
+        "mols-ci-design",
+        "mols-clarify-code",
+        "mols-clarify-runtime",
+        "mols-code-comprehension-refactor",
+        "mols-dev-env-bootstrap-design",
+        "mols-documentation",
+        "mols-loops",
+        "mols-markdown-maintenance",
+        "mols-mermaid-diagram",
+        "mols-test-design",
+        "review-changes",
+        "searcher",
+        "technical-document-fidelity"
+      ],
+      "transport": "github",
+      "ref": "main",
+      "path": "src/rulesync/.rulesync/skills"
+    },
+    {
+      "source": "dyoshikawa/rulesync",
+      "skills": ["rulesync"],
+      "transport": "github",
+      "ref": "main",
+      "path": "skills"
+    }
+  ]
+}
