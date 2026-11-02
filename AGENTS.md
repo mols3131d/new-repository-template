@@ -20,6 +20,7 @@ This file owns the repository-wide agent working agreement. Apply the runtime's 
 ## Verify honestly
 
 - Use the real project's established build, lint, and test commands when they exist; never infer an executable command from this template.
+- For shared Markdown and configuration checks, consult [shared tooling](docs/development/tooling.md). Explicit formatting commands may rewrite files; review their diff.
 - If a tool, dependency, test, independent agent, or runtime is unavailable, distinguish verified work from partial, skipped, or unverified work. Optional omissions cannot stand in for required verification.
 - Check the actual diff and relevant documentation, and state material limitations and next steps. A PR, check mark, or generated output does not grant merge permission.
 

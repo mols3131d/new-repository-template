@@ -2,11 +2,11 @@
 
 This template has no selected application language, framework, dependencies, test runner, or release workflow. Do not invent commands or claim checks exist before the derived repository implements them.
 
-## Agent and tool initialization
+## Initial development foundation
 
-- [Agent assets and selection](agent-assets.md) owns the initial Skill dependency set, Rulesync update flow, and template-specific limitations.
-- Root [mise.toml](../../mise.toml) owns the initial **agent tooling only**. Its `agents-setup` task resolves remote Skills and generates their target projections; it does **not** establish an application development environment by itself.
-- Root [AGENTS.md](../../AGENTS.md) owns the repository agent working agreement; avoid copying it into development docs.
+- [Shared Development Tooling](tooling.md) explains the installed-by-request toolchain, formatting/check tasks, Git hook opt-in and version-update boundary.
+- [Initial Agent Assets](agent-assets.md) owns the reusable Skill selection, Rulesync setup and external dependency lifecycle.
+- Root [AGENTS.md](../../AGENTS.md) owns the repository-wide agent working agreement. Do not duplicate its policy here.
 
 ## Fill in after creating a project
 

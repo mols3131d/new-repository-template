@@ -1,37 +1,40 @@
 # New Repository Template
 
-A technology-agnostic repository starter with a **Rulesync-managed agent Skill baseline** and a small development-environment bootstrap. It does not assume a product language, framework, build command, or CI provider.
+A technology-agnostic starter for **agent-assisted development**. It prepares reusable Skills through Rulesync and general development tools through mise, without assuming an application framework or CI provider.
 
-## Create a repository
+## Start a project
 
-1. Select **Use this template** on GitHub.
-2. Replace this README's project description and document the actual application stack as it becomes known.
-3. Install [mise](https://mise.jdx.dev/) yourself if it is not available. Review the tools in [mise.toml](mise.toml) before provisioning.
-4. Run the following from the **new repository**, after authorizing the local tool installation and remote Skill download:
+1. Select **Use this template** on GitHub, then replace this README's project description.
+2. Inspect [mise.toml](mise.toml) and [agent asset selection](docs/development/agent-assets.md). Install [mise](https://mise.jdx.dev/) yourself if required.
+3. After authorizing local tool installation and external Skill downloads, run these commands from the new repository:
 
 ```sh
 mise install
 mise run agents-setup
+mise run check
 ```
 
-The first `agents-setup` resolves the selected external Skills, writes `rulesync.lock`, generates project-local Skill projections for configured agents, and maintains Rulesync's generated `.gitignore` block. Inspect and **commit `rulesync.lock` and any intended `.gitignore` changes** to establish a reproducible project baseline. The upstream Skill bodies and generated projections are not checked into this template.
+The first `agents-setup` downloads selected upstream Skills, writes `rulesync.lock`, generates native Skill projections and maintains Rulesync's generated ignore entries. **Review and commit** the new lock and intended ignore changes; no install or generation has been executed as part of this template PR. Reinstall from an established lock with `rulesync install --frozen`, and explicitly refresh upstream Skills using `mise run agents-refresh`.
 
-Later, use `mise run agents-setup` to reinstall from the existing lock, `mise run agents-check` for static configuration/generation checks, or `mise run agents-refresh` when you explicitly want upstream changes. Review the lockfile diff before accepting updates. To enforce unchanged dependencies after a lock exists, use `rulesync install --frozen`. Requires network access for first install and any missing dependencies. These commands have **not** been run in this template PR.
+## Included foundation
 
-## Included agent capabilities
-
-`rulesync.jsonc` selects **21 reusable Skills** from [mols-agent-assets](https://github.com/mols3131d/mols-agent-assets) and the official `rulesync` Skill. They cover initial harness setup, environment/bootstrap design, CI and tests, coding judgment, research, GitHub context, code review, dependency inspection, documentation, and iterative improvement.
-
-See [Agent assets and selection](docs/development/agent-assets.md) for the complete selection, exclusions, update procedure, and source-of-truth boundary.
-
-| Entry | Responsibility |
+| Area | Provisioning / entry |
 | --- | --- |
-| [AGENTS.md](AGENTS.md) | Repository-wide agent instructions (canonical baseline) |
-| [CHATBOT.md](CHATBOT.md) | Opt-in compatibility entry for chat runtimes |
-| [rulesync.jsonc](rulesync.jsonc) | External Skill selection and native projection targets |
-| [mise.toml](mise.toml) | Initial agent tooling and explicit setup/check/update tasks |
-| [Development reference](docs/development/README.md) | Actual application development commands and choices once established |
+| Reusable Agent Skills | [rulesync.jsonc](rulesync.jsonc) selects 21 Skills from [mols-agent-assets](https://github.com/mols3131d/mols-agent-assets) and 1 official Rulesync Skill |
+| Cross-agent Skill generation | Claude Code, Codex CLI, GitHub Copilot, Copilot CLI, Antigravity IDE/CLI and AgentsSkills |
+| General tooling | [mise.toml](mise.toml) selects rumdl, Biome, Lefthook, Rulesync and its Node runtime |
+| Working agreement | [AGENTS.md](AGENTS.md) is canonical; [CHATBOT.md](CHATBOT.md) is optional chat-runtime compatibility |
+| Development instructions | [Development reference](docs/development/README.md) for actual app commands and [Shared Tooling](docs/development/tooling.md) for template setup |
 
-The presence of a manifest or Skill source does not imply an agent runtime has loaded it. Native Skill discovery is preferred; a chat runtime that cannot discover instructions must be configured to read `CHATBOT.md` or `AGENTS.md`.
+## Everyday commands
 
-This template intentionally does **not** install a language toolchain, tests, CI, agent autonomy, or automatic merges for unknown future projects.
+| Action | Command |
+| --- | --- |
+| Format Markdown and supported code/config files | `mise run format` (writes across repository) |
+| Check Markdown, Biome and Lefthook configuration | `mise run check` |
+| Preview/check Rulesync setup | `mise run agents-check` |
+| Update upstream Skill revisions deliberately | `mise run agents-refresh` |
+
+Git hook installation is **optional**, not part of the default setup. Follow [Shared Tooling](docs/development/tooling.md) for scoped formatting, hook safety and version updates. `mise run check` does not run an application test suite, and a Skill manifest does not prove runtime activation.
+
+Derived repositories should establish their own application runtime, tests, build, CI and project-specific rules only as those needs become concrete. This template does not grant agents unattended merge/release authority.

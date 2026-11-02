@@ -223,3 +223,6 @@ __marimo__/
 .rulesync/skills/.curated/
 .rulesync/rules/.curated/
 rulesync.local.jsonc
+# Common tool outputs
+node_modules/
+.rumdl_cache/
