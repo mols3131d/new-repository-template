@@ -1,23 +1,20 @@
-# Development Reference
+# Development
 
-This template has no selected application language, framework, dependencies, test runner, or release workflow. Do not invent commands or claim checks exist before the derived repository implements them.
+This area covers how contributors **build, change and verify** the derived project. The template itself has no selected application language, framework, dependencies, test runner or release workflow; do not invent commands or claim checks exist before the project establishes them.
 
-## Initial development foundation
+## Available foundation
 
-- [Shared Development Tooling](tooling.md) explains the installed-by-request toolchain, formatting/check tasks, Git hook opt-in and version-update boundary.
-- [Initial Agent Assets](agent-assets.md) owns the reusable Skill selection, Rulesync setup and external dependency lifecycle.
-- Root [AGENTS.md](../../AGENTS.md) owns the repository-wide agent working agreement. Do not duplicate its policy here.
+- [Shared Development Tooling](tooling.md) owns the general tool bootstrap, formatting/check commands, optional Git hooks and version-update boundary.
+- [Initial Agent Assets](agent-assets.md) explains the Rulesync Skill selection, upstream dependencies and their lifecycle.
+- Root [AGENTS.md](../../AGENTS.md) owns the repository-wide agent working agreement; [Documentation](../README.md) routes non-development knowledge.
 
-## Fill in after creating a project
+## Extend with verified project information
 
-Maintain verified information here as the project evolves:
-
-| Topic | What to establish |
+| Topic | Establish when known |
 | --- | --- |
-| Source layout | Module boundaries, app entrypoints and ownership |
-| Application environment | Language/runtime versions, installation, configuration, local run commands |
-| Verification | Concrete test, lint, format and build commands; expected outcomes |
-| Delivery | CI gates, release steps, migration and approval requirements |
-| Architecture | Decisions and links to substantive design material when needed |
+| Code orientation | Actual source layout, project entrypoints and module ownership |
+| Application environment | Language/runtime, package management, setup and local run commands |
+| Verification | Test, lint, format and build commands with actual scope and expected outcomes |
+| Contribution and CI | Contribution workflow and checks required before integration |
 
-Prefer linking to executable configuration over duplicating it. Drop irrelevant rows rather than guessing defaults. A candidate command is not verified until run in the actual project.
+Keep system design rationale in [Architecture](../architecture/README.md), deployed service procedures in [Operations](../operations/README.md) and API/configuration contracts in [Reference](../reference/README.md). Prefer links to executable configuration over copying values, and remove irrelevant placeholder rows instead of inventing defaults.

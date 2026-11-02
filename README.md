@@ -24,7 +24,7 @@ The first `agents-setup` downloads selected upstream Skills, writes `rulesync.lo
 | Cross-agent Skill generation | Claude Code, Codex CLI, GitHub Copilot, Copilot CLI, Antigravity IDE/CLI and AgentsSkills |
 | General tooling | [mise.toml](mise.toml) selects rumdl, Biome, Lefthook, Rulesync and its Node runtime |
 | Working agreement | [AGENTS.md](AGENTS.md) is canonical; [CHATBOT.md](CHATBOT.md) is optional chat-runtime compatibility |
-| Development instructions | [Development reference](docs/development/README.md) for actual app commands and [Shared Tooling](docs/development/tooling.md) for template setup |
+| Documentation | [Documentation map](docs/README.md) routes guides, architecture, development, operations and reference; [Shared Tooling](docs/development/tooling.md) owns template tool setup |
 
 ## Everyday commands
 

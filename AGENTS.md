@@ -5,7 +5,7 @@ This file owns the repository-wide agent working agreement. Apply the runtime's 
 ## Resolve the actual project
 
 - Confirm repository, ref/branch, intended changes, relevant paths, and current working state before making edits.
-- Read [README.md](README.md) and task-relevant [development guidance](docs/development/README.md). A repository created from this template must replace placeholders with actual project facts.
+- Read [README.md](README.md), relevant [development guidance](docs/development/README.md), and the [documentation map](docs/README.md) for documentation changes. A repository created from this template must replace placeholders with actual project facts.
 - Discover relevant Skills through the **runtime's native mechanism**. The dependency selection is owned by [rulesync.jsonc](rulesync.jsonc), with scope and lifecycle described in [agent-assets.md](docs/development/agent-assets.md). Select only task-relevant Skills and read their canonical installed content and required resources.
 - The manifest and lockfile are declarations, not proof of install or loading. If Skill discovery fails, inspect the actual installation/projection and applicable source; do not claim a Skill was applied from its name alone.
 
