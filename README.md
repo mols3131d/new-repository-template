@@ -25,6 +25,7 @@ The first `agents-setup` resolves selected upstream Skills, writes `rulesync.loc
 | General tooling | [mise.toml](mise.toml) selects rumdl, Biome, Lefthook, Rulesync and its Node runtime |
 | Working agreement | [AGENTS.md](AGENTS.md) is canonical; [CHATBOT.md](CHATBOT.md) is optional chat-runtime compatibility |
 | Documentation | [Documentation map](docs/README.md) routes development, tools, guides and architecture; [Tools](docs/tools/README.md) owns template tool setup |
+| Project scripts | [scripts/](scripts/README.md) is reserved for project-owned executable helpers when native tool tasks are insufficient |
 
 ## Everyday commands
 
