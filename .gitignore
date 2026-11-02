@@ -218,3 +218,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Rulesync upstream dependencies and local target configuration
+.rulesync/skills/.curated/
+.rulesync/rules/.curated/
+rulesync.local.jsonc

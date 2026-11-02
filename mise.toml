@@ -1,0 +1,20 @@
+# Tool versions are for maintaining this template's agent-asset bootstrap, not
+# the language/runtime of an application created from the template.
+[tools]
+node = "lts"
+"npm:rulesync" = "43.2.0"
+
+[settings]
+task.run_auto_install = false
+
+[tasks.agents-setup]
+description = "Resolve declared Skill dependencies, generate target projections, and maintain generated ignore patterns"
+run = "rulesync install && rulesync generate && rulesync gitignore --targets claudecode,codexcli,copilot,copilotcli,antigravity-ide,antigravity-cli,agentsskills --features skills"
+
+[tasks.agents-check]
+description = "Check Rulesync configuration and preview generation; this does not prove a runtime loaded the Skills"
+run = "rulesync doctor --strict && rulesync generate --dry-run"
+
+[tasks.agents-refresh]
+description = "Explicitly update upstream Skill revisions and regenerate target projections"
+run = "rulesync install --update && rulesync generate"

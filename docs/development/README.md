@@ -1,20 +1,23 @@
 # Development Reference
 
-This is the future project's **canonical place for project-specific development guidance**. The template itself has no selected language, dependencies, build, test, format, lint, or CI commands. Do not infer working commands from this placeholder.
+This template has no selected application language, framework, dependencies, test runner, or release workflow. Do not invent commands or claim checks exist before the derived repository implements them.
 
-## Complete after creating a repository
+## Agent and tool initialization
 
-Replace this section with project-specific, verified information as it becomes available:
+- [Agent assets and selection](agent-assets.md) owns the initial Skill dependency set, Rulesync update flow, and template-specific limitations.
+- Root [mise.toml](../../mise.toml) owns the initial **agent tooling only**. Its `agents-setup` task resolves remote Skills and generates their target projections; it does **not** establish an application development environment by itself.
+- Root [AGENTS.md](../../AGENTS.md) owns the repository agent working agreement; avoid copying it into development docs.
 
-| Topic | Record when established |
+## Fill in after creating a project
+
+Maintain verified information here as the project evolves:
+
+| Topic | What to establish |
 | --- | --- |
-| Source layout | Actual package/module boundaries and ownership |
-| Environment | Prerequisites, installation/setup, and required configuration |
-| Local development | Commands to run and debug the project |
-| Verification | Exact test, lint, format, and build commands and their scope |
-| Delivery | CI gates, release workflow, and any required approvals |
-| Architecture | Decisions and links to substantive design documents, if needed |
+| Source layout | Module boundaries, app entrypoints and ownership |
+| Application environment | Language/runtime versions, installation, configuration, local run commands |
+| Verification | Concrete test, lint, format and build commands; expected outcomes |
+| Delivery | CI gates, release steps, migration and approval requirements |
+| Architecture | Decisions and links to substantive design material when needed |
 
-Prefer links to authoritative source configuration (for example, a package manifest or workflow) over duplicating its values. Distinguish adopted decisions from open questions. Remove rows that are irrelevant to the project rather than filling them with speculative defaults.
-
-[AGENTS.md](../../AGENTS.md) defines the shared agent working agreement. This document owns only project-specific development facts and decisions. Once a real project exists, replace the template instructions with concise instructions that have been checked against the repository.
+Prefer linking to executable configuration over duplicating it. Drop irrelevant rows rather than guessing defaults. A candidate command is not verified until run in the actual project.

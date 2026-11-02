@@ -1,24 +1,37 @@
-# Repository Template
+# New Repository Template
 
-A minimal, technology-agnostic starting point for a new repository with an agent-readable working agreement. No language, build system, test runner, or CI workflow has been selected.
+A technology-agnostic repository starter with a **Rulesync-managed agent Skill baseline** and a small development-environment bootstrap. It does not assume a product language, framework, build command, or CI provider.
 
-## Start a project
+## Create a repository
 
-1. Use GitHub's **Use this template** action to create a new repository.
-2. Replace this README with the project's purpose, layout, setup, and usage instructions.
-3. Record **verified** development commands and conventions in [docs/development/README.md](docs/development/README.md). Do not leave example commands presented as working commands.
-4. Review the existing Python-oriented `.gitignore` for the new stack, and add tests or CI only when the real project requires them.
-5. Adjust the repository instructions as project-specific requirements become known.
+1. Select **Use this template** on GitHub.
+2. Replace this README's project description and document the actual application stack as it becomes known.
+3. Install [mise](https://mise.jdx.dev/) yourself if it is not available. Review the tools in [mise.toml](mise.toml) before provisioning.
+4. Run the following from the **new repository**, after authorizing the local tool installation and remote Skill download:
 
-## Agent harness
+```sh
+mise install
+mise run agents-setup
+```
 
-| File | Responsibility |
+The first `agents-setup` resolves the selected external Skills, writes `rulesync.lock`, generates project-local Skill projections for configured agents, and maintains Rulesync's generated `.gitignore` block. Inspect and **commit `rulesync.lock` and any intended `.gitignore` changes** to establish a reproducible project baseline. The upstream Skill bodies and generated projections are not checked into this template.
+
+Later, use `mise run agents-setup` to reinstall from the existing lock, `mise run agents-check` for static configuration/generation checks, or `mise run agents-refresh` when you explicitly want upstream changes. Review the lockfile diff before accepting updates. To enforce unchanged dependencies after a lock exists, use `rulesync install --frozen`. Requires network access for first install and any missing dependencies. These commands have **not** been run in this template PR.
+
+## Included agent capabilities
+
+`rulesync.jsonc` selects **21 reusable Skills** from [mols-agent-assets](https://github.com/mols3131d/mols-agent-assets) and the official `rulesync` Skill. They cover initial harness setup, environment/bootstrap design, CI and tests, coding judgment, research, GitHub context, code review, dependency inspection, documentation, and iterative improvement.
+
+See [Agent assets and selection](docs/development/agent-assets.md) for the complete selection, exclusions, update procedure, and source-of-truth boundary.
+
+| Entry | Responsibility |
 | --- | --- |
-| [AGENTS.md](AGENTS.md) | Canonical repository-wide baseline for agents |
-| [CHATBOT.md](CHATBOT.md) | Optional compatibility entrypoint for chat runtimes |
-| [docs/development/README.md](docs/development/README.md) | Project-specific development commands and engineering decisions |
-| [.github/pull_request_template.md](.github/pull_request_template.md) | Lightweight PR handoff and verification record |
+| [AGENTS.md](AGENTS.md) | Repository-wide agent instructions (canonical baseline) |
+| [CHATBOT.md](CHATBOT.md) | Opt-in compatibility entry for chat runtimes |
+| [rulesync.jsonc](rulesync.jsonc) | External Skill selection and native projection targets |
+| [mise.toml](mise.toml) | Initial agent tooling and explicit setup/check/update tasks |
+| [Development reference](docs/development/README.md) | Actual application development commands and choices once established |
 
-Local coding agents should use their native `AGENTS.md` discovery. Chat runtimes that do not discover repository instructions automatically must be explicitly pointed at `CHATBOT.md` (or `AGENTS.md`). Creating these files does not install any agent skills, enable tooling, or guarantee runtime instruction loading.
+The presence of a manifest or Skill source does not imply an agent runtime has loaded it. Native Skill discovery is preferred; a chat runtime that cannot discover instructions must be configured to read `CHATBOT.md` or `AGENTS.md`.
 
-This template deliberately does not include empty Skill/Rule/Subagent catalogs, unconfigured automation, or speculative project policies.
+This template intentionally does **not** install a language toolchain, tests, CI, agent autonomy, or automatic merges for unknown future projects.
