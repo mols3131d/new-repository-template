@@ -1,0 +1,40 @@
+name: Bug report
+description: Report an observed defect with enough context to investigate.
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe what you observed, not an assumed cause. Redact credentials, personal data, and sensitive logs.
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed behavior
+      description: What happened? Include the visible symptom or error.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Provide the smallest known sequence and inputs. Say if the defect is intermittent or not yet reproducible.
+      placeholder: |
+        1. ...
+        2. ...
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should happen instead? Link an existing contract if known.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Relevant platform, tool or runtime, configuration, and versions actually checked.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and verification
+      description: Sanitized logs, screenshots, related files or links, checks run and results, and what remains unverified.

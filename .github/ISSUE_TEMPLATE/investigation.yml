@@ -1,0 +1,28 @@
+name: Investigation / PoC
+description: Resolve a bounded uncertainty before deciding or implementing.
+title: "[Investigation] "
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Question to resolve
+      description: Which decision is blocked, and what specifically remains uncertain?
+    validations:
+      required: true
+  - type: textarea
+    id: plan
+    attributes:
+      label: Evidence plan and stop condition
+      description: Describe the smallest safe check or experiment, expected evidence, and when to stop even if the answer remains unknown.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Existing evidence and hypotheses
+      description: Link known facts, paths, experiments, or sources. Mark hypotheses and unrun checks explicitly.
+  - type: textarea
+    id: boundaries
+    attributes:
+      label: Scope and risks
+      description: Relevant environments, exclusions, safety, account, or permission constraints. An issue does not authorize side effects.
