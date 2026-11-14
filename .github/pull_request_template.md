@@ -24,4 +24,9 @@
 <!-- ## Handoff -->
 <!-- ## References -->
 
-<!-- If an agent substantially authored the PR body, append a final fenced YAML `author` list with entries in `user:provider:product[/mode]:model` format. Use `unknown` rather than guessing missing identity details; omit for human-written text. See templates/README.md. -->
+<!-- Agent-authored PR: replace the placeholder with verified author identity; use unknown for any unverified component. Human-authored PR: delete the entire YAML block. Keep the completed block last. See templates/README.md. -->
+
+```yaml
+author:
+  - <user>:<provider>:<product>[/<mode>]:<model>
+```
