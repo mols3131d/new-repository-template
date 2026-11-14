@@ -16,7 +16,7 @@ author:
 - Attribute the final text, **not every model or alias encountered during a session**. If a model changed or cannot be identified reliably, use `unknown` for `model` rather than reconstructing session history. List separate entries only for independently identified co-authors.
 - Use `unknown` for other unverified components too. Do not infer identities from the authenticated GitHub actor or from the provider under development.
 - Omit attribution for wholly human-authored text or unchanged human text merely posted by a tool. GitHub's own author, review, and approval records remain authoritative; this block is descriptive provenance only.
-- Native Issue Forms render the optional **Agent author** field as labeled YAML code. For Markdown Issues and API/Plugin-created Issues, append the fenced author block as the last content; do the same for PRs, reviews, and comments.
+- Native Issue Forms render the optional **Agent author** field as labeled YAML code. The native PR template already includes a final YAML author block: replace its placeholder for agent-written PRs, or remove the entire block for human-written PRs. For Markdown/API Issues, reviews, and comments, append the block only when applicable.
 
 ## Select a template
 
