@@ -5,19 +5,19 @@ body:
   - type: markdown
     attributes:
       value: |
-        Describe what you observed, not an assumed cause. Redact credentials, personal data, and sensitive logs.
+        Report observations, not assumed causes. Distinguish mock from live runtime evidence. Redact credentials, personal data, and sensitive logs.
   - type: textarea
     id: observed
     attributes:
       label: Observed behavior
-      description: What happened? Include the visible symptom or error.
+      description: What happened, in which component or context? Include the visible symptom or error.
     validations:
       required: true
   - type: textarea
     id: reproduce
     attributes:
       label: Steps to reproduce
-      description: Provide the smallest known sequence and inputs. Say if the defect is intermittent or not yet reproducible.
+      description: Give the smallest known sequence and inputs; say if intermittent or not yet reproducible.
       placeholder: |
         1. ...
         2. ...
@@ -25,16 +25,25 @@ body:
     id: expected
     attributes:
       label: Expected behavior
-      description: What should happen instead? Link an existing contract if known.
+      description: What observable behavior should occur? Reference a contract if known.
     validations:
       required: true
   - type: textarea
     id: environment
     attributes:
       label: Environment
-      description: Relevant platform, tool or runtime, configuration, and versions actually checked.
+      description: Relevant OS, application, runtime, configuration and checked versions. Use anonymous labels for multiple profiles; never expose account identifiers or guess versions.
   - type: textarea
     id: evidence
     attributes:
-      label: Evidence and verification
-      description: Sanitized logs, screenshots, related files or links, checks run and results, and what remains unverified.
+      label: Evidence and starting points
+      description: Sanitized logs or screenshots, relevant paths or links, checks actually run and results, and what remains unverified.
+  - type: textarea
+    id: agent_author
+    attributes:
+      label: Agent author (if agent-written)
+      description: "Only for agent-authored issues. Follow .github/templates/README.md; use unknown for unverified identity components."
+      placeholder: |
+        author:
+          - <user>:<provider>:<product>:<model>
+      render: yaml
