@@ -10,7 +10,7 @@ Project-owned executable automation belongs in [scripts/](../../scripts/README.m
 
 ## Agent-assisted development
 
-Use [instruction ownership](agents/rule-ownership.md) to place repository and scoped guidance, and [harness verification](agents/harness.md) to distinguish configured assets from actual runtime behavior. These guides do not replace the [root agent agreement](../../AGENTS.md).
+Use [instruction ownership](agents/rule-ownership.md) to place repository and scoped guidance, and [harness verification](agents/harness.md) to distinguish configured assets from actual runtime behavior.
 
 ## When the project grows
 
