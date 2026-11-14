@@ -18,15 +18,6 @@ author:
 - Omit attribution for wholly human-authored text or unchanged human text merely posted by a tool. GitHub's own author, review, and approval records remain authoritative; this block is descriptive provenance only.
 - Native Issue Forms render the optional **Agent author** field as labeled YAML code. For Markdown Issues and API/Plugin-created Issues, append the fenced author block as the last content; do the same for PRs, reviews, and comments.
 
-Example, when the author identity is verified:
-
-```yaml
-author:
-  - example-user:openai:chatgpt/chat:verified-model
-```
-
-If the model cannot be confirmed, use `example-user:openai:chatgpt/work:unknown` only when the user, provider, product, and mode are known.
-
 ## Select a template
 
 | GitHub surface | Source |
