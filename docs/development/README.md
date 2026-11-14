@@ -8,6 +8,10 @@ Shared repository utilities, formatting, Git hooks and the Rulesync asset setup 
 
 Project-owned executable automation belongs in [scripts/](../../scripts/README.md) only when an existing native CLI or `mise` task is insufficient. The executable task declarations remain in [mise.toml](../../mise.toml).
 
+## Agent-assisted development
+
+Use [instruction ownership](agents/rule-ownership.md) to place repository and scoped guidance, and [harness verification](agents/harness.md) to distinguish configured assets from actual runtime behavior. These guides do not replace the [root agent agreement](../../AGENTS.md).
+
 ## When the project grows
 
 Document the actual source layout, local application setup, test/build commands, contribution workflow and CI requirements here when they exist. Describe decisions at the level contributors need, link to executable configuration and avoid speculative instructions.

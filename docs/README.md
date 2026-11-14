@@ -4,6 +4,7 @@ This template separates project documentation by its reader and responsibility. 
 
 | Area | Responsibility |
 | --- | --- |
+| [Documentation authoring](documentation/authoring.md) | Document ownership, progressive disclosure and evidence-preserving review |
 | [Development](development/README.md) | Contributing, local development, verification and development practices |
 | [Tools](tools/README.md) | Tool selection, setup, configuration, commands and update boundaries |
 | [Guides](guides/README.md) | Task-based instructions for people using the resulting project |

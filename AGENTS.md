@@ -7,6 +7,7 @@ This file owns the repository-wide agent working agreement. Apply the runtime's 
 - Confirm repository, ref/branch, intended changes, relevant paths, and current working state before making edits.
 - Read [README.md](README.md), relevant [development guidance](docs/development/README.md), and the [documentation map](docs/README.md) for documentation changes. A repository created from this template must replace placeholders with actual project facts.
 - Discover relevant Skills through the **runtime's native mechanism**. The dependency selection is owned by [rulesync.jsonc](rulesync.jsonc), with scope and lifecycle described in [Rulesync guidance](docs/tools/rulesync.md). Select only task-relevant Skills and read their canonical installed content and required resources.
+- For instruction placement or runtime-compatibility work, consult [instruction ownership](docs/development/agents/rule-ownership.md) or [harness verification](docs/development/agents/harness.md), respectively. These guides do not establish new runtime permissions.
 - The manifest and lockfile are declarations, not proof of install or loading. If Skill discovery fails, inspect the actual installation/projection and applicable source; do not claim a Skill was applied from its name alone.
 
 ## Work safely

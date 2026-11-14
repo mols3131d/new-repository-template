@@ -13,20 +13,6 @@
 - [ ] List relevant checks not run and why (or mark N/A).
 - [ ] Distinguish static checks, mocks, and real application runtime evidence (or mark N/A).
 
-<!-- Optional: freely add any useful `## <Topic>` sections below the required sections. The following are examples, not a fixed list. Rename, reorder, combine, or omit them; remove empty sections and avoid duplicating task-tracking progress. -->
+<!-- Optional: add free-form `## <Topic>` sections below (e.g. `## Risks`, `## Handoff`) only when they provide information not already covered by Summary, Changes, or Verification. Omit empty sections and do not duplicate task-tracking progress state. -->
 
-<!-- ## Risks -->
-<!-- ## Review Focus -->
-<!-- ## Scope and Exclusions -->
-<!-- ## Compatibility -->
-<!-- ## Migration -->
-<!-- ## Security -->
-<!-- ## Handoff -->
-<!-- ## References -->
-
-<!-- Agent-authored PR: replace the placeholder with verified author identity; use unknown for any unverified component. Human-authored PR: delete the entire YAML block. Keep the completed block last. See templates/README.md. -->
-
-```yaml
-author:
-  - <user>:<provider>:<product>[/<mode>]:<model>
-```
+<!-- If an agent substantially authored the PR body, append a final fenced YAML `author` list with entries in `user:provider:product[/mode]:model` format. Use `unknown` rather than guessing missing identity details; omit for human-written text. See templates/README.md. -->
