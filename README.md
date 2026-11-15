@@ -26,6 +26,7 @@ mise run check
 | General tooling | [mise.toml](mise.toml) selects rumdl, Biome, Lefthook, Rulesync and its Node runtime |
 | Documentation | [Documentation map](docs/README.md) routes goals, architecture, development and tools; [Tools](docs/tools/README.md) owns shared tool guidance |
 | Project scripts | [scripts/](scripts/README.md) is reserved for project-owned executable helpers when native tool tasks are insufficient |
+| Working records | [Inbox](.inbox/README.md) keeps temporary research, reviews and handoffs separate from canonical documentation |
 
 ## Everyday commands
 
