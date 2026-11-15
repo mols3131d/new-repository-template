@@ -10,4 +10,6 @@ The [documentation index generator](generate-docs-index.ts) is the only included
 
 When a derived project needs custom automation, put the executable source here, choose the language/runtime already supported by that project, and expose frequently used commands through mise when useful. Keep the script's inputs, effects, exit status and required dependencies clear; verify it with the real environment. Separate read-only checks from operations that install, update, overwrite, publish or alter shared state.
 
+Agents editing this directory also follow its [scoped instructions](AGENTS.md); those instructions do not define a second owner of script behavior.
+
 Application code belongs with the application, configuration with its native owner, and generated vendor assets with the tool that produces them—not in `scripts/`.

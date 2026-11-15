@@ -33,4 +33,11 @@ Use this guide to decide where project documentation belongs, how readers find i
 3. Remove duplicate explanations, empty sections, speculative directories, and placeholders that look like established project facts. Follow [index maintenance](indexing.md) when document selection metadata changes.
 4. Check relative links and Markdown with the project's configured tooling when available. Report checks not run; document text alone is not runtime evidence.
 
+## Present evidence and structure
+
+- Use a **table** for comparisons of multiple options, responsibilities or evidence levels; use prose for short linear explanations.
+- Use **Mermaid** only when relationships, branches, transitions or handoffs are difficult to follow as text. Explain essential meaning without relying on diagram rendering or color.
+- Show numerical progress only for a countable, independently verified set of outcomes. State the numerator, denominator and evidence; distinguish pending, failed and unverified work.
+- Avoid repeating information across prose, tables and diagrams. A proposed workflow or diagram is not evidence of implemented behavior.
+
 Prefer lower total reading and maintenance cost over minimum document length.
