@@ -12,4 +12,4 @@ The configuration uses GFM and avoids forced prose line wrapping. When upgrading
 
 ## Version management — strict
 
-Use a **major prefix** in [`mise.toml`](../../mise.toml), allowing minor and patch updates within that major. rumdl is currently on major **0**, where minor releases can carry breaking changes; treat these as strict-review upgrades. Check release notes, run the repository's Markdown checks, and inspect representative formatting diffs. A shared major version is not a compatibility guarantee.
+Keep the [major-prefix policy](README.md#version-management). Because rumdl uses major `0`, minor releases can be breaking: review release notes, run Markdown checks and inspect formatting diffs.

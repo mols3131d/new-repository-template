@@ -4,7 +4,7 @@ description: "Find installed development tools, version management policy and in
 
 # Tools
 
-This area owns **how the project configures and uses shared development tools**. The native configuration files remain authoritative for executable settings and versions; these documents cover intent, usage, update boundaries and exceptions.
+Shared tool configuration lives in [`mise.toml`](../../mise.toml); these guides cover usage, compatibility and updates.
 
 | Tool | Responsibility | Version policy |
 | --- | --- | --- |
@@ -21,12 +21,6 @@ All installed tools request releases within a chosen **major version** in [`mise
 
 The actual requests and tasks live in [`mise.toml`](../../mise.toml). Major prefixes do not guarantee compatibility, especially for pre-1.0 tools such as rumdl (`0.x`), whose minor releases may introduce breaking changes. This starter has no `mise.lock`: different installs can resolve different releases. Derived projects that require identical tool builds should create, test and commit a mise lockfile. External Skill revisions are a separate concern governed by [Rulesync](rulesync.md).
 
-No application language, test framework or deployment tool is selected here.
-
-Document metadata and index generation are covered by [Frontmatter and index](../documentation/frontmatter.md). Their script and npm dependencies are separate from the shared CLI version matrix.
-
 ## Initial setup
 
-Follow [Initial Tool Setup](initial-setup.md) to review configuration, authorize installation, inspect generated files and run shared checks. These do not establish application-test results or agent-runtime activation.
-
-Tools can be added under this directory as the project actually adopts them. Do not create a tool document for an unused candidate or duplicate native CLI manuals.
+Follow [Initial Tool Setup](initial-setup.md) to install dependencies and verify the results.

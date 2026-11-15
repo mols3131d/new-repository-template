@@ -10,4 +10,3 @@ Document the user or stakeholder problem, intended outcomes, scope and non-goals
 
 [Architecture](../architecture/README.md) owns technical design and tradeoffs. [Development](../development/README.md) owns how changes are implemented and verified. Plans, tests and PRs may reference goals without redefining their acceptance conditions.
 
-The starter does not prescribe a product goal or claim any requirement has been implemented.

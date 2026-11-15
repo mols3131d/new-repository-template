@@ -4,7 +4,7 @@ description: "Read when adding Markdown frontmatter, defining description metada
 
 # Markdown Frontmatter
 
-Ordinary project Markdown uses **YAML `description` metadata** to help readers and agents select the right document before opening its body. This metadata is not an instruction, permission grant or implementation claim.
+Ordinary documentation uses YAML `description` metadata to support document selection before opening the body.
 
 ## Scope
 
@@ -13,7 +13,7 @@ Ordinary project Markdown uses **YAML `description` metadata** to help readers a
 | Ordinary `docs/**/*.md`, including directory `README.md` | Required; all nested documents are checked by `docs:index:check` |
 | Root [`README.md`](../../README.md) and [`scripts/README.md`](../../scripts/README.md) | Required; each describes the repository or directory it represents |
 | [GitHub template documentation](../../.github/templates/README.md) | Required; describes the collection of authoring templates |
-| `AGENTS.md`, `CHATBOT.md`, `SKILL.md`, GitHub Issue/PR/comment/review templates and other agent assets | Keep the native metadata and syntax; do not impose ordinary documentation frontmatter |
+| Runtime-owned agent assets and GitHub issue/PR templates | Follow their own metadata contracts |
 
 When adding another maintained Markdown document outside `docs/`, add it to the explicit standalone validation command. Do not apply metadata solely because a filename ends with `.md`.
 
@@ -30,9 +30,8 @@ description: "Read when deciding which document owns a project requirement."
 - **`description` is required:** One concise, nonempty string stating **when to select** the document, with domain terms that distinguish it from siblings. Do not reproduce the title or table of contents.
 - **`title` is optional:** Add only when a real consumer needs it. Extra metadata fields need a defined owner and use.
 - **README scope:** A README's description identifies the directory, bundle or repository—not the file. [README authoring](readme-authoring.md) owns entrypoint design.
-- **Authority:** Frontmatter improves search and routing; it neither activates instructions nor replaces the document's evidence, facts or decisions.
 
-The Markdown file is the metadata owner. Generated indexes are projections, not alternative sources of descriptions. Front Matter CMS is not a dependency of this template.
+Generated indexes are derived from document frontmatter; edit the document, not the index.
 
 ## Verification
 
