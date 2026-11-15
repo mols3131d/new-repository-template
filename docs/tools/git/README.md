@@ -1,28 +1,22 @@
 ---
-description: "Use when choosing Git guidance for commit messages, branches, integration or recovering local work."
+description: "Choose Git guidance for commits, branches, integration, recovery or local template setup."
 ---
 
 # Git
 
-This bundle covers Git practices for a repository created from the template. Follow only the topic relevant to the task; adapt conventions to the derived project.
+Read only the guide for the current task:
 
-| Task | Guidance |
+| Task | Guide |
 | --- | --- |
-| Compose and review commits | [Commits](commits.md) |
-| Create and manage work branches | [Branches](branches.md) |
-| Merge or rebase changes and resolve conflicts | [Integration](integration.md) |
-| Inspect and recover local work safely | [Recovery](recovery.md) |
+| Commit boundaries, staging, messages and checkpoints | [Commits](commits.md) |
+| Branch creation, naming and lifecycle | [Branches](branches.md) |
+| Merge, rebase and conflicts | [Integration](integration.md) |
+| Inspect and recover local work | [Recovery](recovery.md) |
 
 ## Local commit template
 
-The [`.gitmessage`](../../../.gitmessage) file is the source for commit message formatting. It guides interactive commits; it does not validate messages, and `git commit -m` does not open it.
+`mise run setup` enables [`.gitmessage`](../../../.gitmessage) for this clone. To configure Git independently, run `git config --local commit.template .gitmessage` from the repository root. Verify with `git config --local --get commit.template`.
 
-`mise run setup` runs [Agent Skill setup](../initial-setup.md) and then enables the template for the current clone. To configure Git without installing Skills, run from the repository root:
+The setting is clone-local; the template guides editor-based commits but does not validate messages or appear with `git commit -m`.
 
-```sh
-git config --local commit.template .gitmessage
-```
-
-Verify with `git config --local --get commit.template`. This setting belongs to the current clone's local Git configuration, not tracked project files or the global Git config.
-
-Git is not installed through this template's mise tool list. GitHub Issue and PR authoring templates have a separate [owner](../../../.github/templates/README.md).
+GitHub Issue/PR authoring has a separate [template owner](../../../.github/templates/README.md).
