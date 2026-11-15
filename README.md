@@ -15,7 +15,7 @@ mise run setup
 mise run check
 ```
 
-`setup` runs `agents-setup` to resolve upstream Skills and generate a `rulesync.lock`, runtime projections and ignore changes, then enables the [Git commit template](docs/tools/git.md) for this clone. Review and commit only intended tracked changes; [Initial Tool Setup](docs/tools/initial-setup.md) covers verification and future updates.
+`setup` runs `agents-setup` to resolve upstream Skills and generate a `rulesync.lock`, runtime projections and ignore changes, then enables the [Git commit template](docs/tools/git/README.md) for this clone. Review and commit only intended tracked changes; [Initial Tool Setup](docs/tools/initial-setup.md) covers verification and future updates.
 
 ## Included foundation
 
