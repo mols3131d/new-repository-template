@@ -34,7 +34,7 @@ node scripts/generate-docs-index.ts --root docs/tools --depth all
 node scripts/generate-docs-index.ts --root docs/tools --depth all --check
 ```
 
-`--root` selects the index directory; `--depth 1` (default) lists direct files and immediate scopes; `--depth all` includes descendants. `--check` is read-only and validates nested frontmatter even if the output is shallow. Missing descriptions, invalid YAML and traversed symlinks fail.
+`--root` selects the index directory; `--depth 1` (default) lists direct files and immediate scopes; `--depth all` includes descendants. `--check` is read-only and validates nested frontmatter and the root README when present, even if the output is shallow. Missing descriptions, invalid YAML and traversed symlinks fail.
 
 The same script's standalone `--validate FILE...` mode checks named documents without generating an index. The maintained out-of-scope file list is `docs:frontmatter:check` in [`package.json`](../../package.json); update it when adding such a document.
 

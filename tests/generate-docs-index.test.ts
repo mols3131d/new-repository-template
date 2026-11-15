@@ -154,3 +154,18 @@ test("standalone frontmatter validation rejects missing metadata or input", (t) 
   assert.equal(main(["--validate"]), 2);
   assert.equal(main(["--validate", "--check"]), 2);
 });
+
+test("check mode validates root README without indexing it", (t) => {
+  const { docs, write } = fixture(t);
+  write("README.md", '---\ndescription: "Docs entrypoint"\n---\n# Documentation\n');
+  write("area/README.md", '---\ndescription: "Area"\n---\n');
+  assert.equal(syncIndex(docs, false), "updated");
+  const index = join(docs, "INDEX.tsv");
+  const original = readFileSync(index, "utf8");
+  assert.doesNotMatch(original, /README\.md/);
+  assert.equal(syncIndex(docs, true), "current");
+
+  write("README.md", "# Missing frontmatter\n");
+  assert.throws(() => syncIndex(docs, true), /missing YAML frontmatter/);
+  assert.equal(readFileSync(index, "utf8"), original);
+});
