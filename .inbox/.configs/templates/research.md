@@ -1,4 +1,4 @@
-<!-- Optional scaffold. Replace placeholders; remove unused sections and this comment. -->
+<!-- Optional scaffold. Replace placeholders, unused sections and this comment. Compare alternatives with a table only when useful; use diagrams for complex relationships. -->
 
 # [Research topic]
 

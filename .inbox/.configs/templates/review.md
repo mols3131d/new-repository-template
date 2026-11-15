@@ -1,4 +1,4 @@
-<!-- Optional scaffold. Replace placeholders, unused sections, examples and this comment. Keep the findings table only when it improves comparison. -->
+<!-- Optional scaffold. Replace placeholders, unused sections and this comment. Keep the findings table for comparable issues; otherwise use prose or a verified no-findings statement. -->
 
 # [Review target]
 
@@ -12,7 +12,6 @@
 | --- | --- | --- | --- |
 | [Priority] | [Path/line or ref] | [Issue, evidence and impact] | [Recommended fix] |
 
-[Replace the table with concise prose for nuanced findings, or state no findings if supported]
 
 ## Verification
 
