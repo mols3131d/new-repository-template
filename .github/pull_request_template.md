@@ -4,7 +4,7 @@
 
 ## Goal
 
-<!-- State the intended outcome and why it matters. Include observable success criteria when applicable; keep implementation details in Changes and evidence in Verification. -->
+<!-- State the problem addressed and the desired outcome. Include success criteria when useful; keep implementation tasks in Changes and completed checks in Verification. -->
 
 ## Changes
 
