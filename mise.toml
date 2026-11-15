@@ -1,7 +1,5 @@
-# Common repository tooling. A derived project may change its application runtime
-# independently after reviewing compatibility with these tools.
-# All tools use major prefixes. Strict/loose labels affect review depth, not the allowed range.
-# See docs/tools/README.md. Prefixes permit resolution changes; no mise.lock ships with this starter.
+# Shared CLI tools and tasks; derived projects choose their application stack.
+# Version requests can drift between installs; see docs/tools/README.md.
 [tools]
 node = "26"
 rumdl = "0"
