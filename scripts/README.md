@@ -4,12 +4,13 @@ description: "Find project-owned scripts, documentation indexing and guidance fo
 
 # Scripts
 
-This directory is the home for **project-owned executable helpers** when a repeated task needs more logic than a native CLI or a short task in [mise.toml](../mise.toml).
+This directory contains project-owned executable helpers only when a native CLI or short [mise task](../mise.toml) is insufficient.
 
-The [documentation index generator](generate-docs-index.ts) is the only included project-owned script. It creates and checks [docs/INDEX.tsv](../docs/INDEX.tsv) from YAML frontmatter, with configurable source directory and depth. [Frontmatter and index](../docs/documentation/frontmatter.md) documents usage; [tests](../tests/generate-docs-index.test.ts) exercise errors and drift. Existing setup, formatting, and tooling still use native commands through mise; avoid redundant wrappers.
+| Need | Read or run |
+| --- | --- |
+| Generate or check the documentation index | [Index generator](generate-docs-index.ts); `npm run docs:index` or `npm run docs:index:check` |
+| Understand the index format, input metadata and options | [Document indexing](../docs/documentation/indexing.md) |
+| Modify a script or introduce new automation | [Script maintenance](../docs/development/scripts.md) |
+| Verify the index generator's behavior | [Generator tests](../tests/generate-docs-index.test.ts); `npm run test:docs` |
 
-When a derived project needs custom automation, put the executable source here, choose the language/runtime already supported by that project, and expose frequently used commands through mise when useful. Keep the script's inputs, effects, exit status and required dependencies clear; verify it with the real environment. Separate read-only checks from operations that install, update, overwrite, publish or alter shared state.
-
-Agents editing this directory also follow its [scoped instructions](AGENTS.md); those instructions do not define a second owner of script behavior.
-
-Application code belongs with the application, configuration with its native owner, and generated vendor assets with the tool that produces them—not in `scripts/`.
+Put application code in its application owner, native configuration in its tool's configuration file, and generated vendor assets under their generator's ownership. The table is a **task-based selection aid**, not an instruction to load every linked file when reading or executing a script.
