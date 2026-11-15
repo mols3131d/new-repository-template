@@ -4,27 +4,27 @@ description: "Follow when installing and validating shared CLI tools and Agent S
 
 # Initial Tool Setup
 
-Use this after creating a repository from the template or preparing a new development machine. It sets up shared development tools and Agent Skills, **not** an application build or test environment.
+Use this for shared development tools and Agent Skills, not an application build or test environment.
 
 ## Before installing
 
-- Install [mise](https://mise.jdx.dev/) separately if needed. Review [`mise.toml`](../../mise.toml) and [`rulesync.jsonc`](../../rulesync.jsonc) for executable tasks, requested tools, external Skill sources, and targets.
-- Confirm that tool installation, external downloads and generated repository changes are authorized. If mise requests trust, inspect the configuration before approving it.
-- The template has no pre-resolved `rulesync.lock`. The first Skill installation resolves upstream revisions; do not treat the initial selection as reproducible until its resulting lockfile is reviewed and committed.
-- Review the [tool version policy](README.md#version-management), especially when reproducible installs are required.
+- Install [mise](https://mise.jdx.dev/) if needed. Inspect [`mise.toml`](../../mise.toml) and [`rulesync.jsonc`](../../rulesync.jsonc) for tasks, tools, external sources and targets.
+- Authorize installation, downloads and generated repository changes. Inspect mise configuration before approving trust.
+- No `rulesync.lock` ships with the template. Review and commit the lockfile produced by the first installation before relying on reproducible Skill revisions.
+- Review the [version policy](README.md#version-management) if reproducible tool installs matter.
 
 ## First setup
 
-Run from the repository root after the checks above:
+From the repository root:
 
 ```sh
 mise install
-mise run agents-setup
+mise run setup
 ```
 
-`mise install` provisions declared CLI tools in mise-managed locations. `agents-setup` installs external Skills, generates target projections, and updates generated ignore entries. These commands can change local state and repository files.
+`mise install` provisions CLI tools. `setup` installs and projects Skills, updates generated ignore entries and configures the clone-local [commit template](git/README.md). The commands may change tracked files; Git's local configuration is not committed.
 
-Review the results before committing:
+Review before committing:
 
 ```sh
 git status --short
@@ -32,10 +32,10 @@ mise run agents-check
 mise run check
 ```
 
-Inspect `rulesync.lock`, [`.gitignore`](../../.gitignore) and generated files before committing. `agents-check` previews projections; `check` runs read-only format, lint and hook checks.
+Inspect `rulesync.lock`, [`.gitignore`](../../.gitignore) and generated projections. `agents-check` previews generation; `check` validates formatting, lint and hooks without writing.
 
 ## Subsequent use
 
-For an established lockfile, reinstall with `rulesync install --frozen` and `rulesync generate`. Use `mise run agents-refresh` only for an intentional upstream update and review its diff. `mise run format` rewrites files; [Lefthook](lefthook.md) installation is separate and opt-in.
+Reinstall a locked revision with `rulesync install --frozen` and `rulesync generate`. Use `mise run agents-refresh` only for intentional updates and review their diff. `mise run format` writes files; [Lefthook](lefthook.md) installation remains opt-in.
 
-See [mise](mise.md) for tasks and [Rulesync](rulesync.md) for dependency updates.
+See [mise](mise.md) for tasks and [Rulesync](rulesync.md) for dependency maintenance.

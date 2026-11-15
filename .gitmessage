@@ -1,0 +1,28 @@
+# <type>[(scope)][!]: <description>
+#
+# [Body - optional]
+#
+# [Footer(s) - optional]
+# ---------------------------------------------------------
+# Format: Conventional Commits 1.0.0
+# Types:
+#   feat     : New feature
+#   fix      : Bug fix
+#   refactor : Code change without a feature or fix
+#   perf     : Performance improvement
+#   docs     : Documentation only
+#   test     : Add or fix tests
+#   style    : Code style only; no behavior change
+#   chore    : Build, dependencies, tooling, or non-src/non-test changes
+# ---------------------------------------------------------
+# Rules:
+#   - Description: Imperative, lowercase, no period; target ≤50 chars, max 72
+#   - Scope: Optional; use ! and/or BREAKING CHANGE: for breaking changes
+#   - Body: Explain why; add decisions, verification limits or next checks
+#     only when useful; prose or '-' bullets; wrap at 72 chars
+#   - Footer: BREAKING CHANGE: <description> or issue refs (e.g. Closes #12)
+#   - Checkpoints: One reviewable purpose; disclose unverified work if
+#     material to resumption; do not invent a checkpoint type
+#   - Never: AI attribution, I/we, or "This commit does"
+#   - Language: default to `en`; use `ko` when Korean is clearer.
+# ---------------------------------------------------------

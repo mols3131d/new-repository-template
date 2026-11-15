@@ -4,11 +4,12 @@ description: "Find installed development tools, version management policy and in
 
 # Tools
 
-Shared tool configuration lives in [`mise.toml`](../../mise.toml); these guides cover usage, compatibility and updates.
+[`mise.toml`](../../mise.toml) owns shared CLI requests and tasks. Git and mise itself are installed separately.
 
 | Tool | Responsibility | Version policy |
 | --- | --- | --- |
 | [mise](mise.md) | External tool manager and shared tasks | Manual stable updates; not pinned by itself |
+| [Git](git/README.md) | Commits, branches, integration and recovery | External; not provisioned by mise |
 | [Node.js](node.md) | Runtime for npm-distributed CLIs | Loose review: major prefix |
 | [Rulesync](rulesync.md) | External Agent Skill dependencies and projections | Strict review: major prefix |
 | [rumdl](rumdl.md) | Markdown formatting and lint | Strict review: major prefix |
@@ -17,9 +18,9 @@ Shared tool configuration lives in [`mise.toml`](../../mise.toml); these guides 
 
 ## Version management
 
-All installed tools request releases within a chosen **major version** in [`mise.toml`](../../mise.toml). **Strict review** applies to rumdl, Biome and Rulesync because formatting, configuration or generated Agent Assets can change: inspect releases, run relevant checks and review diffs on upgrades, including minor releases. **Loose review** applies to Node.js and Lefthook: check runtime and hook compatibility. The strict/loose labels describe verification effort, **not narrower version constraints**. mise itself is installed separately; review stable updates before applying them.
+[`mise.toml`](../../mise.toml) requests major versions, not exact builds. **Strict review** for rumdl, Biome and Rulesync means checking release changes, validations and generated diffs even for minor upgrades. **Loose review** for Node.js and Lefthook focuses on compatibility. These labels affect review effort, not version constraints.
 
-The actual requests and tasks live in [`mise.toml`](../../mise.toml). Major prefixes do not guarantee compatibility, especially for pre-1.0 tools such as rumdl (`0.x`), whose minor releases may introduce breaking changes. This starter has no `mise.lock`: different installs can resolve different releases. Derived projects that require identical tool builds should create, test and commit a mise lockfile. External Skill revisions are a separate concern governed by [Rulesync](rulesync.md).
+Major prefixes can resolve differently over time; rumdl (`0.x`) may break on minor upgrades. Projects needing reproducible tool versions should validate and commit `mise.lock`. [Rulesync](rulesync.md) tracks upstream Skill revisions separately. Review mise's own stable releases before upgrading it.
 
 ## Initial setup
 

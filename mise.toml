@@ -1,7 +1,5 @@
-# Common repository tooling. A derived project may change its application runtime
-# independently after reviewing compatibility with these tools.
-# All tools use major prefixes. Strict/loose labels affect review depth, not the allowed range.
-# See docs/tools/README.md. Prefixes permit resolution changes; no mise.lock ships with this starter.
+# Shared CLI tools and tasks; derived projects choose their application stack.
+# Version requests can drift between installs; see docs/tools/README.md.
 [tools]
 node = "26"
 rumdl = "0"
@@ -11,6 +9,11 @@ lefthook = "2"
 
 [settings]
 task.run_auto_install = false
+
+[tasks.setup]
+description = "Set up Agent Skills and the local Git commit template"
+depends = ["agents-setup"]
+run = "git config --local commit.template .gitmessage"
 
 [tasks.agents-setup]
 description = "Resolve external Skills, generate native projections, and maintain generated ignore entries"

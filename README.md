@@ -11,11 +11,11 @@ A technology-agnostic starter for **agent-assisted development**. It provides re
 
 ```sh
 mise install
-mise run agents-setup
+mise run setup
 mise run check
 ```
 
-The first `agents-setup` resolves upstream Skills and generates a `rulesync.lock` plus runtime projections and ignore changes. Review and commit only intended changes; [Initial Tool Setup](docs/tools/initial-setup.md) covers verification and future updates.
+`setup` runs `agents-setup` to resolve Skills and generate `rulesync.lock`, runtime projections and ignore entries, then configures this clone's [Git commit template](docs/tools/git/README.md). Review generated changes before committing; see [Initial Tool Setup](docs/tools/initial-setup.md) for checks and updates.
 
 ## Included foundation
 
