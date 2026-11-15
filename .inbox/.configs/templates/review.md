@@ -1,9 +1,8 @@
 ---
-title: "[Review target]"
 description: "[Review scope and criteria]"
 ---
 
-<!-- Optional scaffold. Replace frontmatter values and content placeholders; remove unused sections and this comment. Use the findings table only for comparable issues; otherwise write prose or a verified no-findings statement. -->
+<!-- Optional scaffold. Replace description and content placeholders; remove unused sections and this comment. Use the findings table only for comparable issues; otherwise use prose or a verified no-findings statement. -->
 
 ## Scope and criteria
 

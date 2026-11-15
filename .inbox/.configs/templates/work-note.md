@@ -1,9 +1,8 @@
 ---
-title: "[Work topic]"
 description: "[Purpose of this working note]"
 ---
 
-<!-- Optional scaffold. Replace frontmatter values and content placeholders; remove unused sections and this comment.  -->
+<!-- Optional scaffold. Replace placeholders and remove unused sections and this comment before saving. -->
 
 ## Purpose
 

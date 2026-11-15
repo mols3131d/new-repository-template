@@ -1,9 +1,8 @@
 ---
-title: "[Work topic — handoff]"
 description: "[Handoff scope and current state]"
 ---
 
-<!-- Optional scaffold. Replace frontmatter values and content placeholders; remove unused sections and this comment. Checkboxes track concrete actions, not estimated progress. -->
+<!-- Optional scaffold. Replace description and content placeholders; remove unused sections and this comment. Checkboxes track concrete actions, not estimated progress. -->
 
 ## Current state
 

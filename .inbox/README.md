@@ -1,9 +1,9 @@
 # Inbox
 
-`.inbox/` keeps temporary research, plans, reviews, drafts and handoffs separate from canonical project documentation. Work-unit records are **not** instructions or policy.
+`.inbox/` keeps temporary research, plans, reviews, drafts and handoffs separate from canonical project documentation. Working records are **not** policies or instructions.
 
-Group notes by work unit and update existing records first. Optional templates: [work note](.configs/templates/work-note.md), [research](.configs/templates/research.md), [review](.configs/templates/review.md), [handoff](.configs/templates/handoff.md). See [Organization](.configs/guides/organization.md) for naming.
+Group related notes by work unit. Use a standalone document or a bundle whose `README.md` leads to its subdocuments; see [Organization](.configs/guides/organization.md). Reuse existing records before creating more.
 
-Transfer durable conclusions to their owning code or documents. See [Lifecycle](.configs/guides/lifecycle.md) before cleanup; a merged PR alone does not mean the work is complete.
+Optional starting points include [research](.configs/templates/research.md), [review](.configs/templates/review.md), [work note](.configs/templates/work-note.md), [handoff](.configs/templates/handoff.md), and [bundle README](.configs/templates/bundle-readme.md). See [Frontmatter](.configs/guides/frontmatter.md) for metadata and [Lifecycle](.configs/guides/lifecycle.md) before cleanup.
 
-Only commit material suitable for this repository. Do not store secrets or private conversations here.
+Move durable conclusions to their canonical owner. Do not store secrets or private conversations here.

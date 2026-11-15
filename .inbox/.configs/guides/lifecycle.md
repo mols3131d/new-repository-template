@@ -1,12 +1,49 @@
-# Inbox Lifecycle
+---
+description: "Use when tracking Inbox document review, confirming work completion, or deciding retention, deletion and archiving."
+---
 
-Work-unit records support ongoing work; they do not define project policy or serve as a complete task tracker.
+## Optional document status
 
-1. **Active:** Investigate, review, revise and hand off records as needed. Keep unresolved work visible. Move durable decisions and verified knowledge to their canonical source, code, specification or project documentation.
-2. **Confirm completion:** Check actual remaining tasks and blockers. A PR being merged or closed, or a finding being copied into canonical documentation, does not by itself finish the work. Continue to maintain records while work remains.
-3. **Protect:** Consider cleanup only after work is complete **and** at least seven days have passed since the record's creation or last substantive update. Renaming, moving or merging does not restart the protection period. If timing or completion is uncertain, keep the record.
-4. **Dispose deliberately:** Prefer deletion when canonical files, code, PRs, tests or Git history provide enough evidence to reconstruct what matters. Archive only when the original record itself is needed for an active canonical reference, reproduction or audit and would be materially difficult to recover otherwise.
+`status` tracks the **review of an individual working document**, not Issue/PR progress, canonical approval or readiness to delete. Omit it if review state is not being actively maintained. An absent status is **unknown**, not implicitly `draft`.
 
-If archiving is justified, use `.inbox/archive/YYYY-MM-DD/` (archive date) and retain enough work-unit identity to avoid collisions. Do not archive unfinished work as completed or automatically delete records based on age alone.
+| Value | Meaning |
+| --- | --- |
+| `draft` | Content is being prepared or substantially revised |
+| `in-review` | A concrete review is under way |
+| `reviewed` | A review was completed; the record can still contain open work |
 
-No registry, status file or scheduled cleanup is required. Any deletion or archive move must respect the repository's change and authorization rules.
+```mermaid
+stateDiagram-v2
+    [*] --> Draft: track review
+    state "draft" as Draft
+    state "in-review" as InReview
+    state "reviewed" as Reviewed
+    Draft --> InReview: request review
+    Draft --> Reviewed: review completed directly
+    InReview --> Draft: changes requested
+    InReview --> Reviewed: review completed
+    Reviewed --> Draft: substantive revision
+```
+
+Update `status` only when that transition actually occurs. A `reviewed` document is still non-canonical, and neither that value nor a merged PR means the underlying work is finished.
+
+## Work completion and cleanup
+
+Keep working records while investigation, implementation, verification or handoff remains. Promote durable conclusions to the relevant canonical source without treating promotion alone as work completion.
+
+Delete or archive a record only when **both** its actual work is finished and at least **seven days** have elapsed since its creation or last substantive update. A move, rename or merge does not restart the clock. If completion or timing is uncertain, retain it.
+
+```mermaid
+flowchart TD
+    A["Working record"] --> B{"Actual work finished?"}
+    B -->|No or uncertain| C["Retain and continue work"]
+    B -->|Yes| D{"At least 7 days since substantive change?"}
+    D -->|No or uncertain| E["Retain and recheck"]
+    D -->|Yes| F{"Original needed for audit, reproduction or citation?"}
+    F -->|No| G["Delete"]
+    F -->|Yes| H["Archive"]
+```
+
+Prefer deletion when the important context can be recovered from canonical documents, code, tests, PRs or Git history. Archive only when the original itself remains necessary and is materially costly to recover; use `.inbox/archive/YYYY-MM-DD/` (archive date) and preserve work-unit identity. Do not classify unfinished work as archived/completed. For bundles, verify the conditions for each retained record before removing the bundle.
+
+No status ledger or automatic cleanup is required. Changes still require normal authorization.
