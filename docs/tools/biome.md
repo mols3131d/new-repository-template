@@ -1,3 +1,7 @@
+---
+description: "Read when configuring Biome code formatting, lint checks, version policy or Markdown exclusion."
+---
+
 # Biome
 
 [Biome](https://biomejs.dev/) handles formatting and lint for supported JSON, JSONC, JavaScript and TypeScript files. [biome.json](../../biome.json) owns the behavior and schema, and [mise.toml](../../mise.toml) owns the installed CLI request.

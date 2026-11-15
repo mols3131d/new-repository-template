@@ -1,3 +1,7 @@
+---
+description: "Follow when installing and validating shared CLI tools and Agent Skills for a new repository or machine."
+---
+
 # Initial Tool Setup
 
 Use this after creating a repository from the template or preparing a new development machine. It sets up shared development tools and Agent Skills, **not** an application build or test environment.

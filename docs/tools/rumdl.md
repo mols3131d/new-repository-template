@@ -1,3 +1,7 @@
+---
+description: "Read when running Markdown lint and formatting or reviewing rumdl version changes."
+---
+
 # rumdl
 
 [rumdl](https://github.com/rvben/rumdl) formats and checks Markdown. Its configuration is [`.rumdl.toml`](../../.rumdl.toml), while [mise.toml](../../mise.toml) chooses the executable version.

@@ -1,3 +1,7 @@
+---
+description: "Read when installing, regenerating or updating external Skills and runtime projections."
+---
+
 # Rulesync
 
 [Rulesync](https://rulesync.dyoshikawa.com/) provides reusable Agent Skill dependencies and projections for selected agent runtimes. [rulesync.jsonc](../../rulesync.jsonc) is the **canonical selection and target configuration**; the Skills themselves remain upstream-owned. The template does not keep a second inventory of selected Skill names in documentation.

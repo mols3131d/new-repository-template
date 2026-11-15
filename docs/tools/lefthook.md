@@ -1,3 +1,7 @@
+---
+description: "Read when configuring opt-in local Git hooks and their compatibility checks."
+---
+
 # Lefthook
 
 [Lefthook](https://lefthook.dev/) runs optional local Git hook checks configured in [lefthook.yml](../../lefthook.yml). It currently checks staged Markdown and supported Biome file types without automatically formatting, staging or committing them.

@@ -1,3 +1,7 @@
+---
+description: "Find installed development tools, version management policy and initial environment setup."
+---
+
 # Tools
 
 This area owns **how the project configures and uses shared development tools**. The native configuration files remain authoritative for executable settings and versions; these documents cover intent, usage, update boundaries and exceptions.

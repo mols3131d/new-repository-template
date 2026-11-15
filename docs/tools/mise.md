@@ -1,3 +1,7 @@
+---
+description: "Read when changing mise tool version requests, shared tasks or installation behavior."
+---
+
 # mise
 
 [mise](https://mise.jdx.dev/) owns the shared tool version requests and project tasks. The executable source is [mise.toml](../../mise.toml), not this document. A project created from the template may add its application toolchain separately.
