@@ -11,7 +11,8 @@ Ordinary documentation uses YAML `description` metadata to support document sele
 | Surface | Contract |
 | --- | --- |
 | Ordinary `docs/**/*.md`, including directory `README.md` | Required; all nested documents are checked by `docs:index:check` |
-| Root [`README.md`](../../README.md) and [`scripts/README.md`](../../scripts/README.md) | Required; each describes the repository or directory it represents |
+| Repository root [`README.md`](../../README.md) | No frontmatter required |
+| [`scripts/README.md`](../../scripts/README.md) | Required; describes the scripts directory |
 | [GitHub template documentation](../../.github/templates/README.md) | Required; describes the collection of authoring templates |
 | Runtime-owned agent assets and GitHub issue/PR templates | Follow their own metadata contracts |
 
@@ -29,7 +30,7 @@ description: "Read when deciding which document owns a project requirement."
 
 - **`description` is required:** One concise, nonempty string stating **when to select** the document, with domain terms that distinguish it from siblings. Do not reproduce the title or table of contents.
 - **`title` is optional:** Add only when a real consumer needs it. Extra metadata fields need a defined owner and use.
-- **README scope:** A README's description identifies the directory, bundle or repository—not the file. [README authoring](readme-authoring.md) owns entrypoint design.
+- **README scope:** A directory README's description identifies its directory or document bundle—not the filename. [README authoring](readme-authoring.md) owns entrypoint design.
 
 Generated indexes are derived from document frontmatter; edit the document, not the index.
 

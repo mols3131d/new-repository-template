@@ -15,7 +15,7 @@ A `README.md` is an **entrypoint to a repository, directory or document bundle**
 
 ## Scope metadata
 
-The [frontmatter `description`](frontmatter.md) identifies **when to visit the represented scope**, not what the README file explains. Optional `title` metadata, when consumed, names that scope rather than `README.md`.
+For directory READMEs that require [frontmatter](frontmatter.md), `description` identifies **when to visit the directory**, not what the README file explains. The repository root `README.md` does not require frontmatter.
 
 The directory README alone owns directory metadata. Do not infer a missing description from sibling documents or a generated index. For example, a tools README should identify shared tooling, installation and version policy rather than repeat the heading "Tools."
 
