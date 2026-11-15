@@ -4,7 +4,7 @@ description: "Read when staging changes, choosing commit boundaries or writing c
 
 # Commits
 
-A commit should represent one coherent, reviewable change. Include the tests and documentation necessary to explain or verify that change; separate unrelated goals. Do not split mechanically by file count or combine unrelated work just to reduce commit count.
+A commit should represent one coherent, reviewable purpose. Include related implementation, tests and documentation together; separate unrelated goals. One task or PR may require several commits. Do not split mechanically by file count or session length.
 
 ## Prepare the change
 
@@ -12,11 +12,23 @@ A commit should represent one coherent, reviewable change. Include the tests and
 - Stage only intended paths or hunks, for example with `git add -p` when changes overlap.
 - Inspect `git diff --cached` and use `git diff --cached --check` to detect whitespace errors. Run the relevant project checks.
 
-## Write the message
+## Message convention
 
-Use [`.gitmessage`](../../../.gitmessage) as the canonical message format: Conventional Commit type, optional scope and concise imperative subject. It defines type selection, length, body/footer guidance, default language and excluded attribution. Do not maintain a second type catalog here.
+Follow [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/). The root [`.gitmessage`](../../../.gitmessage) owns the selected types and writing style.
 
-The template appears when Git opens an editor for `git commit`; it is not a message linter or a requirement imposed on other commit interfaces.
+Use `type[(scope)][!]: description`: `feat` for new features, `fix` for bug fixes, and the other listed types when appropriate. Scope is optional; indicate a breaking change with `!` before `:` and/or a `BREAKING CHANGE: ...` footer. Separate an optional body or footer from the preceding section with a blank line.
+
+A concise subject is enough when no extra context is needed. Use the body for meaningful reasons, decisions, verification results or limitations, and next checks that the diff or linked records do not already explain. Do not claim unrun checks passed or include secrets or private conversation content.
+
+The template appears when Git opens an editor for `git commit`; it provides guidance, not automatic message validation. Other commit interfaces should follow the same convention.
+
+## Checkpoints and handoffs
+
+Use [Session Recovery Checkpoint Commits](https://github.com/mols3131d/mols-agent-assets/blob/main/catalog/patterns/workflow/session-recovery-checkpoint-commits.md) when a meaningful snapshot will help resume work after a session or contributor change.
+
+- Commit at useful, reviewable boundaries rather than solely because a session ends. A checkpoint on a work branch may be incomplete; identify material unverified scope without suggesting merge readiness.
+- Record only costly-to-reconstruct decisions, actual verification outcomes and next conditions. Do not add a special checkpoint type, status field or redundant progress log to the commit message.
+- On resumption, compare the checkpoint with the current ref, working tree and tests. For multi-commit progress or durable decisions, use the task/PR or project documentation instead.
 
 ## Change an existing commit
 
