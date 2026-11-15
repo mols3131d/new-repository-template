@@ -23,14 +23,14 @@ Use this guide to decide where project documentation belongs, how readers find i
 | Topic owner unknown under `docs/` | Use the shallow [generated index](../INDEX.tsv), then follow the selected area. |
 
 - Keep entrypoints short. Include enough scope to choose the next document, not its full contents.
-- Use a clear title and [frontmatter](frontmatter.md) `description` for each ordinary document in `docs/`. It should distinguish when to read that document.
+- Use a clear title and [frontmatter](frontmatter.md) `description` for ordinary documentation. For entrypoints, apply [README authoring](readme-authoring.md) and distinguish the scope from sibling areas.
 - Follow only the links that affect the current task. Preserve safety-critical prerequisites without loading unrelated documents.
 
 ## Review changes
 
 1. Check that the destination is the canonical owner and that navigation reaches it without unnecessary hops.
 2. Preserve meaningful facts, decisions, ordering, identifiers, sources, constraints, and exceptions. Distinguish implemented behavior, proposals, external claims, and actual verification evidence.
-3. Remove duplicate explanations, empty sections, speculative directories, and placeholders that look like established project facts. Regenerate [the index](../INDEX.tsv) when document selection metadata changes.
+3. Remove duplicate explanations, empty sections, speculative directories, and placeholders that look like established project facts. Follow [index maintenance](indexing.md) when document selection metadata changes.
 4. Check relative links and Markdown with the project's configured tooling when available. Report checks not run; document text alone is not runtime evidence.
 
 Prefer lower total reading and maintenance cost over minimum document length.

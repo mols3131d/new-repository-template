@@ -1,3 +1,7 @@
+---
+description: "Choose GitHub issue, pull request, comment and review authoring templates and attribution guidance."
+---
+
 # GitHub Agent Authoring Templates
 
 GitHub recognizes [Issue Forms](../ISSUE_TEMPLATE/) and the [Markdown Issue template](../ISSUE_TEMPLATE/issue.md) in its web UI, plus the [PR template](../pull_request_template.md). The comment/review templates here are **authoring aids**. API/Plugin authors must explicitly load and apply templates; Issue Form validation does not apply to API-created Issues.

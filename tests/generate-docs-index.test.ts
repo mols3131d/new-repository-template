@@ -138,3 +138,19 @@ test("CLI uses a custom root and supports read-only checks", (t) => {
   assert.equal(main(["--root", docs, "--depth", "all", "--check"]), 0);
   assert.equal(readFileSync(join(docs, "INDEX.tsv"), "utf8"), original);
 });
+
+test("standalone frontmatter validation is read-only", (t) => {
+  const { write } = fixture(t);
+  const doc = write("doc.md", '---\ndescription: "Select when checking metadata"\n---\n\n# Doc\n');
+  const before = readFileSync(doc, "utf8");
+  assert.equal(main(["--validate", doc]), 0);
+  assert.equal(readFileSync(doc, "utf8"), before);
+});
+
+test("standalone frontmatter validation rejects missing metadata or input", (t) => {
+  const { write } = fixture(t);
+  const doc = write("invalid.md", "# No metadata\n");
+  assert.equal(main(["--validate", doc]), 1);
+  assert.equal(main(["--validate"]), 2);
+  assert.equal(main(["--validate", "--check"]), 2);
+});

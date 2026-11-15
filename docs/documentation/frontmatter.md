@@ -1,46 +1,41 @@
 ---
-description: "Read when adding document description frontmatter or generating and checking a documentation index."
+description: "Read when adding Markdown frontmatter, defining description metadata, or checking asset exceptions."
 ---
 
-# Frontmatter and Document Index
+# Markdown Frontmatter
 
-Use YAML frontmatter to identify ordinary project documents by purpose before a human or agent reads the body. The generated [`docs/INDEX.tsv`](../INDEX.tsv) is **selection metadata**, not an instruction source.
+Ordinary project Markdown uses **YAML `description` metadata** to help readers and agents select the right document before opening its body. This metadata is not an instruction, permission grant or implementation claim.
 
-## Description metadata
+## Scope
 
-Ordinary `docs/**/*.md` files, including directory `README.md` entrypoints, require a nonempty string `description`:
+| Surface | Contract |
+| --- | --- |
+| Ordinary `docs/**/*.md`, including directory `README.md` | Required; all nested documents are checked by `docs:index:check` |
+| Root [`README.md`](../../README.md) and [`scripts/README.md`](../../scripts/README.md) | Required; each describes the repository or directory it represents |
+| [GitHub template documentation](../../.github/templates/README.md) | Required; describes the collection of authoring templates |
+| `AGENTS.md`, `CHATBOT.md`, `SKILL.md`, GitHub Issue/PR/comment/review templates and other agent assets | Keep the native metadata and syntax; do not impose ordinary documentation frontmatter |
+
+When adding another maintained Markdown document outside `docs/`, add it to the explicit standalone validation command. Do not apply metadata solely because a filename ends with `.md`.
+
+## Fields
+
+Place YAML frontmatter at the top, before the heading:
 
 ```yaml
 ---
-description: "Read when identifying the document that owns a project requirement."
+description: "Read when deciding which document owns a project requirement."
 ---
 ```
 
-Describe **when to read** the document with terms that distinguish it from nearby candidates. For a directory `README.md`, describe the **directory's subject**. Do not copy the table of contents or the title. Keep requirements, evidence and decisions in their canonical body.
+- **`description` is required:** One concise, nonempty string stating **when to select** the document, with domain terms that distinguish it from siblings. Do not reproduce the title or table of contents.
+- **`title` is optional:** Add only when a real consumer needs it. Extra metadata fields need a defined owner and use.
+- **README scope:** A README's description identifies the directory, bundle or repository—not the file. [README authoring](readme-authoring.md) owns entrypoint design.
+- **Authority:** Frontmatter improves search and routing; it neither activates instructions nor replaces the document's evidence, facts or decisions.
 
-Agent Assets (`AGENTS.md`, `SKILL.md`), GitHub templates, generated files and documents outside `docs/` follow their own formats. Frontmatter is not an activation or authorization mechanism.
+The Markdown file is the metadata owner. Generated indexes are projections, not alternative sources of descriptions. Front Matter CMS is not a dependency of this template.
 
-## Generate and check
+## Verification
 
-One [TypeScript script](../../scripts/generate-docs-index.ts) reads YAML descriptions, creates sorted, escaped TSV rows (`path`, `description`), and fails on missing or invalid metadata. A directory row comes from its `README.md`; the root README is not listed.
+Use `npm run docs:index:check` for all ordinary documents under `docs/` and the generated index. Use `npm run docs:frontmatter:check` for the maintained documentation entrypoints outside `docs/`. Both checks require valid YAML and a nonempty string description, and neither writes files.
 
-The root index is **shallow by default**: direct files and immediate directory scopes only. Follow the chosen area README to find deeper documents rather than loading a recursive inventory.
-
-```sh
-npm ci --ignore-scripts
-npm run docs:index
-npm run docs:index:check
-npm run test:docs
-npm run typecheck:scripts
-```
-
-For a narrower area or a recursive index, use the same script:
-
-```sh
-node scripts/generate-docs-index.ts --root docs/tools --depth all
-node scripts/generate-docs-index.ts --root docs/tools --depth all --check
-```
-
-`--root` chooses the directory containing the resulting `INDEX.tsv`; `--depth 1` (default) indexes direct files and immediate directory scopes; `--depth all` includes nested documents. `--check` detects missing or stale output **without writing**, and validates frontmatter throughout the selected directory even when the output remains shallow. Symlinks in the traversed scope are rejected. Do not hand-edit generated indexes.
-
-The [read-only CI check](../../.github/workflows/docs-index.yml) runs generator tests, type checking and drift detection; it never commits or pushes generated output. Dependencies are locked in [`package-lock.json`](../../package-lock.json). This tooling does not require the derived project to use Node.js for its application.
+Follow [Document indexing](indexing.md) for commands, index depth, drift checks and CI integration. Revisit the description when its document's purpose or ownership changes.

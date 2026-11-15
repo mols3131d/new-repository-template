@@ -131,6 +131,26 @@ export function main(
   args: string[] = process.argv.slice(2),
   defaultRoot: string = docsDirectory,
 ): number {
+  if (args[0] === "--validate") {
+    if (args.length < 2 || args.slice(1).some((arg) => arg.startsWith("--"))) {
+      console.error("Usage: node scripts/generate-docs-index.ts --validate FILE...");
+      return 2;
+    }
+    try {
+      for (const path of args.slice(1)) {
+        descriptionFrom(resolve(path));
+      }
+      console.log("Validated frontmatter in " + (args.length - 1) + " file(s)");
+      return 0;
+    } catch (error) {
+      console.error(
+        "Frontmatter validation failed: " +
+          (error instanceof Error ? error.message : String(error)),
+      );
+      return 1;
+    }
+  }
+
   let root = defaultRoot;
   let depth = 1;
   let check = false;

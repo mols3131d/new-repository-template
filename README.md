@@ -1,3 +1,7 @@
+---
+description: "Start here to bootstrap the agent-assisted repository template and its shared development tools."
+---
+
 # New Repository Template
 
 A technology-agnostic starter for **agent-assisted development**. It prepares reusable Skills through Rulesync and general development tools through mise, without assuming an application framework or CI provider.

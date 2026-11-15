@@ -1,3 +1,7 @@
+---
+description: "Find project-owned scripts, documentation indexing and guidance for adding custom automation."
+---
+
 # Scripts
 
 This directory is the home for **project-owned executable helpers** when a repeated task needs more logic than a native CLI or a short task in [mise.toml](../mise.toml).
