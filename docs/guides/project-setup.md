@@ -26,6 +26,10 @@ If keeping the index, use its [indexing contract](../documentation/indexing.md) 
 
 ## Check the new GitHub repository
 
-GitHub template files and GitHub-hosted settings are different surfaces. **Do not assume this template's Ruleset, branch protection, required checks, code-owner review, repository permissions or merge settings were copied.** In the newly created repository, inspect the actual `main` Ruleset/protection, allowed merge methods, required check names, workflow permissions and any applicable code-owner requirements. Enable or change settings only under that repository's verified owner/authority; this setup does not change hosted settings automatically.
+GitHub template files and GitHub-hosted settings are different surfaces. **Do not assume this template's Ruleset, branch protection, required checks, code-owner review, repository permissions or merge settings were copied.**
+
+1. In the **new repository** (not this template), inspect `Settings → Rules → Rulesets` and any branch-protection settings for `main`: allowed merges, required reviews, and required checks. Compare required check names with the jobs the new repository actually runs.
+2. Inspect `Settings → Actions` and workflow files for permissions and available runner/check coverage. Check any `CODEOWNERS` requirement against files and maintainers that actually exist in the new project.
+3. Record missing protections/checks as gaps, not inherited defaults. Change GitHub-hosted settings only after confirming the destination account, repository and administrative authority; no setup command in this template changes them.
 
 Before considering the new project ready, verify its shared formatter/index checks, application-specific checks when defined, a representative agent task, and the effect of running setup twice. Inspect `git status --short` and document unavailable runtime or GitHub checks as **unverified**, not passed. The `.inbox/` remains temporary evidence excluded from documentation CI; local formatting hooks are [opt-in](../tools/lefthook.md).
