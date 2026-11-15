@@ -31,7 +31,7 @@ Update `status` only when that transition actually occurs. A `reviewed` document
 
 Keep working records while investigation, implementation, verification or handoff remains. Promote durable conclusions to the relevant canonical source without treating promotion alone as work completion.
 
-Delete or archive a record only when **both** its actual work is finished and at least **seven days** have elapsed since its creation or last substantive update. A move, rename or merge does not restart the clock. If completion or timing is uncertain, retain it.
+Delete or archive a record only when **both** its actual work is finished and at least **seven days** have elapsed since its creation or last substantive update. A move, rename, merge or metadata-only status edit does not restart the clock. If completion or timing is uncertain, retain it.
 
 ```mermaid
 flowchart TD
