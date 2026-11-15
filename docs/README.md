@@ -1,3 +1,7 @@
+---
+description: "Start here to choose documentation owners across project goals, architecture, development, tools and policies."
+---
+
 # Documentation
 
 This starter reserves clear ownership for common documentation subjects without assuming a product, framework or delivery process. Add topic documents and narrower directories only when the derived project has material to maintain.

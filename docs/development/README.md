@@ -1,3 +1,7 @@
+---
+description: "Use for contributor setup, development practices, agent guidance and verification responsibilities."
+---
+
 # Development
 
 Use this area for how contributors understand, change and verify a project. The template does not preselect an application language, build system or test runner.

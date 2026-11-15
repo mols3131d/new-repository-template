@@ -1,3 +1,7 @@
+---
+description: "Read when checking whether an agent runtime discovers and applies project instructions or Skills."
+---
+
 # Agent Harness Verification
 
 Use this guide to check whether project instructions and selected Skills are actually reachable and followed in a particular agent runtime. It defines evidence levels, not a new runtime-specific instruction priority rule.

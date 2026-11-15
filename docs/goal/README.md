@@ -1,3 +1,7 @@
+---
+description: "Use when defining project outcomes, requirements, scope, non-goals and acceptance criteria."
+---
+
 # Goals
 
 Use this area to define **what the derived project should achieve** and the evidence needed to call it successful.

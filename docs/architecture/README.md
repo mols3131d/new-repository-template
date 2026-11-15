@@ -1,3 +1,7 @@
+---
+description: "Use when locating component boundaries, design decisions, dependencies or technical tradeoffs."
+---
+
 # Architecture
 
 Use this area for the derived project's implemented or explicitly proposed system structure and decisions: component responsibilities, boundaries, data flow, constraints and meaningful tradeoffs.

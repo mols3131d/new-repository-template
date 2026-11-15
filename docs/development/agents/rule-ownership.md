@@ -1,3 +1,7 @@
+---
+description: "Read when choosing root, scoped, path-matched or task-selected agent instructions."
+---
+
 # Agent Instruction Ownership
 
 Use this guide when deciding where an instruction or agent-facing capability belongs. **Content ownership** and **how a runtime activates it** are separate decisions. [Root instructions](../../../AGENTS.md) remain the repository-wide working agreement.

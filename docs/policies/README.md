@@ -1,3 +1,7 @@
+---
+description: "Use when recording adopted project-wide policies and their enforcement boundaries."
+---
+
 # Policies
 
 Use this area for **adopted, cross-cutting project policies** that need their own durable explanation, such as a language or disclosure policy. Add a policy document only when the derived project has actually chosen that policy.

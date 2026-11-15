@@ -1,3 +1,7 @@
+---
+description: "Use when deciding document ownership, progressive discovery and evidence-preserving review."
+---
+
 # Documentation Authoring and Review
 
 Use this guide to decide where project documentation belongs, how readers find it, and how changes are reviewed. It covers human- and agent-written documents; it does not define agent activation or runtime permissions.
