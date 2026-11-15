@@ -5,9 +5,8 @@ A technology-agnostic starter for **agent-assisted development**. It provides re
 ## Start a project
 
 1. Select **Use this template** on GitHub.
-2. Use [Project Setup](docs/guides/project-setup.md) to choose the project's language, adapt the README and decide which example automation to keep.
-3. Review [Initial Tool Setup](docs/tools/initial-setup.md) before installing tools or downloading external Skills. Install [mise](https://mise.jdx.dev/) if required.
-4. After authorizing installation and downloads, run these commands from the new repository:
+2. Review [Initial Tool Setup](docs/tools/initial-setup.md) and the requested downloads, generated files and local Git changes. Install [mise](https://mise.jdx.dev/) if needed.
+3. After authorizing installation and project writes, run these commands from the new repository:
 
 ```sh
 mise install
@@ -15,7 +14,7 @@ mise run setup
 mise run check
 ```
 
-`setup` runs `agents-setup` to resolve Skills and generate `rulesync.lock`, runtime projections and ignore entries, then configures this clone's [Git commit template](docs/tools/git/README.md). Review generated changes before committing; see [Initial Tool Setup](docs/tools/initial-setup.md) for checks and updates.
+`setup` resolves the first Skill lock (or reuses an existing one), generates runtime projections and ignore entries, and configures the clone-local [Git commit template](docs/tools/git/README.md). Inspect and commit the resulting `rulesync.lock` only after reviewing its resolved sources. Follow [Project Setup](docs/guides/project-setup.md) to select the application stack, verify agent loading and check GitHub protection for the new repository.
 
 ## Included foundation
 
@@ -35,8 +34,9 @@ mise run check
 | Format Markdown and supported code/config files | `mise run format` (writes across repository) |
 | Check Markdown, Biome and Lefthook configuration | `mise run check` |
 | Preview/check Rulesync setup | `mise run agents-check` |
+| Restore accepted Skill revisions (requires lockfile) | `mise run agents-restore` |
 | Update upstream Skill revisions deliberately | `mise run agents-refresh` |
 
 Git hook installation is **optional**, not part of the default setup. Follow [Tools](docs/tools/README.md) for scoped formatting, hook safety and version updates. `mise run check` does not run an application test suite, and a Skill manifest does not prove runtime activation.
 
-Derived repositories add their application runtime, tests and CI as needed.
+The included Node.js documentation index is a shared repository utility, **not** a required application language. Derived repositories add their application runtime, tests and CI as needed.
