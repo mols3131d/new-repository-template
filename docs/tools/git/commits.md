@@ -20,7 +20,7 @@ Format: `type[(scope)][!]: description`. Use `feat` for features and `fix` for b
 
 A subject alone is enough for simple changes. Add reasons, decisions, real verification limits or next checks only if the diff and linked records cannot supply them. Never claim unrun checks passed or expose secrets or private conversations.
 
-The editor-based template guides messages but does not enforce them, including messages provided via `git commit -m`.
+The template guides editor-based commits only; `git commit -m` bypasses it. It does not validate messages.
 
 ## Checkpoints and handoffs
 
