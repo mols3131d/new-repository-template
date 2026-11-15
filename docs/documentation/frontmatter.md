@@ -16,7 +16,7 @@ Ordinary documentation uses YAML `description` metadata to support document sele
 | [GitHub template documentation](../../.github/templates/README.md) | Required; describes the collection of authoring templates |
 | Runtime-owned agent assets and GitHub issue/PR templates | Follow their own metadata contracts |
 
-When adding another maintained Markdown document outside `docs/`, add it to the explicit standalone validation command. Do not apply metadata solely because a filename ends with `.md`.
+When another document outside `docs/` uses this metadata contract, add it to the standalone validation command. File extension alone does not define the contract.
 
 ## Fields
 
