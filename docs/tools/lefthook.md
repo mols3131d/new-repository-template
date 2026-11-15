@@ -5,3 +5,7 @@
 `mise run check` validates the hook configuration; it does **not** install Git hooks. Before using `lefthook install`, inspect existing hooks and `git config --get core.hooksPath`, then explicitly authorize changes to that local setup.
 
 The hooks are a contributor convenience rather than a replacement for repository checks, PR review or eventual CI admission gates. Avoid adding hooks for a language or test tool that the project has not adopted.
+
+## Version management — loose
+
+Use a **major prefix** in [`mise.toml`](../../mise.toml), admitting minor and patch releases within that major line. Re-run `lefthook validate` and check staged-file hook behavior when updating. Review configuration compatibility before a major upgrade; a passing configuration check does not mean hooks are installed or executed.

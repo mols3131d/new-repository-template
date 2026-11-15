@@ -7,6 +7,7 @@ Use this after creating a repository from the template or preparing a new develo
 - Install [mise](https://mise.jdx.dev/) separately if needed. Review [`mise.toml`](../../mise.toml) and [`rulesync.jsonc`](../../rulesync.jsonc) for executable tasks, requested tools, external Skill sources, and targets.
 - Confirm that tool installation, external downloads and generated repository changes are authorized. If mise requests trust, inspect the configuration before approving it.
 - The template has no pre-resolved `rulesync.lock`. The first Skill installation resolves upstream revisions; do not treat the initial selection as reproducible until its resulting lockfile is reviewed and committed.
+- Shared CLI version requests use strict and loose policies described in the [tool matrix](README.md#version-management). Without a `mise.lock`, prefix versions can resolve differently between installations; inspect the actual installed versions and checks.
 
 ## First setup
 

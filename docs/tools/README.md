@@ -2,15 +2,22 @@
 
 This area owns **how the project configures and uses shared development tools**. The native configuration files remain authoritative for executable settings and versions; these documents cover intent, usage, update boundaries and exceptions.
 
-| Tool | Responsibility |
-| --- | --- |
-| [mise](mise.md) | Tool version declarations and project tasks |
-| [Rulesync](rulesync.md) | External Agent Skill dependencies and target projections |
-| [rumdl](rumdl.md) | Markdown formatting and lint |
-| [Biome](biome.md) | JSON/JSONC and JavaScript/TypeScript formatting and lint |
-| [Lefthook](lefthook.md) | Optional local Git hook checks |
+| Tool | Responsibility | Version policy |
+| --- | --- | --- |
+| [mise](mise.md) | External tool manager and shared tasks | Manual stable updates; not pinned by itself |
+| [Node.js](node.md) | Runtime for npm-distributed CLIs | Loose: major prefix |
+| [Rulesync](rulesync.md) | External Agent Skill dependencies and projections | Strict: exact CLI version |
+| [rumdl](rumdl.md) | Markdown formatting and lint | Strict: minor prefix |
+| [Biome](biome.md) | Code/config formatting and lint | Strict: minor prefix |
+| [Lefthook](lefthook.md) | Optional local Git hook checks | Loose: major prefix |
 
-Node.js is installed through mise for npm-distributed CLI tools; that is not a commitment to Node.js as the application's runtime. No application language, test framework or deployment tool is selected here.
+## Version management
+
+**Strict** tools can change formatting, configuration or generated Agent Assets: accept patch updates inside a reviewed minor line for rumdl and Biome; hold Rulesync at an exact version until its generation output is reviewed. **Loose** tools may track minor and patch updates inside a chosen major line (Node.js and Lefthook). mise itself is installed separately; review stable updates before applying them.
+
+The actual requests and tasks live in [`mise.toml`](../../mise.toml). Prefixes do not guarantee compatibility, and this starter has no `mise.lock`: different installs can resolve different releases. Derived projects that require identical tool builds should create, test and commit a mise lockfile. External Skill revisions are a separate concern governed by [Rulesync](rulesync.md).
+
+No application language, test framework or deployment tool is selected here.
 
 ## Initial setup
 

@@ -11,3 +11,9 @@ Reinstall a previously established revision with `rulesync install --frozen` fol
 The manifest or lock does not prove that a target agent discovered a Skill. Inspect actual installation/projection and verify activation in a representative runtime before making that claim. The template ships no pre-resolved `rulesync.lock`; the first authorized installation must resolve, inspect and commit it before reproducibility can be claimed.
 
 Keep the source upstream unless explicitly adopting ownership into this project. Do not hand-edit installed curated dependencies or generated vendor projections; if a derived project adds a locally maintained Skill, choose and document its own canonical source rather than copying the upstream body.
+
+## Version management — strict
+
+Keep the Rulesync **CLI** on an exact version in [`mise.toml`](../../mise.toml). Its rapidly changing generators, config schema and target support can affect generated content even when a command still succeeds. Check upstream changes, then deliberately update the CLI, run `mise run agents-check`, inspect projection and ignore-file diffs, and verify representative target runtimes before accepting the change.
+
+The CLI version and Skill source revisions are independent. [`rulesync.jsonc`](../../rulesync.jsonc) declares upstream sources; the generated `rulesync.lock` records resolved Skill revisions after the first authorized install. Never treat an upgraded CLI as permission to silently refresh those sources.
