@@ -15,6 +15,4 @@ This starter reserves clear ownership for common documentation subjects without 
 | [Policies](policies/README.md) | Adopted project-wide policies not already owned by instructions or settings |
 | [Tools](tools/README.md) | Tool selection, setup, configuration, commands and update boundaries |
 
-For an unfamiliar topic, use the generated [documentation index](INDEX.tsv) to choose an area by `path` and `description`, then follow its entrypoint. For a known owner, go directly to it. The index is navigation data, not an instruction source.
-
-The repository [README](../README.md) provides first-use instructions and [AGENTS.md](../AGENTS.md) owns the agent working baseline. This index routes documentation but does not replace either.
+For an unfamiliar topic, use [docs/INDEX.tsv](INDEX.tsv) to choose an area by `path` and `description`. For a known owner, go directly to it.

@@ -8,7 +8,7 @@ Use this area for how contributors understand, change and verify a project. The 
 
 ## Current setup
 
-Shared repository utilities, formatting, Git hooks and the Rulesync asset setup are documented under [Tools](../tools/README.md). Their executable settings are in [mise.toml](../../mise.toml) and [rulesync.jsonc](../../rulesync.jsonc). The root [AGENTS.md](../../AGENTS.md) owns the agent working baseline; it is not duplicated here.
+Shared tooling and setup are covered under [Tools](../tools/README.md).
 
 Find existing automation through the [scripts index](../../scripts/README.md). When implementing or modifying project-owned scripts, use [script maintenance](scripts.md); task declarations remain in [mise.toml](../../mise.toml).
 
@@ -18,6 +18,4 @@ Use [instruction ownership](agents/rule-ownership.md) to place scoped guidance, 
 
 ## When the project grows
 
-Document the actual source layout, local application setup, test/build commands, contribution workflow and CI requirements here when they exist. Describe decisions at the level contributors need, link to executable configuration and avoid speculative instructions.
-
-Place end-user instructions with the derived project's actual product documentation once user workflows exist. Substantive system design rationale belongs in [Architecture](../architecture/README.md). Tool version and configuration guidance belongs in [Tools](../tools/README.md).
+Document the source layout, application setup, tests and contribution process as they become relevant. Keep design decisions in [Architecture](../architecture/README.md) and executable settings in their configuration files.
