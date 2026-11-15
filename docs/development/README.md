@@ -16,4 +16,4 @@ Use [instruction ownership](agents/rule-ownership.md) to place repository and sc
 
 Document the actual source layout, local application setup, test/build commands, contribution workflow and CI requirements here when they exist. Describe decisions at the level contributors need, link to executable configuration and avoid speculative instructions.
 
-Product usage instructions belong in [Guides](../guides/README.md). Substantive system design rationale belongs in [Architecture](../architecture/README.md). Tool version and configuration guidance belongs in [Tools](../tools/README.md).
+Place end-user instructions with the derived project's actual product documentation once user workflows exist. Substantive system design rationale belongs in [Architecture](../architecture/README.md). Tool version and configuration guidance belongs in [Tools](../tools/README.md).

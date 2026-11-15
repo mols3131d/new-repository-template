@@ -5,7 +5,7 @@ A technology-agnostic starter for **agent-assisted development**. It prepares re
 ## Start a project
 
 1. Select **Use this template** on GitHub, then replace this README's project description.
-2. Inspect [mise.toml](mise.toml) and [Rulesync setup](docs/tools/rulesync.md). Install [mise](https://mise.jdx.dev/) yourself if required.
+2. Review [Initial Tool Setup](docs/tools/initial-setup.md) and the declared configuration. Install [mise](https://mise.jdx.dev/) yourself if required.
 3. After authorizing local tool installation and external Skill downloads, run these commands from the new repository:
 
 ```sh
@@ -14,7 +14,7 @@ mise run agents-setup
 mise run check
 ```
 
-The first `agents-setup` resolves selected upstream Skills, writes `rulesync.lock`, generates native Skill projections and maintains Rulesync's generated ignore entries. **Review and commit** the new lock and intended ignore changes. This template does not ship a pre-resolved lockfile, so the first install is a deliberate dependency-resolution step. Reinstall from an established lock with `rulesync install --frozen`, and explicitly refresh upstream Skills using `mise run agents-refresh`.
+The first `agents-setup` resolves upstream Skills and generates a `rulesync.lock` plus runtime projections and ignore changes. Review and commit only intended changes; [Initial Tool Setup](docs/tools/initial-setup.md) covers verification and future updates.
 
 ## Included foundation
 
@@ -24,7 +24,7 @@ The first `agents-setup` resolves selected upstream Skills, writes `rulesync.loc
 | Cross-agent Skill generation | Claude Code, Codex CLI, GitHub Copilot, Copilot CLI, Antigravity IDE/CLI and AgentsSkills |
 | General tooling | [mise.toml](mise.toml) selects rumdl, Biome, Lefthook, Rulesync and its Node runtime |
 | Working agreement | [AGENTS.md](AGENTS.md) is canonical; [CHATBOT.md](CHATBOT.md) is optional chat-runtime compatibility |
-| Documentation | [Documentation map](docs/README.md) routes development, tools, guides and architecture; [Tools](docs/tools/README.md) owns template tool setup |
+| Documentation | [Documentation map](docs/README.md) routes goals, architecture, development and tools; [Tools](docs/tools/README.md) owns shared tool guidance |
 | Project scripts | [scripts/](scripts/README.md) is reserved for project-owned executable helpers when native tool tasks are insufficient |
 
 ## Everyday commands

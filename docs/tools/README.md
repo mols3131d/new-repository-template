@@ -12,8 +12,8 @@ This area owns **how the project configures and uses shared development tools**.
 
 Node.js is installed through mise for npm-distributed CLI tools; that is not a commitment to Node.js as the application's runtime. No application language, test framework or deployment tool is selected here.
 
-## Setup and verification
+## Initial setup
 
-Review [mise.toml](../../mise.toml) before installing anything. With the intended installation permissions, `mise install` prepares the declared tools; `mise run check` checks general formatting/lint and the hook configuration. `mise run agents-setup` downloads external Skills and generates supported runtime projections. These are distinct from application tests and from proof of Skill activation.
+Follow [Initial Tool Setup](initial-setup.md) to review configuration, authorize installation, inspect generated files and run shared checks. These do not establish application-test results or agent-runtime activation.
 
 Tools can be added under this directory as the project actually adopts them. Do not create a tool document for an unused candidate or duplicate native CLI manuals.
