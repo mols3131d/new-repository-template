@@ -12,7 +12,7 @@ Use the smallest navigation surface that leads readers to a **canonical document
 | A reader must choose among related documents | Concise selector within the directory `README.md` |
 | Broad discovery needs a repeatable machine-readable list | Generated `INDEX.tsv` |
 
-Do not create a second manually maintained inventory. A README may explain selection criteria; `INDEX.tsv` lists generated `path` and `description` entries without copying bodies or acting as instructions.
+Use README text for human selection criteria; `INDEX.tsv` provides the generated `path` and `description` inventory.
 
 ## Generate and validate
 
@@ -38,4 +38,4 @@ node scripts/generate-docs-index.ts --root docs/tools --depth all --check
 
 The same script's standalone `--validate FILE...` mode checks named documents without generating an index. The maintained out-of-scope file list is `docs:frontmatter:check` in [`package.json`](../../package.json); update it when adding such a document.
 
-The [read-only CI workflow](../../.github/workflows/docs-index.yml) checks metadata, tests, types and index drift, but never commits generated output. Dependencies are pinned in [`package-lock.json`](../../package-lock.json). This does not select Node.js as the application's runtime.
+The [CI workflow](../../.github/workflows/docs-index.yml) checks metadata, tests, types and index drift without modifying generated output.

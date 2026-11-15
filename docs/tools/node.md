@@ -8,8 +8,8 @@ description: "Read when managing the Node.js runtime used by npm-distributed dev
 
 ## Version management — loose
 
-Track a reviewed **major version** using a mise major prefix. This admits minor and patch updates within that line; a new major is an explicit compatibility decision.
+Track a reviewed major version and validate npm CLI runtime requirements before raising it.
 
-Before changing the major, check the runtime requirements of installed npm CLIs, run [shared checks](README.md#initial-setup), and inspect failures or changed output. A matching major is a selection policy, not proof every newer release works.
+Run [shared checks](README.md#initial-setup) and inspect CLI behavior on upgrades.
 
 For installation and authorization, follow [Initial Tool Setup](initial-setup.md).
