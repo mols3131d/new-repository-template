@@ -12,6 +12,11 @@ lefthook = "2"
 [settings]
 task.run_auto_install = false
 
+[tasks.setup]
+description = "Set up Agent Skills and the local Git commit template"
+depends = ["agents-setup"]
+run = "git config --local commit.template .gitmessage"
+
 [tasks.agents-setup]
 description = "Resolve external Skills, generate native projections, and maintain generated ignore entries"
 run = [

@@ -19,10 +19,10 @@ Run from the repository root after the checks above:
 
 ```sh
 mise install
-mise run agents-setup
+mise run setup
 ```
 
-`mise install` provisions declared CLI tools in mise-managed locations. `agents-setup` installs external Skills, generates target projections, and updates generated ignore entries. These commands can change local state and repository files.
+`mise install` provisions declared CLI tools. `setup` runs `agents-setup` to install Skills and generate projections and ignore entries, then configures the [commit message template](git.md) using repository-local Git settings. These commands change local state and may modify tracked files; the Git configuration is not committed.
 
 Review the results before committing:
 
