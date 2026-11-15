@@ -9,9 +9,10 @@ This repository is a **starter template**, not an application scaffold for a par
 ## 1. Define the new project
 
 1. Create a repository using the GitHub template and replace the root [README](../../README.md) with the project's purpose and first-use instructions.
-2. Choose the **application language and runtime**, the **script/automation language**, a test runner and the CI checks the project actually needs. They may differ from the tools included in this template.
-3. Record real outcomes in [Goals](../goal/README.md), design decisions in [Architecture](../architecture/README.md), and project commands in [Development](../development/README.md). Remove or revise template-specific guidance when it no longer describes the project.
-4. Review [Initial Tool Setup](../tools/initial-setup.md) before installing shared tools or resolving external Agent Skills.
+2. Review the inherited [MIT license](../../LICENSE) and choose the new project's licensing terms. Preserve copyright and license notices required for reused template material.
+3. Choose the **application language and runtime**, the **script/automation language**, a test runner and the CI checks the project actually needs. They may differ from the tools included in this template.
+4. Record real outcomes in [Goals](../goal/README.md), design decisions in [Architecture](../architecture/README.md), and project commands in [Development](../development/README.md). Remove or revise template-specific guidance when it no longer describes the project.
+5. Review [Initial Tool Setup](../tools/initial-setup.md) before installing shared tools or resolving external Agent Skills.
 
 ## 2. Adapt the included automation
 
@@ -21,7 +22,7 @@ The following files demonstrate a working documentation workflow. **Do not adopt
 | --- | --- |
 | [Index generator](../../scripts/generate-docs-index.ts) | If retaining document indexing, **prefer rewriting it in the project's chosen scripting language**. Keep TypeScript only as an intentional separate toolchain choice. |
 | [Generator tests](../../tests/generate-docs-index.test.ts) | Port the behavior checks to the project's test runner when the script changes. |
-| [`package.json`](../../package.json), [`package-lock.json`](../../package-lock.json), [`tsconfig.scripts.json`](../../tsconfig.scripts.json) | Replace or remove generator-specific Node/TypeScript dependencies and commands after their consumers have been migrated. |
+| [`package.json`](../../package.json), [`package-lock.json`](../../package-lock.json), [`tsconfig.scripts.json`](../../tsconfig.scripts.json) | If retaining npm tooling, change `package.json`'s `name` to the project name and synchronize `package-lock.json`. Replace or remove generator-specific dependencies and commands after their consumers have been migrated. |
 | [Documentation CI](../../.github/workflows/docs-index.yml) | Update the runtime, commands and file triggers for the replacement script, tests and validations. |
 | [`mise.toml`](../../mise.toml), [`rulesync.jsonc`](../../rulesync.jsonc) | Keep useful shared tasks and Skills, remove unused selections and add the project's actual toolchain. Node.js may still be needed for npm-distributed CLIs even when the application and scripts use another language. |
 
