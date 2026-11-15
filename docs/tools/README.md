@@ -21,7 +21,7 @@ All installed tools request releases within a chosen **major version** in [`mise
 
 The actual requests and tasks live in [`mise.toml`](../../mise.toml). Major prefixes do not guarantee compatibility, especially for pre-1.0 tools such as rumdl (`0.x`), whose minor releases may introduce breaking changes. This starter has no `mise.lock`: different installs can resolve different releases. Derived projects that require identical tool builds should create, test and commit a mise lockfile. External Skill revisions are a separate concern governed by [Rulesync](rulesync.md).
 
-Git is not installed by mise in this template. See [Git](git.md) for the repository-local commit message template.
+Git is installed separately; use the [Git guide](git/README.md) for local configuration, commits and branches.
 
 ## Initial setup
 

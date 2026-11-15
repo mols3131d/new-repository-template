@@ -22,7 +22,7 @@ mise install
 mise run setup
 ```
 
-`mise install` provisions declared CLI tools. `setup` runs `agents-setup` to install Skills and generate projections and ignore entries, then configures the [commit message template](git.md) using repository-local Git settings. These commands change local state and may modify tracked files; the Git configuration is not committed.
+`mise install` provisions declared CLI tools. `setup` runs `agents-setup` to install Skills and generate projections and ignore entries, then configures the [commit message template](git/README.md) using repository-local Git settings. These commands change local state and may modify tracked files; the Git configuration is not committed.
 
 Review the results before committing:
 
