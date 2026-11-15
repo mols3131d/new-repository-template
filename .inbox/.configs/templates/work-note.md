@@ -1,6 +1,9 @@
-<!-- Optional scaffold. Replace placeholders; remove unused sections and this comment. -->
+---
+title: "[Work topic]"
+description: "[Purpose of this working note]"
+---
 
-# [Topic]
+<!-- Optional scaffold. Replace frontmatter values and content placeholders; remove unused sections and this comment.  -->
 
 ## Purpose
 

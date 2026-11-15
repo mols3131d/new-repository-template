@@ -1,6 +1,9 @@
-<!-- Optional scaffold. Replace placeholders; remove unused sections and this comment. Checkboxes represent concrete next actions, not estimated progress. -->
+---
+title: "[Work topic — handoff]"
+description: "[Handoff scope and current state]"
+---
 
-# [Work topic] — handoff
+<!-- Optional scaffold. Replace frontmatter values and content placeholders; remove unused sections and this comment. Checkboxes track concrete actions, not estimated progress. -->
 
 ## Current state
 

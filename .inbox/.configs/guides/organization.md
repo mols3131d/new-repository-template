@@ -29,3 +29,5 @@ For example:
 ```
 
 A separate document gets a new number; an expansion inherits its parent's number. `README.md` and `AGENTS.md` are exempt from numbering. Do not mass-rename existing records merely to match the convention. Check links and references when relocating a file.
+
+Work-unit records start with YAML `title` and `description` frontmatter instead of an H1. Use H2 for body sections and fill metadata with the record's actual context. Remove template comments, placeholders and unused sections before saving. See [frontmatter guidance](../../../docs/documentation/frontmatter.md) for syntax.

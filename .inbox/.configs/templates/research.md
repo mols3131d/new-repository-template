@@ -1,6 +1,9 @@
-<!-- Optional scaffold. Replace placeholders; remove unused sections and this comment. Compare alternatives with a table only when useful; use diagrams for complex relationships. -->
+---
+title: "[Research topic]"
+description: "[Research question and scope]"
+---
 
-# [Research topic]
+<!-- Optional scaffold. Replace frontmatter values and content placeholders; remove unused sections and this comment. Use tables for alternatives and diagrams for complex relationships only when useful. -->
 
 ## Question and scope
 
