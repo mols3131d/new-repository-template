@@ -1,6 +1,10 @@
 ## Summary
 
-<!-- Link a related Issue or project task if one exists. Summarize why the PR exists and what changes after merge. -->
+<!-- Summarize what this PR changes; link a related Issue or task when one exists. -->
+
+## Goal
+
+<!-- State the intended outcome and why it matters. Include observable success criteria when applicable; keep implementation details in Changes and evidence in Verification. -->
 
 ## Changes
 
@@ -17,7 +21,7 @@
 
 - [ ] State what is deliberately out of scope, plus material constraints on permissions, side effects or follow-up work (or N/A if none).
 
-<!-- Optional: freely add any useful `## <Topic>` sections below the four required sections. The following are examples, not a fixed list. Rename, reorder, combine, or omit them; remove empty sections and avoid duplicating task-tracking progress. -->
+<!-- Optional: freely add any useful `## <Topic>` sections below the five required sections. The following are examples, not a fixed list. Rename, reorder, combine, or omit them; remove empty sections and avoid duplicating task-tracking progress. -->
 
 <!-- ## Risks -->
 <!-- ## Review Focus -->
