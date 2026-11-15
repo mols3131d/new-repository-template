@@ -13,7 +13,7 @@ For Inbox working documents and files in `.configs/guides/` or `.configs/templat
 | Field | Meaning |
 | --- | --- |
 | `title` | Human-readable title when the path is insufficient |
-| `status` | The document's review state, not the work unit's progress; see [Lifecycle](lifecycle.md) |
+| `status` | Optional use state of an Inbox work record, not review approval or task progress; see [Lifecycle](lifecycle.md) |
 | `tags` | Topic labels, placed **last** in the frontmatter |
 
 Tags are a list of strings. Both plain labels and colon-separated paths are valid, such as `security`, `domain:domain_name` and `domain:identity:tokens`. Quote structured tags, do not use empty path segments, and do not assume a parent tag is present unless explicitly listed. No fixed taxonomy is required.
@@ -22,11 +22,11 @@ Tags are a list of strings. Both plain labels and colon-separated paths are vali
 ---
 description: "Read when comparing authentication options."
 title: "Authentication research"
-status: in-review
+status: active
 tags:
   - "domain:identity:tokens"
   - "security"
 ---
 ```
 
-Omit optional fields rather than emitting empty values. If present, `tags` is the **last metadata key**; `status` has only the values defined in the lifecycle guide. Replace all template placeholders and remove authoring comments before publishing the record.
+Omit optional fields rather than emitting empty values. If present, `tags` is the **last metadata key**; use `status` only for working records when actively tracking their lifecycle, with values defined in the lifecycle guide. Do not assign work-record status to guides or reusable templates. Replace placeholders and remove authoring comments in finished records.
