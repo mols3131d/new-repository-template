@@ -1,12 +1,13 @@
 # New Repository Template
 
-A technology-agnostic starter for **agent-assisted development**. It prepares reusable Skills through Rulesync and general development tools through mise, without assuming an application framework or CI provider.
+A technology-agnostic starter for **agent-assisted development**. It provides reusable Skills through Rulesync, shared tooling through mise, and an example GitHub Actions documentation check. A derived project chooses its application language and CI workflow.
 
 ## Start a project
 
-1. Select **Use this template** on GitHub, then replace this README's project description.
-2. Review [Initial Tool Setup](docs/tools/initial-setup.md) and the declared configuration. Install [mise](https://mise.jdx.dev/) yourself if required.
-3. After authorizing local tool installation and external Skill downloads, run these commands from the new repository:
+1. Select **Use this template** on GitHub.
+2. Use [Project Setup](docs/guides/project-setup.md) to choose the project's language, adapt the README and decide which example automation to keep.
+3. Review [Initial Tool Setup](docs/tools/initial-setup.md) before installing tools or downloading external Skills. Install [mise](https://mise.jdx.dev/) if required.
+4. After authorizing installation and downloads, run these commands from the new repository:
 
 ```sh
 mise install

@@ -12,6 +12,7 @@ This starter reserves clear ownership for common documentation subjects without 
 | [Architecture](architecture/README.md) | Component boundaries, design decisions and technical tradeoffs |
 | [Development](development/README.md) | Contributing, local development, verification and development practices |
 | [Documentation](documentation/README.md) | Writing standards, frontmatter metadata and index generation |
+| [Guides](guides/README.md) | Adapt the repository template and its example automation to a new project |
 | [Policies](policies/README.md) | Adopted project-wide policies not already owned by instructions or settings |
 | [Tools](tools/README.md) | Tool selection, setup, configuration, commands and update boundaries |
 
