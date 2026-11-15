@@ -8,7 +8,7 @@ Group related records by the work unit they support. Prefer an existing containe
 | Branch without an Issue/PR container | `.inbox/branch-<slug>/` |
 | Work without a stable identifier | `.inbox/YYYY-MM-DD/` |
 
-For date-based containers, use the date the container was first created. Keep a container flat: related files can share it, without nested subdirectories. `_guide/` is maintained guidance, not a work-unit container.
+For date-based containers, use the date the container was first created. Keep a work-unit container flat: related files share it without nested directories. `.configs/` holds reusable guidance and optional templates, not work records.
 
 ## File names
 
