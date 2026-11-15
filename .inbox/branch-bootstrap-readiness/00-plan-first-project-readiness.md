@@ -77,4 +77,4 @@ Likely owners: [project setup](../../docs/guides/project-setup.md), [documentati
 4. Run repository checks and relevant tests, compare resulting diffs and ensure `.inbox` isolation. Perform a self-review for over-design, unstated authorization, stale links and unsupported compatibility claims; keep the PR draft until substantive implementation and verification are complete.
 5. Transfer durable behavior and decisions to canonical configuration/docs, update the PR `Changes` and `Verification` with actual results, and retain this Inbox record only under its existing lifecycle.
 
-**Prepared, not implemented:** Baseline state and scope were inspected through GitHub. No fresh repository was instantiated; no `mise`, Rulesync, local hooks, real agent runtime or application tests were executed as part of this handoff.
+**At plan creation:** Only baseline state and scope had been inspected; no bootstrap or runtime was executed. For subsequent implementation commits, verification and remaining work, read the [session handoff](01-handoff-implementation-progress.md).
