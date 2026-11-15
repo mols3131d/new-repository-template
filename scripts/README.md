@@ -13,4 +13,4 @@ This directory contains project-owned executable helpers only when a native CLI 
 | Modify a script or introduce new automation | [Script maintenance](../docs/development/scripts.md) |
 | Verify the index generator's behavior | [Generator tests](../tests/generate-docs-index.test.ts); `npm run test:docs` |
 
-
+The TypeScript index generator is a working template example, not a required scripting language. [Adapt or replace it for the new project](../docs/guides/project-setup.md).

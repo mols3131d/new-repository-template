@@ -3,5 +3,6 @@ architecture/	Use when locating component boundaries, design decisions, dependen
 development/	Use for contributor setup, development practices, agent guidance and verification responsibilities.
 documentation/	Find document authoring standards and frontmatter-driven navigation guidance.
 goal/	Use when defining project outcomes, requirements, scope, non-goals and acceptance criteria.
+guides/	Start here when adapting the repository template to a project and choosing which example automation to retain.
 policies/	Use when recording adopted project-wide policies and their enforcement boundaries.
 tools/	Find installed development tools, version management policy and initial environment setup.

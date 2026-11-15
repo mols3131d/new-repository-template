@@ -16,6 +16,8 @@ mise run check
 
 The first `agents-setup` resolves upstream Skills and generates a `rulesync.lock` plus runtime projections and ignore changes. Review and commit only intended changes; [Initial Tool Setup](docs/tools/initial-setup.md) covers verification and future updates.
 
+Then follow [Project Setup](docs/guides/project-setup.md) to adapt example scripts, tests and CI to the new project's language and workflows.
+
 ## Included foundation
 
 | Area | Provisioning / entry |
