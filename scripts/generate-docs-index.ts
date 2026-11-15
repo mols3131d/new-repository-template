@@ -110,6 +110,10 @@ export function renderIndex(docs: string, maxDepth = 1): string {
 
 export function syncIndex(docs: string, check: boolean, maxDepth = 1): "current" | "updated" {
   const generated = renderIndex(docs, maxDepth);
+  // A shallow index is a navigation choice, not an exemption from metadata checks.
+  if (check && Number.isFinite(maxDepth)) {
+    renderIndex(docs, Number.POSITIVE_INFINITY);
+  }
   const target = join(docs, "INDEX.tsv");
   const current = existsSync(target) ? readFileSync(target, "utf8") : null;
 

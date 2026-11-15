@@ -10,7 +10,7 @@ import {
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import test, { type TestContext } from "node:test";
-import { descriptionFrom, renderIndex, syncIndex } from "../scripts/generate-docs-index.ts";
+import { descriptionFrom, main, renderIndex, syncIndex } from "../scripts/generate-docs-index.ts";
 
 function fixture(t: TestContext) {
   const root = mkdtempSync(join(tmpdir(), "docs-index-"));
@@ -118,4 +118,23 @@ test("TSV descriptions escape quotes", (t) => {
   const { docs, write } = fixture(t);
   write("quoted.md", '---\ndescription: "A \\"quoted\\" choice"\n---\n');
   assert.match(renderIndex(docs), /"A ""quoted"" choice"/);
+});
+
+test("check mode validates deeper metadata without expanding the shallow index", (t) => {
+  const { docs, write } = fixture(t);
+  write("area/README.md", '---\ndescription: "Area scope"\n---\n');
+  write("area/bad.md", "# missing metadata\n");
+  assert.equal(syncIndex(docs, false), "updated");
+  const original = readFileSync(join(docs, "INDEX.tsv"), "utf8");
+  assert.throws(() => syncIndex(docs, true), /missing YAML frontmatter/);
+  assert.equal(readFileSync(join(docs, "INDEX.tsv"), "utf8"), original);
+});
+
+test("CLI uses a custom root and supports read-only checks", (t) => {
+  const { docs, write } = fixture(t);
+  write("doc.md", '---\ndescription: "One"\n---\n');
+  assert.equal(main(["--root", docs, "--depth", "all"]), 0);
+  const original = readFileSync(join(docs, "INDEX.tsv"), "utf8");
+  assert.equal(main(["--root", docs, "--depth", "all", "--check"]), 0);
+  assert.equal(readFileSync(join(docs, "INDEX.tsv"), "utf8"), original);
 });

@@ -41,6 +41,6 @@ node scripts/generate-docs-index.ts --root docs/tools --depth all
 node scripts/generate-docs-index.ts --root docs/tools --depth all --check
 ```
 
-`--root` chooses the directory containing the resulting `INDEX.tsv`; `--depth 1` (default) indexes direct files and immediate directory scopes; `--depth all` includes nested documents. `--check` detects missing or stale output **without writing**. Symlinks in the traversed scope are rejected. Do not hand-edit generated indexes.
+`--root` chooses the directory containing the resulting `INDEX.tsv`; `--depth 1` (default) indexes direct files and immediate directory scopes; `--depth all` includes nested documents. `--check` detects missing or stale output **without writing**, and validates frontmatter throughout the selected directory even when the output remains shallow. Symlinks in the traversed scope are rejected. Do not hand-edit generated indexes.
 
 The [read-only CI check](../../.github/workflows/docs-index.yml) runs generator tests, type checking and drift detection; it never commits or pushes generated output. Dependencies are locked in [`package-lock.json`](../../package-lock.json). This tooling does not require the derived project to use Node.js for its application.
