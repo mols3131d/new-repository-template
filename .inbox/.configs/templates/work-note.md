@@ -1,15 +1,15 @@
 <!-- Optional starting point. Rename using the organization guide and remove unused headings and all placeholders. -->
 
-# <Topic>
+# [Topic]
 
 ## Purpose
 
-<What question or change does this record address?>
+[Question or intended change]
 
 ## Findings
 
-<Observations, evidence and decisions; distinguish confirmed facts from proposals.>
+[Observations and evidence; distinguish facts from proposals]
 
 ## Next steps
 
-<Remaining checks, blockers or actions, if any.>
+[Remaining checks, blockers or actions]

@@ -1,15 +1,15 @@
 <!-- Optional starting point. Rename using the organization guide and remove unused headings and all placeholders. -->
 
-# <Work topic> — handoff
+# [Work topic] — handoff
 
 ## Current state
 
-<What is complete, in progress or blocked?>
+[Completed, in-progress and blocked work]
 
 ## Evidence and verification
 
-<Relevant files, refs and checks actually run; note verification gaps.>
+[Relevant files, refs, checks actually run and verification gaps]
 
 ## Next actions
 
-<Concrete remaining work, dependencies and who can act, if known.>
+[Concrete next work and dependencies]
