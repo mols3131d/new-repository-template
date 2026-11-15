@@ -1,6 +1,6 @@
 # Inbox Lifecycle
 
-Inbox records support ongoing work; they do not define project policy or serve as a complete task tracker.
+Work-unit records support ongoing work; they do not define project policy or serve as a complete task tracker.
 
 1. **Active:** Investigate, review, revise and hand off records as needed. Keep unresolved work visible. Move durable decisions and verified knowledge to their canonical source, code, specification or project documentation.
 2. **Confirm completion:** Check actual remaining tasks and blockers. A PR being merged or closed, or a finding being copied into canonical documentation, does not by itself finish the work. Continue to maintain records while work remains.

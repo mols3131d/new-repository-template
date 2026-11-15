@@ -1,6 +1,6 @@
 # Inbox
 
-`.inbox/` holds working research, plans, reviews, drafts and handoffs. These records are **not** authoritative project documentation or instructions.
+`.inbox/` keeps temporary research, plans, reviews, drafts and handoffs separate from canonical project documentation. Work-unit records are **not** instructions or policy.
 
 Group related notes by work unit and update existing records before adding duplicates. See [Organization](_guide/organization.md) for locations and file names.
 
