@@ -1,7 +1,17 @@
+---
+description: "Read when changing mise tool version requests, shared tasks or installation behavior."
+---
+
 # mise
 
 [mise](https://mise.jdx.dev/) owns the shared tool version requests and project tasks. The executable source is [mise.toml](../../mise.toml), not this document. A project created from the template may add its application toolchain separately.
 
 After reviewing the file and authorizing changes to mise-managed installations and caches, run `mise install` to prepare tools. Use `mise run check` for shared, read-only checks or `mise run format` for an explicit repository-wide write. Prefer scoped formatter commands for ordinary small changes.
 
-Exact CLI pins in `mise.toml` are deliberate reproducibility choices; tool upgrades require reviewing upstream changes and the resulting output. A lockfile is not included or claimed verified by this template. The Rulesync external Skill revision lifecycle is owned by [Rulesync](rulesync.md), separately from CLI versions.
+## Version management
+
+mise itself is installed outside this repository's tool list, so it cannot pin its own executable. Review stable mise updates and its release notes before upgrading.
+
+The [tool matrix](README.md#version-management) applies **major-prefix requests to all managed tools**, with stricter review for formatters and asset generators. These are **mise prefixes**, not npm semver ranges; `mise upgrade` can resolve newer releases within the selected major. Since the starter ships no `mise.lock`, prefix requests do not guarantee identical resolved versions across machines. When a derived project needs reproducibility, validate and commit a mise lockfile with its chosen tool versions. Follow [Initial Tool Setup](initial-setup.md) before changes that install or rewrite files.
+
+Rulesync's external Skill revisions belong to [Rulesync](rulesync.md) and its own lockfile, separately from CLI version selection.

@@ -1,0 +1,41 @@
+name: Investigation / PoC
+description: Resolve a bounded uncertainty before deciding or implementing.
+title: "[Investigation] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Separate observations from hypotheses, and keep the proposed experiment narrow and safe.
+  - type: textarea
+    id: question
+    attributes:
+      label: Question or decision to resolve
+      description: Identify the blocked decision and the specific uncertainty to settle.
+    validations:
+      required: true
+  - type: textarea
+    id: plan
+    attributes:
+      label: Verification plan and stop condition
+      description: Name the smallest safe experiment, required environment and evidence, and when to stop even if the answer remains unknown.
+    validations:
+      required: true
+  - type: textarea
+    id: findings
+    attributes:
+      label: Evidence and starting points
+      description: Known contracts, paths, versions or observed results. Mark hypotheses and unrun checks explicitly.
+  - type: textarea
+    id: boundaries
+    attributes:
+      label: Boundaries and risks
+      description: Relevant environment, profile and permission limits when applicable. An issue is not authorization to switch accounts or perform side effects.
+  - type: textarea
+    id: agent_author
+    attributes:
+      label: Agent author (if agent-written)
+      description: "Only for agent-authored issues. Follow .github/templates/README.md; use unknown for unverified identity components."
+      placeholder: |
+        author:
+          - <user>:<provider>:<product>:<model>
+      render: yaml

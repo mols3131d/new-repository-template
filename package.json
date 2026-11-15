@@ -1,0 +1,20 @@
+{
+  "name": "new-repository-template",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=26"
+  },
+  "scripts": {
+    "docs:index": "node scripts/generate-docs-index.ts",
+    "docs:index:check": "node scripts/generate-docs-index.ts --check",
+    "test:docs": "node --test tests/generate-docs-index.test.ts",
+    "typecheck:scripts": "tsc --project tsconfig.scripts.json",
+    "docs:frontmatter:check": "node scripts/generate-docs-index.ts --validate README.md scripts/README.md .github/templates/README.md"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.6",
+    "typescript": "6.0.2",
+    "yaml": "2.9.1"
+  }
+}

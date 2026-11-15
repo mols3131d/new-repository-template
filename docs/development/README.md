@@ -1,3 +1,7 @@
+---
+description: "Use for contributor setup, development practices, agent guidance and verification responsibilities."
+---
+
 # Development
 
 Use this area for how contributors understand, change and verify a project. The template does not preselect an application language, build system or test runner.
@@ -8,8 +12,12 @@ Shared repository utilities, formatting, Git hooks and the Rulesync asset setup 
 
 Project-owned executable automation belongs in [scripts/](../../scripts/README.md) only when an existing native CLI or `mise` task is insufficient. The executable task declarations remain in [mise.toml](../../mise.toml).
 
+## Agent-assisted development
+
+Use [instruction ownership](agents/rule-ownership.md) to place repository and scoped guidance, and [harness verification](agents/harness.md) to distinguish configured assets from actual runtime behavior.
+
 ## When the project grows
 
 Document the actual source layout, local application setup, test/build commands, contribution workflow and CI requirements here when they exist. Describe decisions at the level contributors need, link to executable configuration and avoid speculative instructions.
 
-Product usage instructions belong in [Guides](../guides/README.md). Substantive system design rationale belongs in [Architecture](../architecture/README.md). Tool version and configuration guidance belongs in [Tools](../tools/README.md).
+Place end-user instructions with the derived project's actual product documentation once user workflows exist. Substantive system design rationale belongs in [Architecture](../architecture/README.md). Tool version and configuration guidance belongs in [Tools](../tools/README.md).

@@ -1,0 +1,49 @@
+name: Bug report
+description: Report an observed defect with enough context to investigate.
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Report observations, not assumed causes. Distinguish mock from live runtime evidence. Redact credentials, personal data, and sensitive logs.
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed behavior
+      description: What happened, in which component or context? Include the visible symptom or error.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Give the smallest known sequence and inputs; say if intermittent or not yet reproducible.
+      placeholder: |
+        1. ...
+        2. ...
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What observable behavior should occur? Reference a contract if known.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Relevant OS, application, runtime, configuration and checked versions. Use anonymous labels for multiple profiles; never expose account identifiers or guess versions.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and starting points
+      description: Sanitized logs or screenshots, relevant paths or links, checks actually run and results, and what remains unverified.
+  - type: textarea
+    id: agent_author
+    attributes:
+      label: Agent author (if agent-written)
+      description: "Only for agent-authored issues. Follow .github/templates/README.md; use unknown for unverified identity components."
+      placeholder: |
+        author:
+          - <user>:<provider>:<product>:<model>
+      render: yaml

@@ -1,0 +1,48 @@
+name: Feature proposal
+description: Propose a bounded improvement and its expected outcome.
+title: "[Proposal] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Link to canonical project context or architecture when available. Proposed capabilities and assumptions are not verified facts.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What concrete user or development problem is blocked or costly today?
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome
+      description: What should observably change? Do not prescribe an implementation unless it is a constraint.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Add independently observable conditions when known; refine them before implementation. Do not use progress checkboxes.
+      placeholder: |
+        - Given [scenario], [observable result]
+  - type: textarea
+    id: boundaries
+    attributes:
+      label: Scope and risks
+      description: Important exclusions, dependencies, capability assumptions, and account or permission constraints.
+  - type: textarea
+    id: references
+    attributes:
+      label: Starting points and references
+      description: Known files, API contracts, related issues or Change records. Leave unknown paths for investigation.
+  - type: textarea
+    id: agent_author
+    attributes:
+      label: Agent author (if agent-written)
+      description: "Only for agent-authored issues. Follow .github/templates/README.md; use unknown for unverified identity components."
+      placeholder: |
+        author:
+          - <user>:<provider>:<product>:<model>
+      render: yaml
