@@ -15,7 +15,6 @@ description: "[Review scope and criteria]"
 | --- | --- | --- | --- |
 | [Priority] | [Path/line or ref] | [Issue, evidence and impact] | [Recommended fix] |
 
-
 ## Verification
 
 [Checks actually run and results; distinguish skipped, failed and unverified checks]
