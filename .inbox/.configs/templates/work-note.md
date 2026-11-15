@@ -1,4 +1,4 @@
-<!-- Optional starting point. Rename using the organization guide and remove unused headings and all placeholders. -->
+<!-- Optional scaffold. Replace placeholders; remove unused sections and this comment. -->
 
 # [Topic]
 
@@ -6,10 +6,10 @@
 
 [Question or intended change]
 
-## Findings
+## Notes
 
-[Observations and evidence; distinguish facts from proposals]
+[Observations, evidence, decisions or open questions; distinguish facts from proposals]
 
 ## Next steps
 
-[Remaining checks, blockers or actions]
+[Remaining checks, blockers or actions; omit when none]

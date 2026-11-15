@@ -1,19 +1,19 @@
-<!-- Optional starting point. Rename using the organization guide and remove unused headings and all placeholders. -->
+<!-- Optional scaffold. Replace placeholders; remove unused sections and this comment. -->
 
 # [Research topic]
 
-## Question
+## Question and scope
 
 [Question, scope and assumptions]
 
+## Key findings
+
+[Evidence-backed conclusions; distinguish confirmed facts from inference and uncertainty]
+
 ## Evidence
 
-[Sources, observations and their dates when relevant; separate facts from inference]
+[Sources, observations and dates when relevant; link claims to evidence]
 
-## Analysis
+## Next checks
 
-[Implications, alternatives and remaining uncertainty]
-
-## Outcome
-
-[Supported conclusion, open questions or next checks]
+[Open questions, missing evidence or verification steps; omit if resolved]

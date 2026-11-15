@@ -1,4 +1,4 @@
-<!-- Optional starting point. Rename using the organization guide and remove unused headings and all placeholders. -->
+<!-- Optional scaffold. Replace placeholders, unused sections, examples and this comment. Keep the findings table only when it improves comparison. -->
 
 # [Review target]
 
@@ -8,12 +8,16 @@
 
 ## Findings
 
-[Prioritized issues with evidence, location and impact; record no findings if applicable]
+| Priority | Location | Finding and impact | Action |
+| --- | --- | --- | --- |
+| [Priority] | [Path/line or ref] | [Issue, evidence and impact] | [Recommended fix] |
+
+[Replace the table with concise prose for nuanced findings, or state no findings if supported]
 
 ## Verification
 
-[Checks actually performed and results; distinguish skipped or unverified checks]
+[Checks actually run and results; distinguish skipped, failed and unverified checks]
 
 ## Disposition
 
-[Required changes, residual risks and next action]
+[Required changes, residual risks and next decision; do not imply authorization]

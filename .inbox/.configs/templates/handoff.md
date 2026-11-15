@@ -1,15 +1,15 @@
-<!-- Optional starting point. Rename using the organization guide and remove unused headings and all placeholders. -->
+<!-- Optional scaffold. Replace placeholders; remove unused sections and this comment. Checkboxes represent concrete next actions, not estimated progress. -->
 
 # [Work topic] — handoff
 
 ## Current state
 
-[Completed, in-progress and blocked work]
+[Completed, in-progress and blocked work; name the work unit/ref]
 
 ## Evidence and verification
 
-[Relevant files, refs, checks actually run and verification gaps]
+[Relevant files, refs and checks actually run, with results and verification gaps]
 
 ## Next actions
 
-[Concrete next work and dependencies]
+- [ ] [Action, prerequisite or owner if known]
