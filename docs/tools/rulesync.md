@@ -8,11 +8,11 @@ description: "Read when installing, regenerating or updating external Skills and
 
 ## First setup
 
-After reviewing the source and requested targets and authorizing remote downloads and project writes, use `mise run agents-setup` to run the native dependency install, projection generation and generated ignore maintenance. Inspect and commit the resulting `rulesync.lock` and intended ignore changes.
+This starter does not ship an initial `rulesync.lock`: the first authorized `mise run agents-setup` resolves the declared sources and writes the lock, curated files, runtime projections and managed ignore entries. Review the resolved refs, source selections, lock and `.gitignore` diff before committing them. Never hand-author a guessed lock.
 
-Reinstall a previously established revision with `rulesync install --frozen` followed by `rulesync generate`. To deliberately move upstream Skill revisions, use `mise run agents-refresh`, inspect the lock/diff and then commit the intended update. `mise run agents-check` performs structural doctor/preview, not end-to-end runtime behavior evaluation.
+On later runs, use `mise run agents-restore` to install with `--frozen`, regenerate projections and maintain ignore entries. A missing or incomplete lock must **fail visibly** instead of silently resolving new revisions. Plain `rulesync install` also reuses valid lock entries, but can resolve entries added or changed in the manifest; reserve `mise run agents-refresh` (`--update`) for an explicit upstream revision update. Inspect resulting lock and generated diffs before committing.
 
-This starter has no initial `rulesync.lock`; inspect and commit it after the first authorized installation. Runtime activation requires a separate [harness check](../development/agents/harness.md).
+`mise run agents-check` performs structural doctor/preview, not an installation, locked restore or end-to-end runtime evaluation. Verify a representative target through [harness verification](../development/agents/harness.md).
 
 Do not edit generated projections; maintain asset selection and ownership through the [asset lifecycle](../development/agents/assets.md).
 

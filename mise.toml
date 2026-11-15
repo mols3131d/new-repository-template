@@ -23,6 +23,14 @@ run = [
   "rulesync gitignore --targets claudecode,codexcli,copilot,copilotcli,antigravity-ide,antigravity-cli,agentsskills --features skills",
 ]
 
+[tasks.agents-restore]
+description = "Restore selected Skills from a reviewed rulesync.lock; fail when it does not cover all sources"
+run = [
+  "rulesync install --frozen",
+  "rulesync generate",
+  "rulesync gitignore --targets claudecode,codexcli,copilot,copilotcli,antigravity-ide,antigravity-cli,agentsskills --features skills",
+]
+
 [tasks.agents-check]
 description = "Validate Rulesync configuration and preview generation (not runtime activation)"
 run = [

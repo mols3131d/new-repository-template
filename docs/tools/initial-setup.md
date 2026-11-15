@@ -10,7 +10,7 @@ Use this for shared development tools and Agent Skills, not an application build
 
 - Install [mise](https://mise.jdx.dev/) if needed. Inspect [`mise.toml`](../../mise.toml) and [`rulesync.jsonc`](../../rulesync.jsonc) for tasks, tools, external sources and targets.
 - Authorize installation, downloads and generated repository changes. Inspect mise configuration before approving trust.
-- No `rulesync.lock` ships with the template. Review and commit the lockfile produced by the first installation before relying on reproducible Skill revisions.
+- The template does not ship `rulesync.lock`; the first install resolves upstream refs. Inspect and commit the real generated lock before expecting repeatable Skill revisions.
 - Review the [version policy](README.md#version-management) if reproducible tool installs matter.
 
 ## First setup
@@ -34,8 +34,10 @@ mise run check
 
 Inspect `rulesync.lock`, [`.gitignore`](../../.gitignore) and generated projections. `agents-check` previews generation; `check` validates formatting, lint and hooks without writing.
 
-## Subsequent use
+## Subsequent use and recovery
 
-Reinstall a locked revision with `rulesync install --frozen` and `rulesync generate`. Use `mise run agents-refresh` only for intentional updates and review their diff. `mise run format` writes files; [Lefthook](lefthook.md) installation remains opt-in.
+Run `mise run agents-restore` for an accepted `rulesync.lock`. It uses `--frozen` and **fails** if the lock does not cover the current sources/selections; do not replace that failure with an implicit update. After repairing the manifest/lock mismatch through an explicitly reviewed change, run restore again. Use `mise run agents-refresh` only for intentional upstream updates and inspect its lock and projection diff.
+
+For a second setup, check `git status --short` before and after; rerunning `mise run setup` may also rewrite the clone-local Git commit-template setting. Restore does not install Lefthook or alter that setting. Tool versions specified by major line in `mise.toml` can still drift; review [version policy](README.md#version-management) and use `mise.lock` if exact tool reproducibility matters. `mise run format` writes files; [Lefthook](lefthook.md) remains opt-in.
 
 See [mise](mise.md) for tasks and [Rulesync](rulesync.md) for dependency maintenance.
