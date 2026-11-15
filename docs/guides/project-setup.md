@@ -21,13 +21,13 @@ The following files demonstrate a working documentation workflow. **Do not adopt
 | --- | --- |
 | [Index generator](../../scripts/generate-docs-index.ts) | If retaining document indexing, **prefer rewriting it in the project's chosen scripting language**. Keep TypeScript only as an intentional separate toolchain choice. |
 | [Generator tests](../../tests/generate-docs-index.test.ts) | Port the behavior checks to the project's test runner when the script changes. |
-| [`package.json`](../../package.json), `package-lock.json`, [`tsconfig.scripts.json`](../../tsconfig.scripts.json) | Replace or remove generator-specific Node/TypeScript dependencies and commands after their consumers have been migrated. |
+| [`package.json`](../../package.json), [`package-lock.json`](../../package-lock.json), [`tsconfig.scripts.json`](../../tsconfig.scripts.json) | Replace or remove generator-specific Node/TypeScript dependencies and commands after their consumers have been migrated. |
 | [Documentation CI](../../.github/workflows/docs-index.yml) | Update the runtime, commands and file triggers for the replacement script, tests and validations. |
 | [`mise.toml`](../../mise.toml), [`rulesync.jsonc`](../../rulesync.jsonc) | Keep useful shared tasks and Skills, remove unused selections and add the project's actual toolchain. Node.js may still be needed for npm-distributed CLIs even when the application and scripts use another language. |
 
 If retaining the index, preserve the behavior relevant to the project—including deterministic output, metadata validation, read-only checks and test coverage—using the [indexing contract](../documentation/indexing.md) as the reference. Generate [`docs/INDEX.tsv`](../INDEX.tsv) from source documents instead of editing it manually.
 
-If retiring the example index workflow, remove or replace its script, tests, npm commands, workflow and generated index, and revise references in [documentation guidance](../documentation/README.md), [agent instructions](../../AGENTS.md) and entrypoint READMEs. Do not leave broken commands or requirements for tooling the project no longer uses.
+If retiring document indexing, remove its script, tests, npm commands, CI workflow and generated index together. Update [document navigation](../documentation/README.md), [agent routing](../../AGENTS.md) and entrypoint links to a working replacement; do not leave stale commands or discovery paths.
 
 For new script implementation decisions, see [Script Maintenance](../development/scripts.md).
 

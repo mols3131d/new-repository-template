@@ -4,9 +4,10 @@ A technology-agnostic starter for **agent-assisted development**. It provides re
 
 ## Start a project
 
-1. Select **Use this template** on GitHub, then replace this README's project description.
-2. Review [Initial Tool Setup](docs/tools/initial-setup.md) and the declared configuration. Install [mise](https://mise.jdx.dev/) yourself if required.
-3. After authorizing local tool installation and external Skill downloads, run these commands from the new repository:
+1. Select **Use this template** on GitHub.
+2. Use [Project Setup](docs/guides/project-setup.md) to choose the project's language, adapt the README and decide which example automation to keep.
+3. Review [Initial Tool Setup](docs/tools/initial-setup.md) before installing tools or downloading external Skills. Install [mise](https://mise.jdx.dev/) if required.
+4. After authorizing installation and downloads, run these commands from the new repository:
 
 ```sh
 mise install
@@ -15,8 +16,6 @@ mise run check
 ```
 
 The first `agents-setup` resolves upstream Skills and generates a `rulesync.lock` plus runtime projections and ignore changes. Review and commit only intended changes; [Initial Tool Setup](docs/tools/initial-setup.md) covers verification and future updates.
-
-Then follow [Project Setup](docs/guides/project-setup.md) to adapt example scripts, tests and CI to the new project's language and workflows.
 
 ## Included foundation
 
