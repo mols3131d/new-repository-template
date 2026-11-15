@@ -19,7 +19,7 @@ The following files demonstrate a working documentation workflow. **Do not adopt
 
 | Template example | Adapt for the project |
 | --- | --- |
-| [Index generator](../../scripts/generate-docs-index.ts) | If retaining document indexing, rewrite it in the project's chosen scripting language, or explicitly keep TypeScript when appropriate. |
+| [Index generator](../../scripts/generate-docs-index.ts) | If retaining document indexing, **prefer rewriting it in the project's chosen scripting language**. Keep TypeScript only as an intentional separate toolchain choice. |
 | [Generator tests](../../tests/generate-docs-index.test.ts) | Port the behavior checks to the project's test runner when the script changes. |
 | [`package.json`](../../package.json), `package-lock.json`, [`tsconfig.scripts.json`](../../tsconfig.scripts.json) | Replace or remove generator-specific Node/TypeScript dependencies and commands after their consumers have been migrated. |
 | [Documentation CI](../../.github/workflows/docs-index.yml) | Update the runtime, commands and file triggers for the replacement script, tests and validations. |
