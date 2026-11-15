@@ -19,6 +19,8 @@ The actual requests and tasks live in [`mise.toml`](../../mise.toml). Major pref
 
 No application language, test framework or deployment tool is selected here.
 
+Document metadata and index generation are covered by [Frontmatter and index](../documentation/frontmatter.md). Their script and npm dependencies are separate from the shared CLI version matrix.
+
 ## Initial setup
 
 Follow [Initial Tool Setup](initial-setup.md) to review configuration, authorize installation, inspect generated files and run shared checks. These do not establish application-test results or agent-runtime activation.

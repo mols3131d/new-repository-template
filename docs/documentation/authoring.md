@@ -16,17 +16,17 @@ Use this guide to decide where project documentation belongs, how readers find i
 | Exact document or owner known | Link directly to the file or relevant section. |
 | Topic area known | Use the nearest useful directory README or the [documentation map](../README.md). |
 | Several distinct documents in one area | Add a short topic selector only when it removes real search effort. |
-| Broader discovery becomes costly | Evaluate searchable metadata or a generated index with a maintained source and consumer; do not add one by default. |
+| Topic owner unknown under `docs/` | Use the shallow [generated index](../INDEX.tsv), then follow the selected area. |
 
 - Keep entrypoints short. Include enough scope to choose the next document, not its full contents.
-- Use a clear title and, where it improves selection, a concise description of when to read the document. YAML frontmatter is optional unless the derived project adopts a consumer or policy that requires it.
+- Use a clear title and [frontmatter](frontmatter.md) `description` for each ordinary document in `docs/`. It should distinguish when to read that document.
 - Follow only the links that affect the current task. Preserve safety-critical prerequisites without loading unrelated documents.
 
 ## Review changes
 
 1. Check that the destination is the canonical owner and that navigation reaches it without unnecessary hops.
 2. Preserve meaningful facts, decisions, ordering, identifiers, sources, constraints, and exceptions. Distinguish implemented behavior, proposals, external claims, and actual verification evidence.
-3. Remove duplicate explanations, empty sections, speculative directories, and placeholders that look like established project facts.
+3. Remove duplicate explanations, empty sections, speculative directories, and placeholders that look like established project facts. Regenerate [the index](../INDEX.tsv) when document selection metadata changes.
 4. Check relative links and Markdown with the project's configured tooling when available. Report checks not run; document text alone is not runtime evidence.
 
 Prefer lower total reading and maintenance cost over minimum document length.

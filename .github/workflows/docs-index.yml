@@ -1,0 +1,38 @@
+name: Validate documentation index
+
+on:
+  pull_request:
+    paths:
+      - "docs/**"
+      - "scripts/generate-docs-index.ts"
+      - "tests/generate-docs-index.test.ts"
+      - "package.json"
+      - "package-lock.json"
+      - "tsconfig.scripts.json"
+  push:
+    paths:
+      - "docs/**"
+      - "scripts/generate-docs-index.ts"
+      - "tests/generate-docs-index.test.ts"
+      - "package.json"
+      - "package-lock.json"
+      - "tsconfig.scripts.json"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "26"
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run typecheck:scripts
+      - run: npm run test:docs
+      - run: npm run docs:index:check
