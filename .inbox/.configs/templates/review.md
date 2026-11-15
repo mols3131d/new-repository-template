@@ -1,4 +1,4 @@
-<!-- Optional scaffold. Replace placeholders, unused sections and this comment. Keep the findings table for comparable issues; otherwise use prose or a verified no-findings statement. -->
+<!-- Optional scaffold. Replace placeholders; remove unused sections and this comment. Keep the findings table for comparable issues; otherwise use prose or a verified no-findings statement. -->
 
 # [Review target]
 
