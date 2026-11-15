@@ -1,13 +1,13 @@
 # Common repository tooling. A derived project may change its application runtime
 # independently after reviewing compatibility with these tools.
-# Strict: rumdl/Biome minor prefixes; Rulesync exact. Loose: Node.js/Lefthook major prefixes.
+# All tools use major prefixes. Strict/loose labels affect review depth, not the allowed range.
 # See docs/tools/README.md. Prefixes permit resolution changes; no mise.lock ships with this starter.
 [tools]
 node = "26"
-rumdl = "0.3"
-"npm:@biomejs/biome" = "2.6"
+rumdl = "0"
+"npm:@biomejs/biome" = "2"
 lefthook = "2"
-"npm:rulesync" = "43.2.0"
+"npm:rulesync" = "43"
 
 [settings]
 task.run_auto_install = false

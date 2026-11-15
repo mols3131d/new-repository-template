@@ -14,6 +14,6 @@ Keep the source upstream unless explicitly adopting ownership into this project.
 
 ## Version management — strict
 
-Keep the Rulesync **CLI** on an exact version in [`mise.toml`](../../mise.toml). Its rapidly changing generators, config schema and target support can affect generated content even when a command still succeeds. Check upstream changes, then deliberately update the CLI, run `mise run agents-check`, inspect projection and ignore-file diffs, and verify representative target runtimes before accepting the change.
+Use a **major prefix** for the Rulesync CLI in [`mise.toml`](../../mise.toml), allowing minor and patch updates within that major. Its generators, config schema and target support can change even within a major line. Apply strict review when updating: inspect upstream changes, run `mise run agents-check`, compare projection and ignore-file diffs, and verify representative target runtimes. The major prefix does not prove runtime compatibility.
 
 The CLI version and Skill source revisions are independent. [`rulesync.jsonc`](../../rulesync.jsonc) declares upstream sources; the generated `rulesync.lock` records resolved Skill revisions after the first authorized install. Never treat an upgraded CLI as permission to silently refresh those sources.

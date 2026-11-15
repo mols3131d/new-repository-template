@@ -8,6 +8,6 @@ Keep the Biome schema and installed CLI compatible when updating. This formatter
 
 ## Version management — strict
 
-Use a **minor prefix** in [`mise.toml`](../../mise.toml). Keep the schema declaration in [`biome.json`](../../biome.json) compatible with the selected CLI; review release notes, configuration validation, lint changes and formatting diffs before moving to another minor line. Patch updates also require normal checks.
+Use a **major prefix** in [`mise.toml`](../../mise.toml), allowing minor and patch updates within that major. Use strict review for each upgrade: check release notes, configuration validation, lint changes and formatting diffs. The `$schema` URL in [`biome.json`](../../biome.json) is version-specific, so update it to match the resolved CLI version when necessary; a major prefix alone does not keep that URL synchronized.
 
 Biome supports Markdown, but this starter deliberately excludes `.md` and `.mdx` from its configured file set so [rumdl](rumdl.md) alone owns Markdown formatting. Revisit that boundary explicitly if a derived project changes formatters; `mise run format` is a repository-wide write.

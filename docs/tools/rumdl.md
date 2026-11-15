@@ -8,4 +8,4 @@ The configuration uses GFM and avoids forced prose line wrapping. When upgrading
 
 ## Version management — strict
 
-Use a **minor prefix** in [`mise.toml`](../../mise.toml) so ordinary patch updates remain available without automatically crossing a new rule/formatter minor line. Before changing that line, review release notes, run the repository's Markdown checks, and inspect formatting changes on representative documents. Underlying lint behavior can still change in patch releases; a prefix is not a compatibility guarantee.
+Use a **major prefix** in [`mise.toml`](../../mise.toml), allowing minor and patch updates within that major. rumdl is currently on major **0**, where minor releases can carry breaking changes; treat these as strict-review upgrades. Check release notes, run the repository's Markdown checks, and inspect representative formatting diffs. A shared major version is not a compatibility guarantee.

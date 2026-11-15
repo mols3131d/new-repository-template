@@ -8,6 +8,6 @@ After reviewing the file and authorizing changes to mise-managed installations a
 
 mise itself is installed outside this repository's tool list, so it cannot pin its own executable. Review stable mise updates and its release notes before upgrading.
 
-The [tool matrix](README.md#version-management) distinguishes strict (minor or exact) and loose (major) version requests. These are **mise prefixes**, not npm semver ranges; `mise upgrade` can resolve newer releases within an allowed prefix. Since the starter ships no `mise.lock`, prefix requests do not guarantee identical resolved versions across machines. When a derived project needs reproducibility, validate and commit a mise lockfile with its chosen tool versions. Follow [Initial Tool Setup](initial-setup.md) before changes that install or rewrite files.
+The [tool matrix](README.md#version-management) applies **major-prefix requests to all managed tools**, with stricter review for formatters and asset generators. These are **mise prefixes**, not npm semver ranges; `mise upgrade` can resolve newer releases within the selected major. Since the starter ships no `mise.lock`, prefix requests do not guarantee identical resolved versions across machines. When a derived project needs reproducibility, validate and commit a mise lockfile with its chosen tool versions. Follow [Initial Tool Setup](initial-setup.md) before changes that install or rewrite files.
 
 Rulesync's external Skill revisions belong to [Rulesync](rulesync.md) and its own lockfile, separately from CLI version selection.
