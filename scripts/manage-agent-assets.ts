@@ -251,7 +251,9 @@ type ParsedCliArgs =
 
 function parseRetireList(raw: string): string | null {
   const values = raw.split(",");
-  if (values.some((value) => value === "*" || !safeIdentifierPattern.test(value))) {
+  if (
+    values.some((value) => value === "*" || !safeIdentifierPattern.test(value))
+  ) {
     return null;
   }
   return [...new Set(values)].join(",");
