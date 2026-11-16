@@ -6,7 +6,7 @@ description: "Read when changing mise tool version requests, shared tasks or ins
 
 [mise](https://mise.jdx.dev/) owns the shared tool version requests and project tasks. Executable settings are in [`mise.toml`](../../mise.toml).
 
-After reviewing the file and authorizing changes to mise-managed installations and caches, run `mise install` to prepare tools. Use `mise run check` for shared, read-only checks or `mise run format` for an explicit repository-wide write. Prefer scoped formatter commands for ordinary small changes.
+After reviewing the file and authorizing changes to mise-managed installations and caches, run `mise install` to prepare tools. `agents-*` tasks delegate to the zero-dependency [agent asset manager](../../scripts/manage-agent-assets.ts) so target parsing and preflight checks stay consistent without `npm ci`. Use `mise run check` for shared, read-only checks or `mise run format` for an explicit repository-wide write. Prefer scoped formatter commands for ordinary small changes.
 
 ## Version management
 

@@ -1,6 +1,6 @@
 # New Repository Template
 
-A technology-agnostic starter for **agent-assisted development**. It provides reusable Skills through Rulesync, shared tooling through mise, and an example GitHub Actions documentation check. A derived project chooses its application language and CI workflow.
+A technology-agnostic starter for **agent-assisted development**. It provides reusable Skills through Rulesync, shared tooling through mise, and GitHub Actions checks for repository tooling and documentation indexing. A derived project chooses its application language and CI workflow.
 
 ## Start a project
 
@@ -33,7 +33,8 @@ mise run check
 | --- | --- |
 | Format Markdown and supported code/config files | `mise run format` (writes across repository) |
 | Check Markdown, Biome and Lefthook configuration | `mise run check` |
-| Preview/check Rulesync setup | `mise run agents-check` |
+| Check Rulesync configuration | `mise run agents-check` |
+| Preview Rulesync projections (after setup) | `mise run agents-preview` |
 | Restore accepted Skill revisions (requires lockfile) | `mise run agents-restore` |
 | Update upstream Skill revisions deliberately | `mise run agents-refresh` |
 
