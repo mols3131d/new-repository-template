@@ -21,17 +21,17 @@ export function descriptionFrom(path: string): string {
     .split(/\r?\n/);
 
   if (lines[0] !== "---") {
-    throw new Error(path + ": missing YAML frontmatter");
+    throw new Error(`${path}: missing YAML frontmatter`);
   }
   const closing = lines.indexOf("---", 1);
   if (closing === -1) {
-    throw new Error(path + ": unclosed YAML frontmatter");
+    throw new Error(`${path}: unclosed YAML frontmatter`);
   }
 
   const document = parseDocument(lines.slice(1, closing).join("\n"));
   if (document.errors.length > 0) {
     throw new Error(
-      path + ": invalid YAML frontmatter: " + document.errors[0].message,
+      `${path}: invalid YAML frontmatter: ${document.errors[0].message}`,
     );
   }
   const metadata: unknown = document.toJS();
@@ -41,7 +41,7 @@ export function descriptionFrom(path: string): string {
     Array.isArray(metadata) ||
     typeof (metadata as Record<string, unknown>).description !== "string"
   ) {
-    throw new Error(path + ": frontmatter must contain a string description");
+    throw new Error(`${path}: frontmatter must contain a string description`);
   }
 
   const description = (
@@ -51,20 +51,18 @@ export function descriptionFrom(path: string): string {
     .filter(Boolean)
     .join(" ");
   if (!description) {
-    throw new Error(path + ": empty frontmatter description");
+    throw new Error(`${path}: empty frontmatter description`);
   }
   return description;
 }
 
 function tsvCell(value: string): string {
-  return /["\t\r\n]/u.test(value)
-    ? '"' + value.replaceAll('"', '""') + '"'
-    : value;
+  return /["\t\r\n]/u.test(value) ? `"${value.replaceAll('"', '""')}"` : value;
 }
 
 export function renderIndex(docs: string, maxDepth = 1): string {
   if (!existsSync(docs) || !lstatSync(docs).isDirectory()) {
-    throw new Error(docs + ": documentation directory does not exist");
+    throw new Error(`${docs}: documentation directory does not exist`);
   }
 
   const entries: Array<[string, string]> = [];
@@ -73,14 +71,14 @@ export function renderIndex(docs: string, maxDepth = 1): string {
       const path = join(directory, name);
       const stat = lstatSync(path);
       if (stat.isSymbolicLink()) {
-        throw new Error(path + ": symlinks are not indexed");
+        throw new Error(`${path}: symlinks are not indexed`);
       }
 
       if (stat.isDirectory()) {
         const readme = join(path, "README.md");
         if (existsSync(readme) && lstatSync(readme).isFile()) {
           entries.push([
-            relative(docs, path).split(sep).join("/") + "/",
+            `${relative(docs, path).split(sep).join("/")}/`,
             descriptionFrom(readme),
           ]);
         }
@@ -107,8 +105,7 @@ export function renderIndex(docs: string, maxDepth = 1): string {
     "path\tdescription\n" +
     entries
       .map(
-        ([path, description]) =>
-          tsvCell(path) + "\t" + tsvCell(description) + "\n",
+        ([path, description]) => `${tsvCell(path)}\t${tsvCell(description)}\n`,
       )
       .join("")
   );
@@ -125,7 +122,7 @@ export function syncIndex(
     const entrypoint = join(docs, "README.md");
     if (existsSync(entrypoint)) {
       if (lstatSync(entrypoint).isSymbolicLink()) {
-        throw new Error(entrypoint + ": symlinks are not indexed");
+        throw new Error(`${entrypoint}: symlinks are not indexed`);
       }
       descriptionFrom(entrypoint);
     }
@@ -141,7 +138,7 @@ export function syncIndex(
   }
   if (check) {
     throw new Error(
-      target + ": INDEX.tsv is missing or stale; regenerate the index",
+      `${target}: INDEX.tsv is missing or stale; regenerate the index`,
     );
   }
   writeFileSync(target, generated, "utf8");
@@ -183,12 +180,13 @@ export function main(
       for (const path of args.slice(1)) {
         descriptionFrom(resolve(path));
       }
-      console.log("Validated frontmatter in " + (args.length - 1) + " file(s)");
+      console.log(`Validated frontmatter in ${args.length - 1} file(s)`);
       return 0;
     } catch (error) {
       console.error(
-        "Frontmatter validation failed: " +
-          (error instanceof Error ? error.message : String(error)),
+        `Frontmatter validation failed: ${
+          error instanceof Error ? error.message : String(error)
+        }`,
       );
       return 1;
     }
@@ -218,7 +216,7 @@ export function main(
       } else if (/^[1-9]\d*$/u.test(value)) {
         depth = Number(value);
       } else {
-        console.error("Invalid --depth: " + value);
+        console.error(`Invalid --depth: ${value}`);
         return 2;
       }
     } else {
@@ -233,13 +231,14 @@ export function main(
     console.log(
       status === "current"
         ? "INDEX.tsv is up to date"
-        : "Updated " + join(root, "INDEX.tsv"),
+        : `Updated ${join(root, "INDEX.tsv")}`,
     );
     return 0;
   } catch (error) {
     console.error(
-      "Index generation failed: " +
-        (error instanceof Error ? error.message : String(error)),
+      `Index generation failed: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
     );
     return 1;
   }

@@ -19,6 +19,8 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: jdx/mise-action@v5
+      - run: mise exec -- npm ci --ignore-scripts
+      - run: mise exec -- npm run typecheck:scripts
       - run: mise run agents-check
       - run: mise exec -- node --test tests/manage-agent-assets.test.ts
       - run: |
