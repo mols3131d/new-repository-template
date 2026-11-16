@@ -41,10 +41,6 @@ style = "dash"
 [MD029]
 style = "ordered"
 
-[MD033]
-disallowed-elements = ["gfm"]
-fix = false
-
 [MD046]
 style = "fenced"
 
