@@ -21,25 +21,34 @@ function fixture(t: TestContext) {
   return { root, write };
 }
 
-test("stripJsonc preserves strings while stripping comments and trailing commas", () => {
-  const raw = `{
+test("stripJsonc handles BOM, escaped quotes, comments, and trailing commas", () => {
+  const raw = `\uFEFF{
     // Line comment
     "$schema": "https://example.com/schema.json", /* block
     comment */
+    "escaped": "a\\"//not-comment",
     "url": "https://github.com/org/repo,}",
     "targets": ["claudecode", /* trailing */ ],
   }`;
   const parsed = JSON.parse(stripJsonc(raw)) as {
     $schema: string;
+    escaped: string;
     url: string;
     targets: string[];
   };
   assert.equal(parsed.$schema, "https://example.com/schema.json");
+  assert.equal(parsed.escaped, 'a"//not-comment');
   assert.equal(parsed.url, "https://github.com/org/repo,}");
   assert.deepEqual(parsed.targets, ["claudecode"]);
 });
 
-test("parseRulesyncSelection handles object targets, array local overlay, and cmd-safe validation", (t) => {
+test("parseRulesyncSelection handles object/array overlays, missing config, and cmd-safe checks", (t) => {
+  const empty = fixture(t);
+  assert.throws(
+    () => parseRulesyncSelection(empty.root),
+    /configuration file not found/,
+  );
+
   const { root, write } = fixture(t);
   write(
     "rulesync.jsonc",
@@ -49,6 +58,7 @@ test("parseRulesyncSelection handles object targets, array local overlay, and cm
         "codexcli": {
           "skills": true,
           "rules": false,
+          "ignoredArray": ["skills"],
           "gitignoreDestination": "gitexclude"
         }
       }
@@ -57,6 +67,19 @@ test("parseRulesyncSelection handles object targets, array local overlay, and cm
   assert.deepEqual(parseRulesyncSelection(root), {
     targets: ["claudecode", "codexcli"],
     features: ["skills"],
+  });
+
+  write(
+    "rulesync.local.jsonc",
+    `{
+      "targets": {
+        "copilot": ["rules", "skills"]
+      }
+    }`,
+  );
+  assert.deepEqual(parseRulesyncSelection(root), {
+    targets: ["copilot"],
+    features: ["rules", "skills"],
   });
 
   write(
@@ -82,7 +105,7 @@ test("parseRulesyncSelection handles object targets, array local overlay, and cm
   );
 });
 
-test("setup, restore, and refresh pass derived gitignore args and surface install hints", (t) => {
+test("setup, restore, and refresh pass derived gitignore args and stop on step failures", (t) => {
   const { root, write } = fixture(t);
   write(
     "rulesync.jsonc",
@@ -120,18 +143,58 @@ test("setup, restore, and refresh pass derived gitignore args and surface instal
     ]);
   }
 
-  write("rulesync.lock", "{}");
-  const setupErrors: string[] = [];
+  calls.length = 0;
+  assert.equal(
+    main(["setup", "--root", root], root, {
+      runCommand: (_cmd, args) => {
+        calls.push(args);
+        return { status: args[0] === "generate" ? 1 : 0 };
+      },
+    }),
+    1,
+  );
+  assert.deepEqual(calls, [["install"], ["generate"]]);
+});
+
+test("install failures tailor rate-limit and partial-lock hints by command and lock presence", (t) => {
+  const { root, write } = fixture(t);
+  write("rulesync.jsonc", `{"targets":["claudecode"],"features":["skills"]}`);
+
+  const restoreNoLockErrors: string[] = [];
+  assert.equal(
+    main(["restore", "--root", root], root, {
+      runCommand: () => ({ status: 1 }),
+      env: {},
+      stderr: (line) => restoreNoLockErrors.push(line),
+    }),
+    1,
+  );
+  assert.equal(restoreNoLockErrors.length, 0);
+
+  const setupNoLockErrors: string[] = [];
   assert.equal(
     main(["setup", "--root", root], root, {
       runCommand: () => ({ status: 1 }),
       env: {},
-      stderr: (line) => setupErrors.push(line),
+      stderr: (line) => setupNoLockErrors.push(line),
     }),
     1,
   );
-  assert.match(setupErrors.join("\n"), /GITHUB_TOKEN or GH_TOKEN/);
-  assert.match(setupErrors.join("\n"), /rerun 'mise run setup'/);
+  assert.match(setupNoLockErrors.join("\n"), /GITHUB_TOKEN or GH_TOKEN/);
+  assert.doesNotMatch(setupNoLockErrors.join("\n"), /partial install/);
+
+  write("rulesync.lock", "{}");
+  const setupWithLockErrors: string[] = [];
+  assert.equal(
+    main(["setup", "--root", root], root, {
+      runCommand: () => ({ status: 1 }),
+      env: {},
+      stderr: (line) => setupWithLockErrors.push(line),
+    }),
+    1,
+  );
+  assert.match(setupWithLockErrors.join("\n"), /GITHUB_TOKEN or GH_TOKEN/);
+  assert.match(setupWithLockErrors.join("\n"), /rerun 'mise run setup'/);
 
   const refreshErrors: string[] = [];
   assert.equal(
@@ -146,7 +209,7 @@ test("setup, restore, and refresh pass derived gitignore args and surface instal
   assert.doesNotMatch(refreshErrors.join("\n"), /GITHUB_TOKEN/);
 });
 
-test("check, preview, --help, and usage errors work cleanly", (t) => {
+test("check, preview short-circuit, --help, and usage errors work cleanly", (t) => {
   const { root } = fixture(t);
   const calls: string[][] = [];
   const runner: CommandRunner = (_cmd, args) => {
@@ -169,6 +232,18 @@ test("check, preview, --help, and usage errors work cleanly", (t) => {
     ["doctor", "--strict"],
     ["generate", "--dry-run"],
   ]);
+
+  calls.length = 0;
+  assert.equal(
+    main(["preview", "--root", root], root, {
+      runCommand: (_cmd, args) => {
+        calls.push(args);
+        return { status: 1 };
+      },
+    }),
+    1,
+  );
+  assert.deepEqual(calls, [["doctor", "--strict"]]);
 
   assert.equal(main(["unknown"], root, { stderr: () => {} }), 2);
 

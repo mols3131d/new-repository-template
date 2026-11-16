@@ -118,7 +118,8 @@ function collectTargetFeatures(spec: unknown): string[] {
       .filter(
         ([key, val]) =>
           key !== "gitignoreDestination" &&
-          (val === true || (val !== null && typeof val === "object")),
+          (val === true ||
+            (val !== null && typeof val === "object" && !Array.isArray(val))),
       )
       .map(([key]) => key);
   }
