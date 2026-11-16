@@ -10,7 +10,12 @@ import {
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import test, { type TestContext } from "node:test";
-import { descriptionFrom, main, renderIndex, syncIndex } from "../scripts/generate-docs-index.ts";
+import {
+  descriptionFrom,
+  main,
+  renderIndex,
+  syncIndex,
+} from "../scripts/generate-docs-index.ts";
 
 function fixture(t: TestContext) {
   const root = mkdtempSync(join(tmpdir(), "docs-index-"));
@@ -41,21 +46,24 @@ test("indexes nested documents and directory README scopes deterministically", (
     "development/deep/guide.md\tWork guide\n";
   assert.equal(renderIndex(docs, Number.POSITIVE_INFINITY), expected);
   assert.equal(renderIndex(docs, Number.POSITIVE_INFINITY), expected);
-  assert.equal(renderIndex(docs), "path\tdescription\nGOAL.md\tProduct goals\ndevelopment/\tDevelopment area\n");
+  assert.equal(
+    renderIndex(docs),
+    "path\tdescription\nGOAL.md\tProduct goals\ndevelopment/\tDevelopment area\n",
+  );
 });
 
 test("normalizes folded multiline YAML and UTF-8 BOM", (t) => {
   const { write } = fixture(t);
   const path = write(
     "guides/test.md",
-    '\uFEFF---\ndescription: >-\n  Choose when reviewing\n  a test result.\n---\n',
+    "\uFEFF---\ndescription: >-\n  Choose when reviewing\n  a test result.\n---\n",
   );
   assert.equal(descriptionFrom(path), "Choose when reviewing a test result.");
 });
 
 test("fails closed on missing, malformed, and invalid frontmatter", (t) => {
   const { docs, write } = fixture(t);
-  const path = write("bad.md", "# No metadata\n");
+  write("bad.md", "# No metadata\n");
   assert.throws(() => renderIndex(docs), /missing YAML frontmatter/);
   write("bad.md", "---\ndescription: [\n---\n");
   assert.throws(() => renderIndex(docs), /invalid YAML frontmatter/);
@@ -141,7 +149,10 @@ test("CLI uses a custom root and supports read-only checks", (t) => {
 
 test("standalone frontmatter validation is read-only", (t) => {
   const { write } = fixture(t);
-  const doc = write("doc.md", '---\ndescription: "Select when checking metadata"\n---\n\n# Doc\n');
+  const doc = write(
+    "doc.md",
+    '---\ndescription: "Select when checking metadata"\n---\n\n# Doc\n',
+  );
   const before = readFileSync(doc, "utf8");
   assert.equal(main(["--validate", doc]), 0);
   assert.equal(readFileSync(doc, "utf8"), before);
@@ -157,7 +168,10 @@ test("standalone frontmatter validation rejects missing metadata or input", (t) 
 
 test("check mode validates root README without indexing it", (t) => {
   const { docs, write } = fixture(t);
-  write("README.md", '---\ndescription: "Docs entrypoint"\n---\n# Documentation\n');
+  write(
+    "README.md",
+    '---\ndescription: "Docs entrypoint"\n---\n# Documentation\n',
+  );
   write("area/README.md", '---\ndescription: "Area"\n---\n');
   assert.equal(syncIndex(docs, false), "updated");
   const index = join(docs, "INDEX.tsv");
@@ -168,4 +182,17 @@ test("check mode validates root README without indexing it", (t) => {
   write("README.md", "# Missing frontmatter\n");
   assert.throws(() => syncIndex(docs, true), /missing YAML frontmatter/);
   assert.equal(readFileSync(index, "utf8"), original);
+});
+
+test("CLI --help and -h print concise usage to stdout and exit 0", (t) => {
+  const logged: unknown[] = [];
+  t.mock.method(console, "log", (...args: unknown[]) => {
+    logged.push(args.join(" "));
+  });
+  assert.equal(main(["--help"]), 0);
+  assert.equal(main(["-h"]), 0);
+  assert.equal(logged.length, 2);
+  assert.equal(logged[0], logged[1]);
+  assert.match(String(logged[0]), /--validate FILE/);
+  assert.match(String(logged[0]), /Read-only:/);
 });

@@ -17,25 +17,27 @@ run = "git config --local commit.template .gitmessage"
 
 [tasks.agents-setup]
 description = "Resolve external Skills, generate native projections, and maintain generated ignore entries"
-run = [
-  "rulesync install",
-  "rulesync generate",
-  "rulesync gitignore --targets claudecode,codexcli,copilot,copilotcli,antigravity-ide,antigravity-cli,agentsskills --features skills",
-]
+run = "node scripts/manage-agent-assets.ts setup"
+
+[tasks.agents-restore]
+description = "Restore selected Skills from a reviewed rulesync.lock; fail when it does not cover all sources"
+run = "node scripts/manage-agent-assets.ts restore"
 
 [tasks.agents-check]
-description = "Validate Rulesync configuration and preview generation (not runtime activation)"
-run = [
-  "rulesync doctor --strict",
-  "rulesync generate --dry-run",
-]
+description = "Validate Rulesync configuration without requiring installed .rulesync artifacts (not runtime activation)"
+run = "node scripts/manage-agent-assets.ts check"
+
+[tasks.agents-preview]
+description = "Preview Rulesync target projections after setup or restore (requires .rulesync)"
+run = "node scripts/manage-agent-assets.ts preview"
 
 [tasks.agents-refresh]
-description = "Explicitly update upstream Skill revisions and regenerate target projections"
-run = [
-  "rulesync install --update",
-  "rulesync generate",
-]
+description = "Explicitly update upstream Skill revisions, regenerate target projections, and maintain ignore entries"
+run = "node scripts/manage-agent-assets.ts refresh"
+
+[tasks.agents-retire]
+description = "Preview retired target/feature cleanup; add --apply to remove generated outputs and sync ignores"
+run = "node scripts/manage-agent-assets.ts retire"
 
 [tasks.format]
 description = "Format Markdown and Biome-supported files across the repository; writes changes"

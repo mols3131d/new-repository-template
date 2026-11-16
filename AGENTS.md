@@ -20,4 +20,3 @@
 - For Markdown changes, use the [frontmatter](docs/documentation/frontmatter.md) and [shared tooling](docs/tools/README.md) contracts; review formatting diffs.
 - If a tool, dependency, test, independent agent, or runtime is unavailable, distinguish verified work from partial, skipped, or unverified work. Optional omissions cannot stand in for required verification.
 - Check the actual diff and relevant documentation, and state material limitations and next steps. A PR, check mark, or generated output does not grant merge permission.
-

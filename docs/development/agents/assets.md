@@ -16,4 +16,3 @@ Use when selecting, updating or retiring reusable Agent Assets. [Rulesync](../..
 ## Verify what changed
 
 Distinguish a **declared selection** from a **generated projection**, a **runtime-reachable asset**, and **observed behavior**. A matching manifest, lockfile or generated directory cannot establish that the target runtime loaded and followed the asset. Use [Harness verification](harness.md) for representative checks and report unavailable runtimes as unverified.
-
