@@ -103,6 +103,19 @@ test("parseRulesyncSelection handles object/array overlays, missing config, and 
     () => parseRulesyncSelection(root),
     /invalid target identifier/,
   );
+
+  write(
+    "rulesync.local.jsonc",
+    `{
+      "targets": {
+        "claudecode": [123]
+      }
+    }`,
+  );
+  assert.throws(
+    () => parseRulesyncSelection(root),
+    /invalid feature identifier/,
+  );
 });
 
 test("setup, restore, and refresh pass derived gitignore args and stop on step failures", (t) => {

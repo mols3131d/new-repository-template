@@ -109,9 +109,9 @@ function uniqueSafeIdentifiers(
   return unique;
 }
 
-function collectTargetFeatures(spec: unknown): string[] {
+function collectTargetFeatures(spec: unknown): unknown[] {
   if (Array.isArray(spec)) {
-    return spec.filter((item): item is string => typeof item === "string");
+    return spec;
   }
   if (spec !== null && typeof spec === "object") {
     return Object.entries(spec as Record<string, unknown>)
