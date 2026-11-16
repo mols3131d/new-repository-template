@@ -35,6 +35,10 @@ run = "node scripts/manage-agent-assets.ts preview"
 description = "Explicitly update upstream Skill revisions, regenerate target projections, and maintain ignore entries"
 run = "node scripts/manage-agent-assets.ts refresh"
 
+[tasks.agents-retire]
+description = "Preview retired target/feature cleanup; add --apply to remove generated outputs and sync ignores"
+run = "node scripts/manage-agent-assets.ts retire"
+
 [tasks.format]
 description = "Format Markdown and Biome-supported files across the repository; writes changes"
 run = [

@@ -273,3 +273,119 @@ test("check, preview short-circuit, --help, and usage errors work cleanly", (t) 
   assert.match(help.join("\n"), /Commands:/);
   assert.equal(shortHelp.join("\n"), help.join("\n"));
 });
+
+test("retire previews exact targets and features without installs or ignore writes", (t) => {
+  const { root } = fixture(t);
+  const calls: string[][] = [];
+  const runner: CommandRunner = (_cmd, args) => {
+    calls.push(args);
+    return { status: 0 };
+  };
+
+  assert.equal(
+    main(
+      [
+        "retire",
+        "claudecode,codexcli,claudecode",
+        "--features",
+        "skills",
+        "--root",
+        root,
+      ],
+      root,
+      { runCommand: runner },
+    ),
+    0,
+  );
+  assert.deepEqual(calls, [
+    [
+      "generate",
+      "--retire-targets",
+      "claudecode,codexcli",
+      "--features",
+      "skills",
+      "--dry-run",
+    ],
+  ]);
+});
+
+test("retire applies only with --apply, then refreshes ignores", (t) => {
+  const { root, write } = fixture(t);
+  write("rulesync.jsonc", '{"targets":{"antigravity-ide":["skills"]}}');
+  const calls: string[][] = [];
+  const runner: CommandRunner = (_cmd, args) => {
+    calls.push(args);
+    return { status: 0 };
+  };
+
+  const argv = [
+    "retire",
+    "claudecode",
+    "--features",
+    "skills",
+    "--apply",
+    "--root",
+    root,
+  ];
+  assert.equal(main(argv, root, { runCommand: runner }), 0);
+  assert.deepEqual(calls, [
+    ["generate", "--retire-targets", "claudecode", "--features", "skills"],
+    ["gitignore", "--targets", "antigravity-ide", "--features", "skills"],
+  ]);
+
+  calls.length = 0;
+  assert.equal(
+    main(argv, root, {
+      runCommand: (_cmd, args) => {
+        calls.push(args);
+        return { status: 1 };
+      },
+    }),
+    1,
+  );
+  assert.deepEqual(calls, [
+    ["generate", "--retire-targets", "claudecode", "--features", "skills"],
+  ]);
+});
+
+test("retire rejects unsafe, incomplete, or ambiguous arguments without running commands", (t) => {
+  const { root, write } = fixture(t);
+  const calls: string[][] = [];
+  const runner: CommandRunner = (_cmd, args) => {
+    calls.push(args);
+    return { status: 0 };
+  };
+
+  for (const args of [
+    ["retire"],
+    ["retire", "claudecode"],
+    ["retire", "*", "--features", "skills"],
+    ["retire", "claudecode", "--features", "*"],
+    ["retire", "claudecode,", "--features", "skills"],
+    ["retire", "claudecode", "--features", "skills,"],
+    ["retire", "claudecode", "--features", "skills", "--apply", "--apply"],
+    ["check", "--apply"],
+  ]) {
+    assert.equal(main(args, root, { runCommand: runner, stderr: () => {} }), 2);
+  }
+  assert.deepEqual(calls, []);
+
+  write("rulesync.jsonc", '{"targets":{}}');
+  assert.equal(
+    main(
+      [
+        "retire",
+        "claudecode",
+        "--features",
+        "skills",
+        "--apply",
+        "--root",
+        root,
+      ],
+      root,
+      { runCommand: runner, stderr: () => {} },
+    ),
+    1,
+  );
+  assert.deepEqual(calls, []);
+});

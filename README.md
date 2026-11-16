@@ -37,6 +37,7 @@ mise run check
 | Preview Rulesync projections (after setup) | `mise run agents-preview` |
 | Restore accepted Skill revisions (requires lockfile) | `mise run agents-restore` |
 | Update upstream Skill revisions deliberately | `mise run agents-refresh` |
+| Preview/apply removal of retired runtime outputs | `mise run agents-retire -- <targets> --features <features> [--apply]` ([guide](docs/tools/rulesync.md#retire-a-target-or-feature)) |
 
 Git hook installation is **optional**, not part of the default setup. Follow [Tools](docs/tools/README.md) for scoped formatting, hook safety and version updates. `mise run check` does not run an application test suite, and a Skill manifest does not prove runtime activation.
 

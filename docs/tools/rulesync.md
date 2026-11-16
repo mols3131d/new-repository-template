@@ -16,6 +16,17 @@ On later runs, use `mise run agents-restore` to install with `--frozen`, regener
 
 Because Google Antigravity does not load rules, workflows or skills when they are listed in `.gitignore`, [`rulesync.jsonc`](../../rulesync.jsonc) sets `"gitignoreDestination": "gitexclude"` on the shared `.agents/skills/` targets (`codexcli`, `antigravity-ide`, `antigravity-cli`, `agentsskills`). Running `rulesync gitignore` writes `**/.agents/skills/` to clone-local `.git/info/exclude` while keeping shared `.gitignore` entries for `.rulesync/skills/.curated/`, `rulesync.local.jsonc`, `**/.claude/skills/` and `**/.github/skills/`. Because `rulesync gitignore` takes one combined `--features` list, targets with mixed features apply their combined feature set to managed ignore entries.
 
+## Retire a target or feature
+
+Removing a tool or feature from `rulesync.jsonc` does **not** remove that target's previously generated outputs, even with `"delete": true`. After removing the selection, explicitly retire its old outputs using the features it previously generated:
+
+```sh
+mise run agents-retire -- claudecode --features skills
+mise run agents-retire -- claudecode --features skills --apply
+```
+
+The first command is a read-only `rulesync generate --retire-targets ... --dry-run` preview. `--apply` delegates deletion to Rulesync, then resynchronizes managed `.gitignore` / `.git/info/exclude` entries for active targets; it does not install or update upstream dependencies. Pass comma-separated target and feature names when retiring several. The wrapper rejects wildcards, requires explicit feature names and never infers historical targets. Rulesync rejects retirement of features still enabled for a selected target. Managed outputs may include hand-edited files: inspect the preview and preserve any needed work under its canonical source before applying. Check `git status --short` and `git diff` afterward. For [native retirement semantics](https://rulesync.dyoshikawa.com/reference/cli-commands#generate-command), see the upstream CLI reference.
+
 Do not edit generated projections; maintain asset selection and ownership through the [asset lifecycle](../development/agents/assets.md).
 
 ## Version management — strict

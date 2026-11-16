@@ -11,7 +11,8 @@ export type AgentCommand =
   | "restore"
   | "refresh"
   | "check"
-  | "preview";
+  | "preview"
+  | "retire";
 
 export interface RulesyncSelection {
   targets: string[];
@@ -44,6 +45,7 @@ const installArgsByCommand = {
 
 const helpText = [
   "Usage: node scripts/manage-agent-assets.ts <command> [--root DIRECTORY]",
+  "       node scripts/manage-agent-assets.ts retire <targets> --features <features> [--apply] [--root DIRECTORY]",
   "",
   "Commands:",
   "  setup     Install skills, generate projections, and sync ignores",
@@ -51,9 +53,12 @@ const helpText = [
   "  refresh   Update upstream skills, generate projections, and sync ignores",
   "  check     Read-only: run rulesync doctor --strict",
   "  preview   Read-only: run check and dry-run generation (needs .rulesync)",
+  "  retire    Preview retired target/feature cleanup; --apply to delete",
   "",
   "Options:",
   "  --root DIRECTORY  Repository root (default: repo root)",
+  "  --features LIST   Explicit retired features, comma-separated (retire only)",
+  "  --apply           Perform deletion and resync ignores (retire only)",
   "  -h, --help        Show this help (exit 0)",
   "",
   "Exit codes: 0 ok, 1 rulesync or config error, 2 invalid arguments",
@@ -235,7 +240,22 @@ function reportInstallFailure(
 
 type ParsedCliArgs =
   | { kind: "help" }
-  | { kind: "run"; command: AgentCommand; root: string };
+  | { kind: "run"; command: Exclude<AgentCommand, "retire">; root: string }
+  | {
+      kind: "retire";
+      root: string;
+      targets: string;
+      features: string;
+      apply: boolean;
+    };
+
+function parseRetireList(raw: string): string | null {
+  const values = raw.split(",");
+  if (values.some((value) => value === "*" || !safeIdentifierPattern.test(value))) {
+    return null;
+  }
+  return [...new Set(values)].join(",");
+}
 
 function parseCliArgs(
   args: string[],
@@ -247,30 +267,61 @@ function parseCliArgs(
 
   let command: AgentCommand | undefined;
   let root = defaultRepoRoot;
+  let retireTargets: string | undefined;
+  let retireFeatures: string | undefined;
+  let apply = false;
+
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
     if (arg === "--root") {
       const value = args[i + 1];
-      if (!value || value.startsWith("--")) {
+      if (!value || value.startsWith("-")) {
         return null;
       }
       root = resolve(value);
       i++;
     } else if (
-      !arg.startsWith("--") &&
+      arg === "--features" &&
+      command === "retire" &&
+      retireFeatures === undefined
+    ) {
+      const value = args[i + 1];
+      if (!value || value.startsWith("-")) {
+        return null;
+      }
+      retireFeatures = value;
+      i++;
+    } else if (arg === "--apply" && command === "retire" && !apply) {
+      apply = true;
+    } else if (
+      !arg.startsWith("-") &&
       !command &&
       (arg === "setup" ||
         arg === "restore" ||
         arg === "refresh" ||
         arg === "check" ||
-        arg === "preview")
+        arg === "preview" ||
+        arg === "retire")
     ) {
       command = arg;
+    } else if (
+      command === "retire" &&
+      retireTargets === undefined &&
+      !arg.startsWith("-")
+    ) {
+      retireTargets = arg;
     } else {
       return null;
     }
   }
 
+  if (command === "retire") {
+    const targets = retireTargets && parseRetireList(retireTargets);
+    const features = retireFeatures && parseRetireList(retireFeatures);
+    return targets && features
+      ? { kind: "retire", root, targets, features, apply }
+      : null;
+  }
   return command ? { kind: "run", command, root } : null;
 }
 
@@ -290,7 +341,7 @@ export function main(
   const parsed = parseCliArgs(args, defaultRepoRoot);
   if (!parsed) {
     stderr(
-      "Usage: node scripts/manage-agent-assets.ts <setup|restore|refresh|check|preview> [--root DIRECTORY]",
+      "Usage: node scripts/manage-agent-assets.ts <setup|restore|refresh|check|preview> [--root DIRECTORY] or retire <targets> --features <features> [--apply]",
     );
     return 2;
   }
@@ -299,8 +350,51 @@ export function main(
     return 0;
   }
 
-  const { command, root } = parsed;
+  const { root } = parsed;
 
+  if (parsed.kind === "retire") {
+    // Check the active configuration before making any destructive change.
+    let selection: RulesyncSelection | undefined;
+    if (parsed.apply) {
+      try {
+        selection = parseRulesyncSelection(root);
+      } catch (error) {
+        stderr(error instanceof Error ? error.message : String(error));
+        return 1;
+      }
+    }
+
+    const status = runRulesyncStep(
+      runCommand,
+      [
+        "generate",
+        "--retire-targets",
+        parsed.targets,
+        "--features",
+        parsed.features,
+        ...(parsed.apply ? [] : ["--dry-run"]),
+      ],
+      root,
+      stderr,
+    );
+    if (status !== 0 || !selection) {
+      return status;
+    }
+    return runRulesyncStep(
+      runCommand,
+      [
+        "gitignore",
+        "--targets",
+        selection.targets.join(","),
+        "--features",
+        selection.features.join(","),
+      ],
+      root,
+      stderr,
+    );
+  }
+
+  const { command } = parsed;
   if (command === "check") {
     return runRulesyncStep(runCommand, ["doctor", "--strict"], root, stderr);
   }
