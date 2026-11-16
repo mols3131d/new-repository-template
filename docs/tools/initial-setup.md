@@ -22,7 +22,7 @@ mise install
 mise run setup
 ```
 
-`mise install` provisions CLI tools. `setup` installs and projects Skills, updates generated ignore entries and configures the clone-local [commit template](git/README.md). The commands may change tracked files; Git's local configuration is not committed. If `rulesync install` hits GitHub's unauthenticated API rate limit and leaves a partial `rulesync.lock`, provide `GITHUB_TOKEN` or `GH_TOKEN` and rerun `mise run setup` before proceeding (see [Rulesync](rulesync.md)).
+`mise install` provisions CLI tools. `setup` installs and projects Skills, updates generated ignore entries and configures the clone-local [commit template](git/README.md). Run `setup` from a Git repository root (initialize Git first if starting from an extracted archive), because shared `.agents/skills/` targets write to clone-local `.git/info/exclude`. The commands may change tracked files; Git's local configuration is not committed. If `rulesync install` hits GitHub's unauthenticated API rate limit and leaves a partial `rulesync.lock`, provide `GITHUB_TOKEN` or `GH_TOKEN` and rerun `mise run setup` before proceeding (see [Rulesync](rulesync.md)).
 
 Review before committing:
 

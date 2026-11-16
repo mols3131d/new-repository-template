@@ -4,7 +4,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 const defaultRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const safeIdentifierPattern = /^(?:[a-z0-9-]+|\*)$/iu;
+const safeIdentifierPattern = /^(?:[a-z0-9][a-z0-9-]*|\*)$/iu;
 
 export type AgentCommand =
   | "setup"
@@ -36,109 +36,42 @@ export interface AgentCliDeps {
   stderr?: (line: string) => void;
 }
 
+const installArgsByCommand = {
+  setup: ["install"],
+  restore: ["install", "--frozen"],
+  refresh: ["install", "--update"],
+} as const;
+
+const helpText = [
+  "Usage: node scripts/manage-agent-assets.ts <command> [--root DIRECTORY]",
+  "",
+  "Commands:",
+  "  setup     Install skills, generate projections, and sync ignores",
+  "  restore   Frozen install from rulesync.lock, generate, and sync ignores",
+  "  refresh   Update upstream skills, generate projections, and sync ignores",
+  "  check     Read-only: run rulesync doctor --strict",
+  "  preview   Read-only: run check and dry-run generation (needs .rulesync)",
+  "",
+  "Options:",
+  "  --root DIRECTORY  Repository root (default: repo root)",
+  "  -h, --help        Show this help (exit 0)",
+  "",
+  "Exit codes: 0 ok, 1 rulesync or config error, 2 invalid arguments",
+].join("\n");
+
 /**
  * Strip JSONC comments and trailing commas outside string literals.
  */
 export function stripJsonc(raw: string): string {
-  const withoutBom = raw.replace(/^\uFEFF/, "");
-  let noComments = "";
-  let inString = false;
-  let escaped = false;
-
-  for (let i = 0; i < withoutBom.length; i++) {
-    const ch = withoutBom[i];
-    const next = withoutBom[i + 1];
-
-    if (inString) {
-      noComments += ch;
-      if (escaped) {
-        escaped = false;
-      } else if (ch === "\\") {
-        escaped = true;
-      } else if (ch === '"') {
-        inString = false;
-      }
-      continue;
-    }
-
-    if (ch === '"') {
-      inString = true;
-      noComments += ch;
-      continue;
-    }
-
-    if (ch === "/" && next === "/") {
-      i += 2;
-      while (i < withoutBom.length && withoutBom[i] !== "\n") {
-        i++;
-      }
-      if (i < withoutBom.length && withoutBom[i] === "\n") {
-        noComments += "\n";
-      }
-      continue;
-    }
-
-    if (ch === "/" && next === "*") {
-      const end = withoutBom.indexOf("*/", i + 2);
-      if (end === -1) {
-        throw new Error("Unterminated block comment in JSONC configuration");
-      }
-      const segment = withoutBom.slice(i, end + 2);
-      for (const char of segment) {
-        if (char === "\n") {
-          noComments += "\n";
-        }
-      }
-      i = end + 1;
-      continue;
-    }
-
-    noComments += ch;
-  }
-
-  let cleaned = "";
-  inString = false;
-  escaped = false;
-
-  for (let i = 0; i < noComments.length; i++) {
-    const ch = noComments[i];
-
-    if (inString) {
-      cleaned += ch;
-      if (escaped) {
-        escaped = false;
-      } else if (ch === "\\") {
-        escaped = true;
-      } else if (ch === '"') {
-        inString = false;
-      }
-      continue;
-    }
-
-    if (ch === '"') {
-      inString = true;
-      cleaned += ch;
-      continue;
-    }
-
-    if (ch === ",") {
-      let lookahead = i + 1;
-      while (
-        lookahead < noComments.length &&
-        /\s/u.test(noComments[lookahead])
-      ) {
-        lookahead++;
-      }
-      const nextToken = noComments[lookahead];
-      if (nextToken === "}" || nextToken === "]") {
-        continue;
-      }
-    }
-
-    cleaned += ch;
-  }
-
-  return cleaned;
+  const withoutComments = raw
+    .replace(/^\uFEFF/, "")
+    .replace(/"(?:\\.|[^"\\])*"|\/\/[^\r\n]*|\/\*[\s\S]*?\*\//gu, (match) =>
+      match.startsWith('"') ? match : "",
+    );
+  return withoutComments.replace(
+    /"(?:\\.|[^"\\])*"|,(?=\s*[}\]])/gu,
+    (match) => (match.startsWith('"') ? match : ""),
+  );
 }
 
 function readJsoncObject(path: string): Record<string, unknown> {
@@ -149,27 +82,51 @@ function readJsoncObject(path: string): Record<string, unknown> {
   return parsed as Record<string, unknown>;
 }
 
-function validateIdentifiers(
-  values: string[],
+function uniqueSafeIdentifiers(
+  values: unknown,
   kind: string,
   sourcePath: string,
 ): string[] {
+  if (!Array.isArray(values)) {
+    throw new Error(`${sourcePath}: expected '${kind}' list`);
+  }
   const unique: string[] = [];
   const seen = new Set<string>();
   for (const item of values) {
-    if (!safeIdentifierPattern.test(item)) {
-      throw new Error(`${sourcePath}: invalid ${kind} identifier '${item}'`);
+    if (typeof item !== "string" || !safeIdentifierPattern.test(item)) {
+      throw new Error(
+        `${sourcePath}: invalid ${kind} identifier '${String(item)}'`,
+      );
     }
     if (!seen.has(item)) {
       seen.add(item);
       unique.push(item);
     }
   }
+  if (unique.length === 0) {
+    throw new Error(`${sourcePath}: no ${kind}s configured`);
+  }
   return unique;
 }
 
+function collectTargetFeatures(spec: unknown): string[] {
+  if (Array.isArray(spec)) {
+    return spec.filter((item): item is string => typeof item === "string");
+  }
+  if (spec !== null && typeof spec === "object") {
+    return Object.entries(spec as Record<string, unknown>)
+      .filter(
+        ([key, val]) =>
+          key !== "gitignoreDestination" &&
+          (val === true || (val !== null && typeof val === "object")),
+      )
+      .map(([key]) => key);
+  }
+  return [];
+}
+
 /**
- * Extract Rulesync targets and enabled features from rulesync.jsonc (and optional rulesync.local.jsonc).
+ * Derive --targets and --features for `rulesync gitignore` from rulesync.jsonc.
  */
 export function parseRulesyncSelection(root: string): RulesyncSelection {
   const configPath = join(root, "rulesync.jsonc");
@@ -181,100 +138,40 @@ export function parseRulesyncSelection(root: string): RulesyncSelection {
   const localPath = join(root, "rulesync.local.jsonc");
   const localConfig = existsSync(localPath) ? readJsoncObject(localPath) : {};
 
+  const targetsSource =
+    localConfig.targets !== undefined ? localPath : configPath;
+  const featuresSource =
+    localConfig.features !== undefined ? localPath : configPath;
   const rawTargets = localConfig.targets ?? baseConfig.targets;
   const rawFeatures = localConfig.features ?? baseConfig.features;
 
   if (Array.isArray(rawTargets)) {
-    if (!rawTargets.every((item) => typeof item === "string")) {
-      throw new Error(`${configPath}: 'targets' array entries must be strings`);
-    }
-    const targets = validateIdentifiers(rawTargets, "target", configPath);
-    if (targets.length === 0) {
-      throw new Error(`${configPath}: 'targets' must not be empty`);
-    }
-
-    let features = ["*"];
-    if (rawFeatures !== undefined) {
-      if (
-        !Array.isArray(rawFeatures) ||
-        !rawFeatures.every((item) => typeof item === "string")
-      ) {
-        throw new Error(
-          `${configPath}: 'features' must be an array of strings`,
-        );
-      }
-      features = validateIdentifiers(rawFeatures, "feature", configPath);
-    }
-    return {
-      targets,
-      features: features.length > 0 ? features : ["*"],
-    };
+    const targets = uniqueSafeIdentifiers(rawTargets, "target", targetsSource);
+    const features =
+      rawFeatures !== undefined
+        ? uniqueSafeIdentifiers(rawFeatures, "feature", featuresSource)
+        : ["rules"];
+    return { targets, features };
   }
 
-  if (
-    rawTargets === null ||
-    typeof rawTargets !== "object" ||
-    Array.isArray(rawTargets)
-  ) {
+  if (rawTargets === null || typeof rawTargets !== "object") {
     throw new Error(
-      `${configPath}: 'targets' must be an array or per-target object`,
+      `${targetsSource}: 'targets' must be an array or per-target object`,
     );
   }
 
-  const targetEntries = Object.entries(rawTargets as Record<string, unknown>);
-  const targets = validateIdentifiers(
-    targetEntries.map(([name]) => name),
+  const targets = uniqueSafeIdentifiers(
+    Object.keys(rawTargets),
     "target",
-    configPath,
+    targetsSource,
   );
-  if (targets.length === 0) {
-    throw new Error(`${configPath}: 'targets' must not be empty`);
-  }
-
-  const collectedFeatures: string[] = [];
-  for (const [targetName, spec] of targetEntries) {
-    if (Array.isArray(spec)) {
-      for (const entry of spec) {
-        if (typeof entry !== "string") {
-          throw new Error(
-            `${configPath}: feature entry for '${targetName}' must be a string`,
-          );
-        }
-        collectedFeatures.push(entry);
-      }
-      continue;
-    }
-
-    if (spec !== null && typeof spec === "object") {
-      for (const [key, value] of Object.entries(
-        spec as Record<string, unknown>,
-      )) {
-        if (key === "gitignoreDestination") {
-          continue;
-        }
-        const enabled =
-          value === true || (value !== null && typeof value === "object");
-        if (enabled) {
-          collectedFeatures.push(key);
-        }
-      }
-      continue;
-    }
-
-    throw new Error(
-      `${configPath}: target '${targetName}' must be a feature array or object`,
-    );
-  }
-
-  const features = validateIdentifiers(
-    collectedFeatures,
+  const features = uniqueSafeIdentifiers(
+    Object.values(rawTargets as Record<string, unknown>).flatMap(
+      collectTargetFeatures,
+    ),
     "feature",
-    configPath,
+    targetsSource,
   );
-  if (features.length === 0) {
-    throw new Error(`${configPath}: no enabled features found in 'targets'`);
-  }
-
   return { targets, features };
 }
 
@@ -297,25 +194,6 @@ export const defaultRunner: CommandRunner = (command, args, cwd) => {
   return { status: result.status ?? 1 };
 };
 
-function reportInstallFailure(
-  root: string,
-  command: "setup" | "restore" | "refresh",
-  env: NodeJS.ProcessEnv,
-  stderr: (line: string) => void,
-): void {
-  const hasToken = Boolean(env.GITHUB_TOKEN || env.GH_TOKEN);
-  if (!hasToken) {
-    stderr(
-      "Hint: unauthenticated GitHub requests can hit API rate limits; set GITHUB_TOKEN or GH_TOKEN (e.g. from an authorized 'gh auth token' session) before retrying.",
-    );
-  }
-  if (command !== "restore" && existsSync(join(root, "rulesync.lock"))) {
-    stderr(
-      "Warning: rulesync.lock may reflect a partial install; rerun 'mise run setup' (or 'mise run agents-refresh') rather than trusting it or using 'agents-restore'.",
-    );
-  }
-}
-
 function runRulesyncStep(
   runCommand: CommandRunner,
   args: string[],
@@ -329,27 +207,70 @@ function runRulesyncStep(
   return result.status;
 }
 
-const helpText = [
-  "Usage: node scripts/manage-agent-assets.ts <command> [--root DIRECTORY]",
-  "",
-  "Commands:",
-  "  setup     Install skills, generate projections, and sync ignores",
-  "  restore   Frozen install from rulesync.lock, generate, and sync ignores",
-  "  refresh   Update upstream skills, generate projections, and sync ignores",
-  "  check     Read-only: run rulesync doctor --strict",
-  "  preview   Read-only: run check and dry-run generation (needs .rulesync)",
-  "",
-  "Options:",
-  "  --root DIRECTORY  Repository root (default: repo root)",
-  "  -h, --help        Show this help (exit 0)",
-  "",
-  "Exit codes: 0 ok, 1 preflight or rulesync error, 2 invalid arguments",
-].join("\n");
+function reportInstallFailure(
+  root: string,
+  command: keyof typeof installArgsByCommand,
+  env: NodeJS.ProcessEnv,
+  stderr: (line: string) => void,
+): void {
+  const hasLock = existsSync(join(root, "rulesync.lock"));
+  if (
+    !env.GITHUB_TOKEN &&
+    !env.GH_TOKEN &&
+    (command !== "restore" || hasLock)
+  ) {
+    stderr(
+      "Hint: unauthenticated GitHub requests can hit API rate limits; set GITHUB_TOKEN or GH_TOKEN (e.g. from 'gh auth token') before retrying.",
+    );
+  }
+  if ((command === "setup" || command === "refresh") && hasLock) {
+    const retry =
+      command === "setup" ? "mise run setup" : "mise run agents-refresh";
+    stderr(
+      `Warning: rulesync.lock may reflect a partial install; rerun '${retry}' rather than trusting it or using 'agents-restore'.`,
+    );
+  }
+}
 
-function printUsage(write: (line: string) => void): void {
-  write(
-    "Usage: node scripts/manage-agent-assets.ts <setup|restore|refresh|check|preview> [--root DIRECTORY]",
-  );
+type ParsedCliArgs =
+  | { kind: "help" }
+  | { kind: "run"; command: AgentCommand; root: string };
+
+function parseCliArgs(
+  args: string[],
+  defaultRepoRoot: string,
+): ParsedCliArgs | null {
+  if (args.includes("--help") || args.includes("-h")) {
+    return { kind: "help" };
+  }
+
+  let command: AgentCommand | undefined;
+  let root = defaultRepoRoot;
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i];
+    if (arg === "--root") {
+      const value = args[i + 1];
+      if (!value || value.startsWith("--")) {
+        return null;
+      }
+      root = resolve(value);
+      i++;
+    } else if (
+      !arg.startsWith("--") &&
+      !command &&
+      (arg === "setup" ||
+        arg === "restore" ||
+        arg === "refresh" ||
+        arg === "check" ||
+        arg === "preview")
+    ) {
+      command = arg;
+    } else {
+      return null;
+    }
+  }
+
+  return command ? { kind: "run", command, root } : null;
 }
 
 /**
@@ -365,68 +286,28 @@ export function main(
   const stdout = deps.stdout ?? ((line: string) => console.log(line));
   const stderr = deps.stderr ?? ((line: string) => console.error(line));
 
-  if (args.includes("--help") || args.includes("-h")) {
+  const parsed = parseCliArgs(args, defaultRepoRoot);
+  if (!parsed) {
+    stderr(
+      "Usage: node scripts/manage-agent-assets.ts <setup|restore|refresh|check|preview> [--root DIRECTORY]",
+    );
+    return 2;
+  }
+  if (parsed.kind === "help") {
     stdout(helpText);
     return 0;
   }
 
-  let command: AgentCommand | undefined;
-  let root = defaultRepoRoot;
-
-  for (let i = 0; i < args.length; i++) {
-    const arg = args[i];
-    if (arg === "--root") {
-      const value = args[i + 1];
-      if (!value || value.startsWith("--")) {
-        printUsage(stderr);
-        return 2;
-      }
-      root = resolve(value);
-      i++;
-    } else if (arg.startsWith("--")) {
-      printUsage(stderr);
-      return 2;
-    } else if (
-      !command &&
-      (arg === "setup" ||
-        arg === "restore" ||
-        arg === "refresh" ||
-        arg === "check" ||
-        arg === "preview")
-    ) {
-      command = arg;
-    } else {
-      printUsage(stderr);
-      return 2;
-    }
-  }
-
-  if (!command) {
-    printUsage(stderr);
-    return 2;
-  }
+  const { command, root } = parsed;
 
   if (command === "check") {
     return runRulesyncStep(runCommand, ["doctor", "--strict"], root, stderr);
   }
-
   if (command === "preview") {
-    const doctorStatus = runRulesyncStep(
-      runCommand,
-      ["doctor", "--strict"],
-      root,
-      stderr,
+    return (
+      runRulesyncStep(runCommand, ["doctor", "--strict"], root, stderr) ||
+      runRulesyncStep(runCommand, ["generate", "--dry-run"], root, stderr)
     );
-    if (doctorStatus !== 0) {
-      return doctorStatus;
-    }
-    if (!existsSync(join(root, ".rulesync"))) {
-      stderr(
-        ".rulesync does not exist yet. Run 'mise run setup' (or 'mise run agents-restore' when rulesync.lock is present) first.",
-      );
-      return 1;
-    }
-    return runRulesyncStep(runCommand, ["generate", "--dry-run"], root, stderr);
   }
 
   let selection: RulesyncSelection;
@@ -437,53 +318,38 @@ export function main(
     return 1;
   }
 
-  if (command === "restore" && !existsSync(join(root, "rulesync.lock"))) {
-    stderr(
-      "rulesync.lock not found. Run 'mise run setup' to generate and review the initial lockfile before running agents-restore.",
-    );
-    return 1;
-  }
-
-  const installArgs =
-    command === "restore"
-      ? ["install", "--frozen"]
-      : command === "refresh"
-        ? ["install", "--update"]
-        : ["install"];
-
-  const installStatus = runRulesyncStep(runCommand, installArgs, root, stderr);
+  const installStatus = runRulesyncStep(
+    runCommand,
+    [...installArgsByCommand[command]],
+    root,
+    stderr,
+  );
   if (installStatus !== 0) {
     reportInstallFailure(root, command, env, stderr);
     return installStatus;
   }
 
-  const generateStatus = runRulesyncStep(
-    runCommand,
-    ["generate"],
-    root,
-    stderr,
-  );
-  if (generateStatus !== 0) {
-    return generateStatus;
-  }
-
-  return runRulesyncStep(
-    runCommand,
-    [
-      "gitignore",
-      "--targets",
-      selection.targets.join(","),
-      "--features",
-      selection.features.join(","),
-    ],
-    root,
-    stderr,
+  return (
+    runRulesyncStep(runCommand, ["generate"], root, stderr) ||
+    runRulesyncStep(
+      runCommand,
+      [
+        "gitignore",
+        "--targets",
+        selection.targets.join(","),
+        "--features",
+        selection.features.join(","),
+      ],
+      root,
+      stderr,
+    )
   );
 }
 
-if (
-  process.argv[1] &&
-  import.meta.url === pathToFileURL(resolve(process.argv[1])).href
-) {
+const isDirectRun =
+  process.argv[1] !== undefined &&
+  import.meta.url === pathToFileURL(resolve(process.argv[1])).href;
+
+if (isDirectRun) {
   process.exitCode = main();
 }

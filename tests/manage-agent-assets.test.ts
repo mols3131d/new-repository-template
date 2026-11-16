@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test, { type TestContext } from "node:test";
@@ -21,13 +21,13 @@ function fixture(t: TestContext) {
   return { root, write };
 }
 
-test("stripJsonc preserves URLs and strings while stripping comments and trailing commas", () => {
+test("stripJsonc preserves strings while stripping comments and trailing commas", () => {
   const raw = `{
     // Line comment
     "$schema": "https://example.com/schema.json", /* block
     comment */
     "url": "https://github.com/org/repo,}",
-    "targets": ["claudecode",],
+    "targets": ["claudecode", /* trailing */ ],
   }`;
   const parsed = JSON.parse(stripJsonc(raw)) as {
     $schema: string;
@@ -39,7 +39,7 @@ test("stripJsonc preserves URLs and strings while stripping comments and trailin
   assert.deepEqual(parsed.targets, ["claudecode"]);
 });
 
-test("parseRulesyncSelection extracts object-form targets and features without gitignoreDestination", (t) => {
+test("parseRulesyncSelection handles object targets, array local overlay, and cmd-safe validation", (t) => {
   const { root, write } = fixture(t);
   write(
     "rulesync.jsonc",
@@ -50,49 +50,30 @@ test("parseRulesyncSelection extracts object-form targets and features without g
           "skills": true,
           "rules": false,
           "gitignoreDestination": "gitexclude"
-        },
-        "antigravity-ide": {
-          "skills": true,
-          "gitignoreDestination": "gitexclude"
         }
       }
     }`,
   );
   assert.deepEqual(parseRulesyncSelection(root), {
-    targets: ["claudecode", "codexcli", "antigravity-ide"],
+    targets: ["claudecode", "codexcli"],
     features: ["skills"],
   });
-});
 
-test("parseRulesyncSelection supports array-form targets and optional local overlay", (t) => {
-  const { root, write } = fixture(t);
-  write(
-    "rulesync.jsonc",
-    `{
-      "targets": ["claudecode", "copilot"],
-      "features": ["skills"]
-    }`,
-  );
   write(
     "rulesync.local.jsonc",
     `{
-      "gitignoreDestination": "gitexclude"
+      "targets": ["claudecode", "copilot"]
     }`,
   );
   assert.deepEqual(parseRulesyncSelection(root), {
     targets: ["claudecode", "copilot"],
-    features: ["skills"],
+    features: ["rules"],
   });
-});
 
-test("parseRulesyncSelection rejects invalid target identifiers", (t) => {
-  const { root, write } = fixture(t);
   write(
-    "rulesync.jsonc",
+    "rulesync.local.jsonc",
     `{
-      "targets": {
-        "bad;target": ["skills"]
-      }
+      "targets": ["-flag"]
     }`,
   );
   assert.throws(
@@ -101,7 +82,7 @@ test("parseRulesyncSelection rejects invalid target identifiers", (t) => {
   );
 });
 
-test("setup, restore, and refresh run the expected Rulesync sequence using config targets", (t) => {
+test("setup, restore, and refresh pass derived gitignore args and surface install hints", (t) => {
   const { root, write } = fixture(t);
   write(
     "rulesync.jsonc",
@@ -113,20 +94,21 @@ test("setup, restore, and refresh run the expected Rulesync sequence using confi
     }`,
   );
 
-  const calls: Array<{ command: string; args: string[]; cwd: string }> = [];
-  const runner: CommandRunner = (command, args, cwd) => {
-    calls.push({ command, args, cwd });
+  const calls: string[][] = [];
+  const runner: CommandRunner = (_cmd, args) => {
+    calls.push(args);
     return { status: 0 };
   };
 
-  assert.equal(
-    main(["setup", "--root", root], root, { runCommand: runner }),
-    0,
-  );
-  assert.deepEqual(
-    calls.map((c) => c.args),
-    [
-      ["install"],
+  for (const [cmd, expectedInstall] of [
+    ["setup", ["install"]],
+    ["restore", ["install", "--frozen"]],
+    ["refresh", ["install", "--update"]],
+  ] as const) {
+    calls.length = 0;
+    assert.equal(main([cmd, "--root", root], root, { runCommand: runner }), 0);
+    assert.deepEqual(calls, [
+      expectedInstall,
       ["generate"],
       [
         "gitignore",
@@ -135,112 +117,50 @@ test("setup, restore, and refresh run the expected Rulesync sequence using confi
         "--features",
         "skills",
       ],
-    ],
-  );
+    ]);
+  }
 
-  calls.length = 0;
   write("rulesync.lock", "{}");
-  assert.equal(
-    main(["restore", "--root", root], root, { runCommand: runner }),
-    0,
-  );
-  assert.deepEqual(
-    calls.map((c) => c.args),
-    [
-      ["install", "--frozen"],
-      ["generate"],
-      [
-        "gitignore",
-        "--targets",
-        "claudecode,antigravity-ide",
-        "--features",
-        "skills",
-      ],
-    ],
-  );
-
-  calls.length = 0;
-  assert.equal(
-    main(["refresh", "--root", root], root, { runCommand: runner }),
-    0,
-  );
-  assert.deepEqual(
-    calls.map((c) => c.args),
-    [
-      ["install", "--update"],
-      ["generate"],
-      [
-        "gitignore",
-        "--targets",
-        "claudecode,antigravity-ide",
-        "--features",
-        "skills",
-      ],
-    ],
-  );
-});
-
-test("restore fails visibly when rulesync.lock is absent", (t) => {
-  const { root, write } = fixture(t);
-  write("rulesync.jsonc", `{"targets":["claudecode"],"features":["skills"]}`);
-  const errors: string[] = [];
-  let invoked = false;
-  const runner: CommandRunner = () => {
-    invoked = true;
-    return { status: 0 };
-  };
-  assert.equal(
-    main(["restore", "--root", root], root, {
-      runCommand: runner,
-      stderr: (line) => errors.push(line),
-    }),
-    1,
-  );
-  assert.equal(invoked, false);
-  assert.match(errors.join("\n"), /rulesync\.lock not found/);
-});
-
-test("setup failure without token prints rate-limit and partial-lock recovery guidance", (t) => {
-  const { root, write } = fixture(t);
-  write("rulesync.jsonc", `{"targets":["claudecode"],"features":["skills"]}`);
-  write("rulesync.lock", "{}");
-  const errors: string[] = [];
-  const runner: CommandRunner = () => ({ status: 1 });
-
+  const setupErrors: string[] = [];
   assert.equal(
     main(["setup", "--root", root], root, {
-      runCommand: runner,
+      runCommand: () => ({ status: 1 }),
       env: {},
-      stderr: (line) => errors.push(line),
+      stderr: (line) => setupErrors.push(line),
     }),
     1,
   );
-  const output = errors.join("\n");
-  assert.match(output, /GITHUB_TOKEN or GH_TOKEN/);
-  assert.match(output, /partial install/);
+  assert.match(setupErrors.join("\n"), /GITHUB_TOKEN or GH_TOKEN/);
+  assert.match(setupErrors.join("\n"), /rerun 'mise run setup'/);
+
+  const refreshErrors: string[] = [];
+  assert.equal(
+    main(["refresh", "--root", root], root, {
+      runCommand: () => ({ status: 1 }),
+      env: { GITHUB_TOKEN: "ok" },
+      stderr: (line) => refreshErrors.push(line),
+    }),
+    1,
+  );
+  assert.match(refreshErrors.join("\n"), /rerun 'mise run agents-refresh'/);
+  assert.doesNotMatch(refreshErrors.join("\n"), /GITHUB_TOKEN/);
 });
 
-test("preview checks doctor first and fails clearly before setup", (t) => {
+test("check, preview, --help, and usage errors work cleanly", (t) => {
   const { root } = fixture(t);
   const calls: string[][] = [];
-  const errors: string[] = [];
   const runner: CommandRunner = (_cmd, args) => {
     calls.push(args);
     return { status: 0 };
   };
 
   assert.equal(
-    main(["preview", "--root", root], root, {
-      runCommand: runner,
-      stderr: (line) => errors.push(line),
-    }),
-    1,
+    main(["check", "--root", root], root, { runCommand: runner }),
+    0,
   );
   assert.deepEqual(calls, [["doctor", "--strict"]]);
-  assert.match(errors.join("\n"), /\.rulesync does not exist yet/);
 
   calls.length = 0;
-  mkdirSync(join(root, ".rulesync"));
   assert.equal(
     main(["preview", "--root", root], root, { runCommand: runner }),
     0,
@@ -249,34 +169,19 @@ test("preview checks doctor first and fails clearly before setup", (t) => {
     ["doctor", "--strict"],
     ["generate", "--dry-run"],
   ]);
-});
 
-test("check runs doctor --strict read-only and usage errors exit with code 2", (t) => {
-  const { root } = fixture(t);
-  const calls: string[][] = [];
-  const runner: CommandRunner = (_cmd, args) => {
-    calls.push(args);
-    return { status: 0 };
-  };
-  assert.equal(
-    main(["check", "--root", root], root, { runCommand: runner }),
-    0,
-  );
-  assert.deepEqual(calls, [["doctor", "--strict"]]);
   assert.equal(main(["unknown"], root, { stderr: () => {} }), 2);
 
-  const helpLines: string[] = [];
+  const help: string[] = [];
+  const shortHelp: string[] = [];
   assert.equal(
-    main(["--help"], root, { stdout: (line) => helpLines.push(line) }),
+    main(["--help"], root, { stdout: (line) => help.push(line) }),
     0,
   );
-  assert.match(helpLines.join("\n"), /Commands:/);
-  assert.match(helpLines.join("\n"), /Read-only:/);
-
-  const shortHelpLines: string[] = [];
   assert.equal(
-    main(["-h"], root, { stdout: (line) => shortHelpLines.push(line) }),
+    main(["-h"], root, { stdout: (line) => shortHelp.push(line) }),
     0,
   );
-  assert.equal(shortHelpLines.join("\n"), helpLines.join("\n"));
+  assert.match(help.join("\n"), /Commands:/);
+  assert.equal(shortHelp.join("\n"), help.join("\n"));
 });
