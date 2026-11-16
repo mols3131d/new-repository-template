@@ -3,9 +3,11 @@
 {{ summary }}
 
 {% if scope %}
+
 ## Scope
 
 {% for item in scope %}
+
 - {{ item }}
 {% endfor %}
 {% endif %}
@@ -14,6 +16,7 @@
 
 {% if findings %}
 {% for finding in findings %}
+
 ### {{ finding.title }}
 
 **Impact:** {{ finding.impact }}
@@ -34,13 +37,16 @@ No actionable findings in the reviewed scope.
 ## Verification
 
 {% for check in verification %}
+
 - {{ check }}
 {% endfor %}
 
 {% if remaining_risks %}
+
 ## Remaining Risks
 
 {% for risk in remaining_risks %}
+
 - {{ risk }}
 {% endfor %}
 {% endif %}
@@ -48,10 +54,12 @@ No actionable findings in the reviewed scope.
 <!-- Review decision (comment/approve/request changes) belongs to GitHub. Include only evidence-backed claims. -->
 <!-- Required when an agent substantially authored or rewrote the review. -->
 {% if author %}
+
 ```yaml
 author:
 {% for identity in author %}
   - {{ identity }}
 {% endfor %}
 ```
+
 {% endif %}

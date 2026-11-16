@@ -1,8 +1,64 @@
 [global]
 flavor = "gfm"
-# Avoid forced prose wrapping; keep Markdown with raw HTML and frontmatter usable.
-disable = ["MD013", "MD033", "MD041"]
+disable = ["MD013", "MD025", "MD033", "MD041"]
 exclude = [
-  ".rulesync/skills/.curated/**",
-  "node_modules/**",
+  "**/.git/",
+  "**/.tmp/",
+  "**/tmp/",
+  "**/.archive/",
+  "**/archive/",
+  "**/*.tmp.*",
+  # --- --- --- ---  --- ---
+  ".rumdl_cache/**",
+  "node_modules/",
+  "vendor/",
+  "dist/",
+  "build/",
+  "target/**",
+  "coverage/**",
+  "site/**",
+  "**/generated/**",
+  ".rulesync/**",
+  ".agents/skills/**",
+  ".claude/skills/**",
+  ".github/skills/**",
 ]
+
+extend-enable = [
+  "MD060",
+  "MD070",
+  "MD073",
+  "MD080",
+]
+
+[MD003]
+style = "atx"
+
+[MD004]
+style = "dash"
+
+[MD029]
+style = "ordered"
+
+[MD033]
+disallowed-elements = ["gfm"]
+fix = false
+
+[MD046]
+style = "fenced"
+
+[MD048]
+style = "backtick"
+
+[MD049]
+style = "asterisk"
+
+[MD050]
+style = "asterisk"
+
+[MD057]
+compact-paths = true
+
+[MD060]
+style = "compact"
+loose-last-column = true

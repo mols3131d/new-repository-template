@@ -21,4 +21,3 @@ Use this guide to choose where an instruction belongs. **Ownership** and **runti
 ## Verify scope and activation
 
 Test representative applicable and non-applicable tasks. Check the actual loaded source and behavior, not merely a manifest or generated file. [Harness verification](harness.md) defines the evidence levels.
-
