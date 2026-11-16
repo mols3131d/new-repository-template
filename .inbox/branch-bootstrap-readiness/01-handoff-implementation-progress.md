@@ -4,7 +4,7 @@ description: "Resume PR 9 implementation: review committed bootstrap changes, ve
 
 ## Current state
 
-PR [#9](https://github.com/mols3131d/new-repository-template/pull/9) targets `main` from `chore/bootstrap-readiness` and remains **Draft**. This is a temporary work-unit handoff, not canonical policy. Read the [original work plan](00-plan-first-project-readiness.md) for requirements and the maintained project files for actual behavior. `main` was synchronized into the branch before the implementation commits.
+PR [#9](https://github.com/mols3131d/new-repository-template/pull/9) targets `main` from `chore/bootstrap-readiness` and is prepared for maintainer review (`Ready for review`, merge not authorized). This is a temporary work-unit handoff, not canonical policy. Read the [original work plan](00-plan-first-project-readiness.md) for requirements and the maintained project files for actual behavior. `main` was synchronized into the branch before the implementation commits.
 
 ### Completed commits
 
@@ -15,13 +15,13 @@ PR [#9](https://github.com/mols3131d/new-repository-template/pull/9) targets `ma
 | `d36062e` | Add `mise run agents-restore` backed by `rulesync install --frozen`; distinguish first install, locked recovery and explicit updates | [mise tasks](../../mise.toml), [Rulesync](../../docs/tools/rulesync.md), [Initial Setup](../../docs/tools/initial-setup.md) |
 | `fa14038` | Add a first-task agent loading probe and derived-repository GitHub Ruleset/Actions audit steps | [Harness Verification](../../docs/development/agents/harness.md), [Project Setup](../../docs/guides/project-setup.md) |
 | `2f37bc9`, `13e9a9c`, `9a7c46a` | Enforce LF line endings, extract `agents-*` CLI (`--help`, `gitexclude`), and add CI `repo-checks.yml` | [gitattributes](../../.gitattributes), [manage-agent-assets.ts](../../scripts/manage-agent-assets.ts), [repo-checks.yml](../../.github/workflows/repo-checks.yml) |
-| `d55cff2`, `7f53e29`, `ed966ab` | Add CI `typecheck:scripts`, enable `"delete": true`, streamline CLI around Rulesync, and scope `.rumdl.toml` excludes | [rulesync.jsonc](../../rulesync.jsonc), [rumdl config](../../.rumdl.toml), [manage-agent-assets.ts](../../scripts/manage-agent-assets.ts) |
+| `d55cff2`, `7f53e29`, `ed966ab`, `f3f3dc6` | Add CI `typecheck:scripts`, enable `"delete": true`, streamline CLI around Rulesync (including non-string array checks), and scope `.rumdl.toml` excludes | [rulesync.jsonc](../../rulesync.jsonc), [rumdl config](../../.rumdl.toml), [manage-agent-assets.ts](../../scripts/manage-agent-assets.ts) |
 
 The template intentionally **does not** contain an invented `rulesync.lock`. The first authorized install must produce the real lock, which the derived project reviews and commits. The new restore command requires a complete accepted lock, restores selected Skills, regenerates projections and maintains ignore entries. It does not install Git hooks or change the Git commit template. Shared tool versions remain major-prefix requests; `mise.lock` is an optional project-level reproducibility choice, not an assumed existing file.
 
 ## Verification performed
 
-- GitHub Actions on pushed heads (`fa14038`, `4ed9660`, `74ead46`): `Validate documentation index` (`validate`) and `Repository checks` (`checks`, including `typecheck:scripts`, `agents-check`, `manage-agent-assets` tests, `rumdl`, `biome`, `lefthook`) passed on `push` and `pull_request`.
+- GitHub Actions on pushed heads (`fa14038`, `4ed9660`, `74ead46`, `3750583`): `Validate documentation index` (`validate`) and `Repository checks` (`checks`, including `typecheck:scripts`, `agents-check`, `manage-agent-assets` tests, `rumdl`, `biome`, `lefthook`) passed on `push` and `pull_request`.
 - Static comparison with `main`: implementation touched `README.md`, `mise.toml`, the project setup, Rulesync/initial setup, and agent harness guides; original Inbox plan remains work evidence.
 - Read-only structural validation: **74 local Markdown links** among eight inspected project/source files resolved in the branch tree; all changed `docs/` files retained required description frontmatter; restore task includes `--frozen`; the unchanged documentation CI has no `.inbox/**` trigger.
 - Local workspace tooling and formatting (Windows, `chore/bootstrap-readiness` with user `.rumdl.toml` updates):
@@ -42,13 +42,13 @@ The template intentionally **does not** contain an invented `rulesync.lock`. The
 - [ ] Run a bounded first task with an actual agent runtime in the configured `.git/info/exclude` Skills environment to observe end-to-end Skill loading and applied behavior; other targets (`claudecode`, `codexcli`, `copilot`, `copilotcli`, `antigravity-cli`, `agentsskills`) stay **unverified**.
 - [ ] On an explicitly authorized **GitHub-hosted** derived repository, inspect actual `main` Rulesets/required checks, workflow permissions, `CODEOWNERS` and merge policies. Do not assume template settings inherit or mutate settings without verified administrative authority.
 - [x] Run local `rumdl`, `biome`, `lefthook`, and Node documentation checks (`typecheck:scripts`, `test:docs`, `docs:index:check`, `docs:frontmatter:check`, `mise run format`, `mise run check`), and verify Windows LF checkout via `.gitattributes` in a fresh clone.
-- [x] Committed and pushed bootstrap implementation and review fixes to `chore/bootstrap-readiness` with green GitHub Actions (`checks` and `validate`); re-verify CI and PR #9 body after follow-up edits before undrafting or requesting merge review (no merge authorized).
+- [x] Committed, pushed, and verified final cleanups (including removing the inactive `[MD033]` block in `.rumdl.toml` while preserving `MD033` in `global.disable`), updated PR #9 body, and marked PR #9 Ready for review (no merge authorized).
 
 ## Resume sequence
 
-1. Open PR #9 and review the latest diff, verification summary, and maintainer note on `.rumdl.toml` (`MD033` currently remains in `global.disable` alongside `[MD033]`). Read this file and the [original work plan](00-plan-first-project-readiness.md) if resuming scope changes.
+1. Open PR #9 and review the latest diff, CI status, and verification summary. Read this file and the [original work plan](00-plan-first-project-readiness.md) if resuming scope changes.
 2. Keep all substantive code/config/docs in canonical owners. Prefer small commits with distinct intent; use this Inbox document only for evidence, open work and handoff. Never store private chats, secrets, credentials or raw session transcripts.
-3. Next best work: decide whether to activate `MD033` (`disallowed-elements = ["gfm"]`) or drop the inactive `[MD033]` block in `.rumdl.toml`, then mark PR #9 Ready for review or authorize merge when ready. Live runtime Skill E2E and remote derived-repository Ruleset checks stay documented for derived projects rather than blocking template maintenance.
+3. Next best work: maintainer reviews PR #9 and authorizes merge when ready. Live runtime Skill E2E and remote derived-repository Ruleset checks stay documented for derived projects rather than blocking template maintenance.
 4. Recheck the latest GitHub Actions results and the current `main` base before any merge decision. `.inbox/**` is intentionally excluded from CI admission, although local staged Markdown can be autoformatted by the optional hook.
 
 **Do not interpret the original plan's creation-time “prepared, not implemented” note as current implementation status.** This handoff supersedes that note for progress only; the plan still owns scope and acceptance.
