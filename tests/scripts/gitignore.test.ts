@@ -62,7 +62,7 @@ test("repository ignores transient files without hiding shared configuration", (
   t.after(() => rmSync(repo, { recursive: true, force: true }));
   writeFileSync(join(repo, ".gitignore"), gitignore);
   const init = spawnSync("git", ["init", "-q"], { cwd: repo, encoding: "utf8" });
-  assert.equal(init.status, 0, init.stderr || init.error?.message);
+  assert.equal(init.status, 0, init.stderr || init.error?.message || "git init failed");
 
   for (const [paths, expected] of [[ignored, 0], [visible, 1]] as const) {
     for (const path of paths) {
