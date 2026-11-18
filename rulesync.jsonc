@@ -1,25 +1,39 @@
 {
   "$schema": "https://github.com/dyoshikawa/rulesync/releases/latest/download/config-schema.json",
   "targets": {
-    "claudecode": ["skills"],
+    "claudecode": {
+      "rules": { "includeRoot": false },
+      "commands": true,
+      "subagents": true,
+      "skills": true
+    },
+    // Preserve the canonical project AGENTS.md: do not generate root rules.
     "codexcli": {
+      "subagents": true,
       "skills": true,
       "gitignoreDestination": "gitexclude"
     },
-    "copilot": ["skills"],
-    "copilotcli": ["skills"],
+    "copilot": ["rules", "subagents", "skills"],
+    "copilotcli": ["subagents", "skills"],
     "antigravity-ide": {
+      "commands": true,
+      "subagents": true,
       "skills": true,
       "gitignoreDestination": "gitexclude"
     },
     "antigravity-cli": {
+      "commands": true,
+      "subagents": true,
       "skills": true,
       "gitignoreDestination": "gitexclude"
     },
     "agentsskills": {
       "skills": true,
       "gitignoreDestination": "gitexclude"
-    }
+    },
+    "cursor": ["rules", "commands", "subagents", "skills"],
+    // OpenCode root rules also write AGENTS.md; keep it project-owned.
+    "opencode": ["commands", "subagents", "skills"]
   },
   "outputRoots": ["."],
   "delete": true,
