@@ -5,7 +5,10 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
 
-const gitignore = readFileSync(new URL("../../.gitignore", import.meta.url), "utf8");
+const gitignore = readFileSync(
+  new URL("../../.gitignore", import.meta.url),
+  "utf8",
+);
 
 const ignored = [
   ".env",
@@ -61,10 +64,20 @@ test("repository ignores transient files without hiding shared configuration", (
   const repo = mkdtempSync(join(tmpdir(), "gitignore-test-"));
   t.after(() => rmSync(repo, { recursive: true, force: true }));
   writeFileSync(join(repo, ".gitignore"), gitignore);
-  const init = spawnSync("git", ["init", "-q"], { cwd: repo, encoding: "utf8" });
-  assert.equal(init.status, 0, init.stderr || init.error?.message || "git init failed");
+  const init = spawnSync("git", ["init", "-q"], {
+    cwd: repo,
+    encoding: "utf8",
+  });
+  assert.equal(
+    init.status,
+    0,
+    init.stderr || init.error?.message || "git init failed",
+  );
 
-  for (const [paths, expected] of [[ignored, 0], [visible, 1]] as const) {
+  for (const [paths, expected] of [
+    [ignored, 0],
+    [visible, 1],
+  ] as const) {
     for (const path of paths) {
       const result = spawnSync(
         "git",
