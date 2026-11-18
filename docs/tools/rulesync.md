@@ -13,13 +13,26 @@ The manifest configures **Claude Code, Codex CLI, GitHub Copilot, Copilot CLI, A
 | Asset | Canonical input | Availability |
 | --- | --- | --- |
 | Skills | The selected upstream `sources`, or project-owned `.rulesync/skills/` | Installed by `rulesync install`, then projected for compatible targets |
-| Rules | Project-owned `.rulesync/rules/*.md`, or a `sources[].rules` selection with `rulesPath` | Enabled for Claude Code (scoped only) and Copilot |
+| Rules | Project-owned `.rulesync/rules/*.md`, or a `sources[].rules` selection with `rulesPath` | Enabled for Claude Code (scoped only), GitHub Copilot and Copilot CLI |
 | Subagents | Project-owned `.rulesync/subagents/*.md` | Enabled only for the targets selected in the manifest |
 | Commands | Project-owned `.rulesync/commands/*.md` | Enabled only for the targets selected in the manifest |
 
+The configuration enables every project-mode feature among Rules, Commands, Subagents and Skills that can be generated **without replacing the repository-owned root instructions**:
+
+| Target | Rules | Commands | Subagents | Skills |
+| --- | --- | --- | --- | --- |
+| Claude Code | Scoped | Yes | Yes | Yes |
+| Codex CLI | No (root collision) | Global only | Yes | Yes |
+| GitHub Copilot | Yes | Yes | Yes | Yes |
+| GitHub Copilot CLI | Yes | Not supported | Yes | Yes |
+| Antigravity IDE/CLI | No (root collision) | Yes | Yes | Yes |
+| AgentsSkills | Not supported | Not supported | Not supported | Yes |
+
+Codex CLI and Antigravity project-mode Rulesync rules would write to the tracked root `AGENTS.md`, which this template owns directly; enabling those rule projections requires an explicit migration of root instruction ownership. Codex CLI commands are global-only and not part of this project template. All other supported features in these four categories are enabled.
+
 **Feature enablement is not asset installation.** Declarative `sources` currently installs **Rules and Skills only**; it does not fetch Commands or Subagents from external repositories. To use external Subagents or Commands, arrange an explicitly reviewed, revision-aware upstream acquisition into a Rulesync input directory, or maintain a genuinely project-owned definition. Do not assume that enabling `subagents` installs the upstream `mols-agent-assets` Subagents. Some upstream Skills explicitly restrict their `targets`; manifest selection does not override those restrictions. Confirm the installed assets and runtime reachability instead of relying on the target list.
 
-The tracked root [`AGENTS.md`](../../AGENTS.md) is **repository-owned**, not a Rulesync projection. Rule generation is deliberately omitted for Codex CLI and Antigravity, whose root-rule projections could collide with `AGENTS.md`. Claude Code uses `rules.includeRoot: false` to avoid a generated root `CLAUDE.md`; scoped rules remain possible. Do not enable additional root-rule targets without reviewing ownership, precedence and `delete: true` effects. Commands are also intentionally disabled where project-mode support is absent or legacy/deprecated; prefer a Skill instead when that expresses the desired behavior.
+The tracked root [`AGENTS.md`](../../AGENTS.md) is **repository-owned**, not a Rulesync projection. Rule generation is deliberately omitted for Codex CLI and Antigravity, whose root-rule projections could collide with `AGENTS.md`. Claude Code uses `rules.includeRoot: false` to avoid a generated root `CLAUDE.md`; scoped rules remain possible. Do not enable additional root-rule targets without reviewing ownership, precedence and `delete: true` effects. Commands are omitted only where project-mode command generation is unavailable; prefer a Skill when that expresses the desired behavior.
 
 ## First setup
 
