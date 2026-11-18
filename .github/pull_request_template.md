@@ -22,8 +22,19 @@ Remove unused optional sections, empty headings, placeholders, and authoring com
 
 ### Self-review
 
-- [ ] Confirmed the Goal and Boundaries against the actual diff.
-- [ ] Reviewed the diff for unintended changes and regressions.
+<!--
+After every push, uncheck Self-review items and compare the last reviewed HEAD to the new
+PR HEAD. Review the delta and its impact on the full PR diff, Goal, and Boundaries.
+Review the entire current PR diff if this is the first review, the prior SHA is unavailable,
+or the base changed. Recheck only after reviewing the current HEAD, then add or update
+a plain bullet `- Reviewed HEAD: <full SHA>` below. A stale SHA means review is pending.
+-->
+
+Self-review is valid only for the recorded `Reviewed HEAD`; reset and repeat these checks after every push.
+
+- [ ] Confirmed the Goal and Boundaries against the current PR diff.
+- [ ] Reviewed new changes since the last reviewed HEAD (or the full diff on initial review) for unintended changes and regressions.
+- [ ] No blocking findings from self-review remain.
 
 ### Automated checks
 
