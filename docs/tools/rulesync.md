@@ -8,18 +8,18 @@ description: "Read when installing, regenerating or updating external Skills and
 
 ## Supported asset types and ownership
 
-The manifest configures **Claude Code, Codex CLI, GitHub Copilot, Copilot CLI, Antigravity IDE/CLI, Cursor, OpenCode, and the generic Agent Skills target**. Each target enables only the features that Rulesync supports and that this template can safely generate; the target matrix is maintained in the [official Rulesync support table](https://rulesync.dyoshikawa.com/reference/supported-tools.html).
+The manifest configures **Claude Code, Codex CLI, GitHub Copilot, Copilot CLI, Antigravity IDE/CLI, and the generic Agent Skills target**. Each target enables only the features that Rulesync supports and that this template can safely generate; the target matrix is maintained in the [official Rulesync support table](https://rulesync.dyoshikawa.com/reference/supported-tools.html).
 
 | Asset | Canonical input | Availability |
 | --- | --- | --- |
 | Skills | The selected upstream `sources`, or project-owned `.rulesync/skills/` | Installed by `rulesync install`, then projected for compatible targets |
-| Rules | Project-owned `.rulesync/rules/*.md`, or a `sources[].rules` selection with `rulesPath` | Enabled for Claude Code (scoped only), Copilot and Cursor |
+| Rules | Project-owned `.rulesync/rules/*.md`, or a `sources[].rules` selection with `rulesPath` | Enabled for Claude Code (scoped only) and Copilot |
 | Subagents | Project-owned `.rulesync/subagents/*.md` | Enabled only for the targets selected in the manifest |
 | Commands | Project-owned `.rulesync/commands/*.md` | Enabled only for the targets selected in the manifest |
 
-**Feature enablement is not asset installation.** Declarative `sources` currently installs **Rules and Skills only**; it does not fetch Commands or Subagents from external repositories. To use external Subagents or Commands, arrange an explicitly reviewed, revision-aware upstream acquisition into a Rulesync input directory, or maintain a genuinely project-owned definition. Do not assume that enabling `subagents` installs the upstream `mols-agent-assets` Subagents. Some upstream Skills explicitly restrict their `targets`; merely adding Cursor or OpenCode to this manifest does not override those restrictions. Confirm the installed assets and runtime reachability instead of relying on the target list.
+**Feature enablement is not asset installation.** Declarative `sources` currently installs **Rules and Skills only**; it does not fetch Commands or Subagents from external repositories. To use external Subagents or Commands, arrange an explicitly reviewed, revision-aware upstream acquisition into a Rulesync input directory, or maintain a genuinely project-owned definition. Do not assume that enabling `subagents` installs the upstream `mols-agent-assets` Subagents. Some upstream Skills explicitly restrict their `targets`; manifest selection does not override those restrictions. Confirm the installed assets and runtime reachability instead of relying on the target list.
 
-The tracked root [`AGENTS.md`](../../AGENTS.md) is **repository-owned**, not a Rulesync projection. Rule generation is deliberately omitted for Codex CLI, Antigravity and OpenCode, whose root-rule projections could collide with `AGENTS.md`. Claude Code uses `rules.includeRoot: false` to avoid a generated root `CLAUDE.md`; scoped rules remain possible. Do not enable additional root-rule targets without reviewing ownership, precedence and `delete: true` effects. Commands are also intentionally disabled where project-mode support is absent or legacy/deprecated; prefer a Skill instead when that expresses the desired behavior.
+The tracked root [`AGENTS.md`](../../AGENTS.md) is **repository-owned**, not a Rulesync projection. Rule generation is deliberately omitted for Codex CLI and Antigravity, whose root-rule projections could collide with `AGENTS.md`. Claude Code uses `rules.includeRoot: false` to avoid a generated root `CLAUDE.md`; scoped rules remain possible. Do not enable additional root-rule targets without reviewing ownership, precedence and `delete: true` effects. Commands are also intentionally disabled where project-mode support is absent or legacy/deprecated; prefer a Skill instead when that expresses the desired behavior.
 
 ## First setup
 
