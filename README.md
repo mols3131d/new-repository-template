@@ -21,7 +21,7 @@ mise run check
 | Area | Provisioning / entry |
 | --- | --- |
 | Upstream Agent Skills | [rulesync.jsonc](rulesync.jsonc) selects 21 Skills from [mols-agent-assets](https://github.com/mols3131d/mols-agent-assets) and 1 official Rulesync Skill |
-| Agent asset projections | Claude Code, Codex CLI, GitHub Copilot, Copilot CLI, Antigravity IDE/CLI, Cursor, OpenCode and AgentsSkills; [feature coverage and ownership](docs/tools/rulesync.md#supported-asset-types-and-ownership) vary per target |
+| Agent asset projections | Claude Code, Codex CLI, GitHub Copilot, Copilot CLI, Antigravity IDE/CLI and AgentsSkills; [feature coverage and ownership](docs/tools/rulesync.md#supported-asset-types-and-ownership) vary per target |
 | General tooling | [mise.toml](mise.toml) selects rumdl, Biome, Lefthook, Rulesync and its Node runtime |
 | Documentation | [Documentation map](docs/README.md) routes goals, architecture, development and tools; [Tools](docs/tools/README.md) owns shared tool guidance |
 | Project scripts | [scripts/](scripts/README.md) is reserved for project-owned executable helpers when native tool tasks are insufficient |
