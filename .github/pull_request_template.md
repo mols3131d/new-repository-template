@@ -22,7 +22,13 @@ Remove unused optional sections, empty headings, placeholders, and authoring com
 
 ### Self-review
 
-<!-- Self-review applies to a specific PR HEAD, not just the first review. After a complete review, add a plain bullet `- Reviewed HEAD: <full commit SHA>` below these checks. After every push, uncheck the Self-review items, compare the last reviewed HEAD to the new HEAD, and review that delta in the context of the full PR diff, Goal, and Boundaries. Recheck only after reviewing the current HEAD and update the SHA. If the previous SHA cannot be compared, the base changed, or no previous review exists, review the entire current PR diff. A stale reviewed SHA does not count as completed self-review. -->
+<!--
+After every push, uncheck Self-review items and compare the last reviewed HEAD to the new
+PR HEAD. Review the delta and its impact on the full PR diff, Goal, and Boundaries.
+Review the entire current PR diff if this is the first review, the prior SHA is unavailable,
+or the base changed. Recheck only after reviewing the current HEAD, then add or update
+a plain bullet `- Reviewed HEAD: <full SHA>` below. A stale SHA means review is pending.
+-->
 
 - [ ] Confirmed the Goal and Boundaries against the current PR diff.
 - [ ] Reviewed new changes since the last reviewed HEAD (or the full diff on initial review) for unintended changes and regressions.
