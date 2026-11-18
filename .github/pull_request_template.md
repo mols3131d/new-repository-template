@@ -30,6 +30,8 @@ or the base changed. Recheck only after reviewing the current HEAD, then add or 
 a plain bullet `- Reviewed HEAD: <full SHA>` below. A stale SHA means review is pending.
 -->
 
+Self-review is valid only for the recorded `Reviewed HEAD`; reset and repeat these checks after every push.
+
 - [ ] Confirmed the Goal and Boundaries against the current PR diff.
 - [ ] Reviewed new changes since the last reviewed HEAD (or the full diff on initial review) for unintended changes and regressions.
 
