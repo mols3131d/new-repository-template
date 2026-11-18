@@ -21,7 +21,7 @@ mise run check
 | Area | Provisioning / entry |
 | --- | --- |
 | Upstream Agent Skills | [rulesync.jsonc](rulesync.jsonc) selects 21 Skills from [mols-agent-assets](https://github.com/mols3131d/mols-agent-assets) and 1 official Rulesync Skill |
-| Agent asset projections | Claude Code, Codex CLI, GitHub Copilot, Copilot CLI, Antigravity IDE/CLI and AgentsSkills; [feature coverage and ownership](docs/tools/rulesync.md#supported-asset-types-and-ownership) vary per target |
+| Agent asset projections | Claude Code, Codex CLI, GitHub Copilot, Copilot CLI, Antigravity IDE/CLI and AgentsSkills; [configured features](rulesync.jsonc) and [asset ownership](docs/development/agents/assets.md) vary per target |
 | General tooling | [mise.toml](mise.toml) selects rumdl, Biome, Lefthook, Rulesync and its Node runtime |
 | Documentation | [Documentation map](docs/README.md) routes goals, architecture, development and tools; [Tools](docs/tools/README.md) owns shared tool guidance |
 | Project scripts | [scripts/](scripts/README.md) is reserved for project-owned executable helpers when native tool tasks are insufficient |
@@ -37,7 +37,7 @@ mise run check
 | Preview Rulesync projections (after setup) | `mise run agents-preview` |
 | Restore accepted upstream revisions (requires lockfile) | `mise run agents-restore` |
 | Update upstream revisions deliberately | `mise run agents-refresh` |
-| Preview/apply removal of retired runtime outputs | `mise run agents-retire -- <targets> --features <features> [--apply]` ([guide](docs/tools/rulesync.md#retire-a-target-or-feature)) |
+| Preview/apply removal of retired runtime outputs | `mise run agents-retire -- <targets> --features <features> [--apply]` |
 
 Git hook installation is **optional**, not part of the default setup. Follow [Tools](docs/tools/README.md) for scoped formatting, hook safety and version updates. `mise run check` does not run an application test suite, and an asset selection does not prove runtime activation.
 
