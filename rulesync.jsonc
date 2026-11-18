@@ -7,7 +7,6 @@
       "subagents": true,
       "skills": true
     },
-    // Preserve the canonical project AGENTS.md: do not generate root rules.
     "codexcli": {
       "subagents": true,
       "skills": true,
@@ -25,15 +24,13 @@
       "commands": true,
       "subagents": true,
       "skills": true,
+      // Antigravity skips .gitignore entries; use Git's local exclude instead.
       "gitignoreDestination": "gitexclude"
     },
     "agentsskills": {
       "skills": true,
       "gitignoreDestination": "gitexclude"
-    },
-    "cursor": ["rules", "commands", "subagents", "skills"],
-    // OpenCode root rules also write AGENTS.md; keep it project-owned.
-    "opencode": ["commands", "subagents", "skills"]
+    }
   },
   "outputRoots": ["."],
   "delete": true,
