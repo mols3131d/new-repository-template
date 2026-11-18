@@ -8,7 +8,7 @@ GitHub recognizes [Issue Forms](../ISSUE_TEMPLATE/) and the [Markdown Issue temp
 
 ## Agent attribution
 
-When an agent substantially writes or rewrites the final Issue, PR, review, or comment text, record its identity in a final fenced YAML block:
+When an agent substantially writes or rewrites final Issue, review, or comment text, record its identity in a final fenced YAML block. PR descriptions do not use a YAML attribution block in this repository; follow the native PR template:
 
 ```yaml
 author:
@@ -20,7 +20,7 @@ author:
 - Attribute the final text, **not every model or alias encountered during a session**. If a model changed or cannot be identified reliably, use `unknown` for `model` rather than reconstructing session history. List separate entries only for independently identified co-authors.
 - Use `unknown` for other unverified components too. Do not infer identities from the authenticated GitHub actor or from the provider under development.
 - Omit attribution for wholly human-authored text or unchanged human text merely posted by a tool. GitHub's own author, review, and approval records remain authoritative; this block is descriptive provenance only.
-- Native Issue Forms render the optional **Agent author** field as labeled YAML code. The native PR template already includes a final YAML author block: replace its placeholder for agent-written PRs, or remove the entire block for human-written PRs. For Markdown/API Issues, reviews, and comments, append the block only when applicable.
+- Native Issue Forms render the optional **Agent author** field as labeled YAML code. For Markdown/API Issues, reviews, and comments, append the block only when applicable. Do not add attribution YAML to PR descriptions; the [native PR template](../pull_request_template.md) owns their authoring structure.
 
 ## Select a template
 
