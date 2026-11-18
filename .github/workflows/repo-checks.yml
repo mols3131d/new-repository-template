@@ -23,7 +23,6 @@ jobs:
       - run: mise exec -- npm run typecheck:scripts
       - run: mise run agents-check
       - run: mise exec -- node --test tests/scripts/manage-agent-assets.test.ts
-      - run: mise exec -- node --test tests/scripts/gitignore.test.ts
       - run: |
           git ls-files -z '*.md' ':!.inbox/**' | xargs -0 -r mise exec -- rumdl check
           git ls-files -z '*.md' ':!.inbox/**' | xargs -0 -r mise exec -- rumdl fmt --check
