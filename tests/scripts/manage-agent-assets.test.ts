@@ -8,7 +8,7 @@ import {
   main,
   parseRulesyncSelection,
   stripJsonc,
-} from "../scripts/manage-agent-assets.ts";
+} from "../../scripts/manage-agent-assets.ts";
 
 function fixture(t: TestContext) {
   const root = mkdtempSync(join(tmpdir(), "agents-cli-"));

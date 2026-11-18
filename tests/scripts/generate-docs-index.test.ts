@@ -15,7 +15,7 @@ import {
   main,
   renderIndex,
   syncIndex,
-} from "../scripts/generate-docs-index.ts";
+} from "../../scripts/generate-docs-index.ts";
 
 function fixture(t: TestContext) {
   const root = mkdtempSync(join(tmpdir(), "docs-index-"));
