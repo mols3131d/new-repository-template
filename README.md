@@ -1,6 +1,6 @@
 # New Repository Template
 
-A technology-agnostic starter for **agent-assisted development**. It provides reusable agent assets (Skills, Rules, Commands and Subagents) through Rulesync, shared tooling through mise, and GitHub Actions checks for repository tooling and documentation indexing. A derived project chooses its application language and CI workflow.
+A technology-agnostic starter for **agent-assisted development**. It provisions reusable Skills and prepares Rules, Commands and Subagents through Rulesync, shared tooling through mise, and GitHub Actions checks for repository tooling and documentation indexing. A derived project chooses its application language and CI workflow.
 
 ## Start a project
 
