@@ -20,7 +20,7 @@ description: "Read when installing, updating, or retiring Rulesync-managed agent
 
 ## Generated files and retirement
 
-`"delete": true` removes stale files **inside active generated output locations**; removing a target from the manifest alone does **not** retire its old outputs. Preview retirement before applying it:
+`"delete": true` removes stale files **inside active generated output locations**, but removing a target from the manifest does **not** retire its old outputs. After removing a selection, preview retirement before applying it:
 
 ```sh
 mise run agents-retire -- claudecode --features skills
