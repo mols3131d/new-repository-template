@@ -1,6 +1,6 @@
 <!--
 Keep Summary, Goal, Tasks, Checklist, and Boundaries as the five required H2 sections, in order.
-Split a long H2 into descriptive H3 subsections when distinct topics or workstreams make it easier to scan; otherwise omit H3. Keep the three fixed Checklist H3 groups.
+In Tasks, use the suggested H3 groups for preparation and implementation only when they track actual work; remove unused groups. Keep the three fixed Checklist H3 groups.
 Remove unused optional sections, empty headings, placeholders, and authoring comments before submitting.
 -->
 
@@ -14,7 +14,19 @@ Remove unused optional sections, empty headings, placeholders, and authoring com
 
 ## Tasks
 
-<!-- Track concrete deliverables using - [ ] and - [x]. Check only completed work. Group longer task lists under descriptive H3 headings when helpful; do not duplicate the changed-files list or commit history. -->
+<!-- Track concrete work with - [ ] and - [x]; check only completed items. Adapt or remove example preparation tasks and unused H3 groups. Do not repeat Checklist verification, changed-file lists, or commit history. -->
+
+### Context & Scope
+
+- [ ] Identify relevant requirements, affected paths, and constraints.
+
+### Work Planning
+
+- [ ] Break down deliverables and determine the verification approach.
+
+### Implementation
+
+<!-- Add PR-specific implementation tasks as checkboxes; remove this H3 if not needed. -->
 
 ## Checklist
 
