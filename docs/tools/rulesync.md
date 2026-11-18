@@ -4,7 +4,7 @@ description: "Read when installing, updating, or retiring Rulesync-managed agent
 
 # Rulesync
 
-[`rulesync.jsonc`](../../rulesync.jsonc) owns the selected upstream assets and target features. [`mise.toml`](mise.md) exposes the setup and maintenance commands through [`manage-agent-assets.ts`](../../scripts/manage-agent-assets.ts). For supported target features, consult the [Rulesync support matrix](https://rulesync.dyoshikawa.com/reference/supported-tools.html), not a duplicated list here.
+[`rulesync.jsonc`](../../rulesync.jsonc) owns the selected upstream assets and target features. [`mise.toml`](../../mise.toml) exposes the setup and maintenance commands through [`manage-agent-assets.ts`](../../scripts/manage-agent-assets.ts). For supported target features, consult the [Rulesync support matrix](https://rulesync.dyoshikawa.com/reference/supported-tools.html), not a duplicated list here.
 
 ## Asset ownership
 
@@ -14,15 +14,9 @@ description: "Read when installing, updating, or retiring Rulesync-managed agent
 
 ## Setup and maintenance
 
-| Task | Command | Important behavior |
-| --- | --- | --- |
-| Validate config | `mise run agents-check` | Runs `rulesync doctor --strict` |
-| First install | `mise run agents-setup` | Resolves sources and creates `rulesync.lock`, projections and ignore entries |
-| Reproduce locked state | `mise run agents-restore` | Uses `--frozen`; fails if the lock is missing or incomplete |
-| Update upstream | `mise run agents-refresh` | Deliberately refreshes source revisions |
-| Preview generation | `mise run agents-preview` | Requires installed `.rulesync/`; does not write projections |
+`mise run agents-setup` resolves sources, creates `rulesync.lock`, and generates projections and ignore entries. Review the resulting lock and changes before committing. If GitHub rate limits interrupt installation, set `GITHUB_TOKEN` or `GH_TOKEN` and rerun setup; the lock may be partial.
 
-Review the resolved lock, generated files and ignore changes before committing. If GitHub rate limits interrupt the first install, authenticate with `GITHUB_TOKEN` or `GH_TOKEN` and rerun setup; the interrupted `rulesync.lock` may be partial. `rulesync.local.jsonc` is a supported, Git-ignored local override.
+`agents-restore` reproduces the lock (`--frozen`, fails on missing or incomplete entries); `agents-refresh` deliberately updates upstream revisions. `agents-check` validates configuration; `agents-preview` previews generation after installation. Run these through `mise run`; see [everyday commands](../../README.md#everyday-commands). `rulesync.local.jsonc` is a supported, Git-ignored local override.
 
 ## Generated files and retirement
 
