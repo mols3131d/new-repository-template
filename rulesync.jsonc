@@ -12,8 +12,8 @@
       "skills": true,
       "gitignoreDestination": "gitexclude"
     },
-    "copilot": ["rules", "subagents", "skills"],
-    "copilotcli": ["subagents", "skills"],
+    "copilot": ["rules", "commands", "subagents", "skills"],
+    "copilotcli": ["rules", "subagents", "skills"],
     "antigravity-ide": {
       "commands": true,
       "subagents": true,
