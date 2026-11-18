@@ -1,19 +1,30 @@
 {
   "$schema": "https://github.com/dyoshikawa/rulesync/releases/latest/download/config-schema.json",
   "targets": {
-    "claudecode": ["skills"],
+    "claudecode": {
+      "rules": { "includeRoot": false },
+      "commands": true,
+      "subagents": true,
+      "skills": true
+    },
     "codexcli": {
+      "subagents": true,
       "skills": true,
       "gitignoreDestination": "gitexclude"
     },
-    "copilot": ["skills"],
-    "copilotcli": ["skills"],
+    "copilot": ["rules", "commands", "subagents", "skills"],
+    "copilotcli": ["rules", "subagents", "skills"],
     "antigravity-ide": {
+      "commands": true,
+      "subagents": true,
       "skills": true,
       "gitignoreDestination": "gitexclude"
     },
     "antigravity-cli": {
+      "commands": true,
+      "subagents": true,
       "skills": true,
+      // Antigravity skips .gitignore entries; use Git's local exclude instead.
       "gitignoreDestination": "gitexclude"
     },
     "agentsskills": {
