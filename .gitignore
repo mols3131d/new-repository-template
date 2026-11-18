@@ -1,11 +1,12 @@
-# Credentials and machine-local configuration
+# Environment files (keep shareable examples)
 .env
 .env.*
 !.env.example
 !.env.sample
 !.env.template
 !.env.dist
-# Includes mise.local.toml, rulesync.local.jsonc, and multi-extension overrides.
+
+# Machine-specific overrides (e.g. mise.local.toml, rulesync.local.jsonc)
 *.local
 *.local.*
 
@@ -14,18 +15,20 @@ node_modules/
 .venv/
 venv/
 
-# Tool-managed caches and temporary results
+# Tool caches and generated test output
 .cache/
 __pycache__/
-.pytest_cache/
 .mypy_cache/
+.pytest_cache/
 .rumdl_cache/
 .rulesync/skills/.curated/
 .rulesync/rules/.curated/
 coverage/
+*.tsbuildinfo
+
+# Logs, temporary files, and backups
 *.log
 *.log.*
-*.tsbuildinfo
 *.tmp
 *.tmp.*
 *.bak
@@ -33,11 +36,11 @@ coverage/
 *.orig
 *.orig.*
 
-# Local editor and operating-system files
-.DS_Store
-Thumbs.db
+# Editor and OS artifacts
 *.swp
 *.swo
 *~
+.DS_Store
+Thumbs.db
 
 # Add stack-specific build output patterns in derived repositories.
