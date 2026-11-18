@@ -5,7 +5,7 @@ on:
     paths:
       - "docs/**"
       - "scripts/generate-docs-index.ts"
-      - "tests/generate-docs-index.test.ts"
+      - "tests/scripts/generate-docs-index.test.ts"
       - "package.json"
       - "package-lock.json"
       - "tsconfig.scripts.json"
@@ -16,7 +16,7 @@ on:
     paths:
       - "docs/**"
       - "scripts/generate-docs-index.ts"
-      - "tests/generate-docs-index.test.ts"
+      - "tests/scripts/generate-docs-index.test.ts"
       - "package.json"
       - "package-lock.json"
       - "tsconfig.scripts.json"

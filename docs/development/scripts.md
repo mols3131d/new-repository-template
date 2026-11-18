@@ -19,4 +19,4 @@ Use the repository's supported runtime and maintain a clear interface: documente
 - When changing a script, review its callers, associated tests, generated output, dependency declarations, and relevant documentation.
 - Run applicable tests, type checks and drift detection; distinguish static review from executed checks.
 
-For the document-index generator, use [indexing guidance](../documentation/indexing.md) and [generator tests](../../tests/generate-docs-index.test.ts).
+For the document-index generator, use [indexing guidance](../documentation/indexing.md) and [generator tests](../../tests/scripts/generate-docs-index.test.ts).
