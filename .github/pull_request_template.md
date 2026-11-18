@@ -18,7 +18,7 @@ Remove unused optional sections, empty headings, placeholders, and authoring com
 
 ## Checklist
 
-<!-- Keep the fixed checks below. Check only when the criterion is satisfied. Leave failed, pending, or unverified checks unchecked and give a reason. Mark a check N/A only if genuinely inapplicable and explain why; N/A is not a passed execution. Add relevant checks as needed without copying CI logs. -->
+<!-- Keep the fixed checks below. Check only a criterion that was actually satisfied. Keep failed, pending, or unverified checks unchecked and explain why. For an inapplicable check, replace its entire checkbox item with an ordinary text item (for example, `- N/A — no runtime behavior to verify`); do not use a checked, unchecked, or nonstandard checkbox for N/A because it affects task progress. Add relevant checks as needed without copying CI logs. -->
 
 ### Self-review
 
@@ -27,12 +27,13 @@ Remove unused optional sections, empty headings, placeholders, and authoring com
 
 ### Automated checks
 
-- [ ] Applicable formatting and lint checks passed (or N/A with reason).
-- [ ] Applicable automated tests and GitHub CI checks passed (or N/A with reason).
+- [ ] Applicable formatting and lint checks passed.
+- [ ] Applicable automated tests passed.
+- [ ] Applicable GitHub CI checks passed.
 
 ### Verification
 
-- [ ] Task-specific acceptance criteria and runtime/manual behavior verified where applicable (or N/A with reason).
+- [ ] Task-specific acceptance criteria and runtime/manual behavior verified where applicable.
 - [ ] Recorded failed, skipped, or unverified checks and unresolved risks (or confirmed none).
 
 ## Boundaries
@@ -41,9 +42,3 @@ Remove unused optional sections, empty headings, placeholders, and authoring com
 
 <!-- Optional: add useful H2 sections such as Risks, Review Focus, Compatibility, Migration, Security, Handoff, or References. Omit empty sections. Add descriptive H3 subsections only when they improve readability. -->
 
-<!-- Agent-authored PR: replace the placeholder with verified author identity; use unknown for any unverified component. Human-authored PR: delete the entire YAML block. Keep the completed block last. See templates/README.md. -->
-
-```yaml
-author:
-  - <user>:<provider>:<product>[/<mode>]:<model>
-```
