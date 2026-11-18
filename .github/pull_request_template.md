@@ -34,6 +34,7 @@ Self-review is valid only for the recorded `Reviewed HEAD`; reset and repeat the
 
 - [ ] Confirmed the Goal and Boundaries against the current PR diff.
 - [ ] Reviewed new changes since the last reviewed HEAD (or the full diff on initial review) for unintended changes and regressions.
+- [ ] No blocking findings from self-review remain.
 
 ### Automated checks
 
