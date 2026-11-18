@@ -18,7 +18,7 @@ Remove unused optional sections, empty headings, placeholders, and authoring com
 
 ## Checklist
 
-<!-- Keep the fixed checks below. Check only a criterion that was actually satisfied. Keep failed, pending, or unverified checks unchecked and explain why. For an inapplicable check, replace its entire checkbox item with an ordinary text item (for example, `- N/A — no runtime behavior to verify`); do not use a checked, unchecked, or nonstandard checkbox for N/A because it affects task progress. Add relevant checks as needed without copying CI logs. -->
+<!-- Keep the fixed checks below. Check only a criterion that was actually satisfied. Keep failed, pending, or unverified checks unchecked and explain why. For an inapplicable check, replace its entire checkbox item with a plain Markdown bullet in the form `- N/A - <reason>` (for example, `- N/A - no runtime behavior to verify`); do not use any checkbox syntax for N/A because it affects GitHub task progress. Add relevant checks as needed without copying CI logs. -->
 
 ### Self-review
 
