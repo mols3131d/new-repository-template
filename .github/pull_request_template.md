@@ -22,14 +22,13 @@ Remove unused optional sections, empty headings, placeholders, and authoring com
 
 ### Self-review
 
-- Reviewed HEAD: FULL_SHA
+- Reviewed HEAD: Pending
 
 <!--
-After every push, uncheck Self-review items and compare the last reviewed HEAD to the new
-PR HEAD. Review the delta and its impact on the full PR diff, Goal, and Boundaries.
-Review the entire current PR diff if this is the first review, the prior SHA is unavailable,
-or the base changed. Recheck only after reviewing the current HEAD, then update
-the plain bullet `- Reviewed HEAD: FULL_SHA` above. A stale SHA means review is pending.
+Review the full current PR diff on first review, when the previous reviewed SHA is unavailable,
+or when the base changes. Otherwise, review changes since the recorded SHA and their
+impact on the full PR diff, Goal, and Boundaries. After review, replace Pending with
+the full reviewed commit SHA.
 -->
 
 > [!WARNING]
@@ -42,10 +41,8 @@ the plain bullet `- Reviewed HEAD: FULL_SHA` above. A stale SHA means review is 
 ### Verification
 
 - [ ] Task-specific acceptance criteria and runtime/manual behavior verified where applicable.
-- [ ] Recorded failed, skipped, or unverified checks and unresolved risks (or confirmed none).
-
 ## Boundaries
 
-<!-- Describe deliberate exclusions, material constraints, permissions, side effects, or follow-up work; use N/A when none apply. -->
+<!-- Record material exclusions, unverified work, unresolved risks, constraints, permissions, side effects, or follow-up work; use N/A when none apply. -->
 
 <!-- Optional: add useful H2 sections such as Risks, Review Focus, Compatibility, Migration, Security, Handoff, or References. Omit empty sections. Add descriptive H3 subsections only when they improve readability. -->
