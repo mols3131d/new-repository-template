@@ -41,6 +41,7 @@ the full reviewed commit SHA.
 ### Verification
 
 - [ ] Task-specific acceptance criteria and runtime/manual behavior verified where applicable.
+
 ## Boundaries
 
 <!-- Record material exclusions, unverified work, unresolved risks, constraints, permissions, side effects, or follow-up work; use N/A when none apply. -->
