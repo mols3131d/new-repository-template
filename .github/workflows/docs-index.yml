@@ -32,6 +32,8 @@ jobs:
   validate:
     runs-on: ubuntu-24.04
     timeout-minutes: 5
+    outputs:
+      index_drift: ${{ steps.index_check.outcome == 'failure' }}
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v4
@@ -41,5 +43,60 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm run typecheck:scripts
       - run: npm run test:docs
-      - run: npm run docs:index:check
       - run: npm run docs:frontmatter:check
+      - name: Check documentation index
+        id: index_check
+        continue-on-error: true
+        run: npm run docs:index:check
+      - name: Fail if index cannot be repaired automatically
+        if: >-
+          ${{ steps.index_check.outcome == 'failure' &&
+              (github.event_name != 'pull_request' ||
+               github.event.pull_request.head.repo.full_name != github.repository) }}
+        run: |
+          echo "::error::Documentation index is stale. Run npm run docs:index and commit docs/INDEX.tsv."
+          exit 1
+
+  regenerate:
+    needs: validate
+    if: >-
+      ${{ github.event_name == 'pull_request' &&
+          github.event.pull_request.head.repo.full_name == github.repository &&
+          needs.validate.outputs.index_drift == 'true' }}
+    permissions:
+      contents: write
+      actions: write
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "26"
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Regenerate and verify the documentation index
+        run: |
+          npm run docs:index
+          npm run docs:index:check
+      - name: Commit regenerated index and rerun checks
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_BRANCH: ${{ github.event.pull_request.head.ref }}
+        run: |
+          git add -- docs/INDEX.tsv
+          if git diff --cached --quiet; then
+            echo "::error::Index validation failed without a change to docs/INDEX.tsv; no automatic repair is available."
+            exit 1
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(docs): regenerate documentation index"
+          gh auth setup-git
+          git push origin "HEAD:refs/heads/$PR_BRANCH"
+          # Pushes with GITHUB_TOKEN do not trigger normal workflows.
+          gh workflow run docs-index.yml --ref "$PR_BRANCH"
+          gh workflow run repo-checks.yml --ref "$PR_BRANCH"
