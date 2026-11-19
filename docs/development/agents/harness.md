@@ -16,7 +16,7 @@ Check whether selected instructions and Skills are actually reachable and follow
 
 Use one **available** runtime and a bounded change on a separate working branch (for example, a small documentation edit). Do not run a destructive bootstrap on `main`.
 
-1. Identify how that runtime actually enters the repository: native `AGENTS.md` discovery or a confirmed runtime-side pointer to [CHATBOT.md](../../../CHATBOT.md). A file's presence alone is not first-hop evidence.
+1. Identify the runtime's actual entrypoint and check whether it loads applicable `AGENTS.md` instructions or another runtime-supported instruction source. A file's presence alone is not evidence of loading.
 2. Observe the loaded root and task-scoped instructions. For a documentation edit, trace a relevant Skill from [Rulesync selection](../../../rulesync.jsonc) through its **installed/source-reachable `SKILL.md`** and any references needed by the task; the manifest and generated path list alone do not prove loading.
 3. Make the authorized edit, review its diff and execute applicable checks. Note whether the agent followed applicable instruction, source authority and write/permission boundaries. A successfully written file without an observed instruction/Skill trace cannot prove activation.
 4. Record the runtime/version (if known), repository/ref, entrypoint, actually loaded files and refs, task/result, executed commands, evidence tier and unavailable checks. Label other listed runtimes **unverified** unless separately observed.
