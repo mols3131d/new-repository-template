@@ -1,5 +1,5 @@
 ---
-description: "Use when selecting a README navigation list or generated INDEX.tsv, or checking documentation index drift."
+description: "Use when generating and validating documentation indexes or diagnosing CI drift repair."
 ---
 
 # Document Indexing
@@ -38,4 +38,6 @@ node scripts/generate-docs-index.ts --root docs/tools --depth all --check
 
 The same script's standalone `--validate FILE...` mode checks named documents without generating an index. The maintained out-of-scope file list is `docs:frontmatter:check` in [`package.json`](../../package.json); update it when adding such a document.
 
-The [CI workflow](../../.github/workflows/docs-index.yml) checks metadata, tests, types and index drift without modifying generated output.
+The [CI workflow](../../.github/workflows/docs-index.yml) checks metadata, generator tests and index drift on relevant PRs and `main` pushes. Script type checking remains in [repository checks](../../.github/workflows/repo-checks.yml). When a same-repository PR has a stale index, the read-only validation job regenerates and verifies the output, then passes **only** `docs/INDEX.tsv` as an artifact to a separate commit job. That job does not execute PR code: it commits the index to the PR branch and dispatches both CI workflows against the updated ref. Invalid source metadata or unsuccessful regeneration fails validation without a write.
+
+Fork PRs, `main` pushes and manual runs validate without automatic commits. Only the commit job has `contents: write` and `actions: write`; a non-force push rejects newer PR changes. If repository policy prevents the bot from pushing, regenerate and commit locally. Explicit dispatch is needed because `GITHUB_TOKEN` pushes do not trigger normal CI runs.

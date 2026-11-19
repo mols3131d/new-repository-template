@@ -1,7 +1,7 @@
 path	description
 architecture/	Use when locating component boundaries, design decisions, dependencies or technical tradeoffs.
 development/	Use for contributor setup, development practices, agent guidance and verification responsibilities.
-documentation/	Find document authoring standards and frontmatter-driven navigation guidance.
+documentation/	Find documentation standards, frontmatter guidance, and generated index maintenance.
 goal/	Use when defining project outcomes, requirements, scope, non-goals and acceptance criteria.
 guides/	Start here when adapting the repository template to a project and choosing which example automation to retain.
 policies/	Use when recording adopted project-wide policies and their enforcement boundaries.
