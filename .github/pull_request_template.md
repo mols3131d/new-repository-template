@@ -22,20 +22,18 @@ Remove unused optional sections, empty headings, placeholders, and authoring com
 
 ### Self-review
 
-```yaml
-reviewed_head: null
-```
+- Reviewed HEAD: <full SHA>
 
 <!--
-After every push, uncheck Self-review items and compare the recorded reviewed_head with
-the new PR HEAD. Review the delta and its impact on the full PR diff, Goal, and Boundaries.
-Review the full current PR diff if this is the first review, the prior SHA is unavailable,
-or the base changed. Recheck only after reviewing the current HEAD, then set reviewed_head
-above to its full SHA. Leave it null until the first review; a stale SHA means review is pending.
+After every push, uncheck Self-review items and compare the last reviewed HEAD to the new
+PR HEAD. Review the delta and its impact on the full PR diff, Goal, and Boundaries.
+Review the entire current PR diff if this is the first review, the prior SHA is unavailable,
+or the base changed. Recheck only after reviewing the current HEAD, then update
+the plain bullet `- Reviewed HEAD: <full SHA>` above. A stale SHA means review is pending.
 -->
 
 > [!WARNING]
-> Self-review is valid only for the recorded `reviewed_head`. After every push, you must uncheck the Self-review items, review the changes, and update the checks and `reviewed_head`.
+> Self-review is valid only for the recorded `Reviewed HEAD`. After every push, you must uncheck the Self-review items, review the changes, and update the checks and `Reviewed HEAD`.
 
 - [ ] Confirmed the Goal and Boundaries against the current PR diff.
 - [ ] Reviewed new changes since the last reviewed HEAD (or the full diff on initial review) for unintended changes and regressions.
