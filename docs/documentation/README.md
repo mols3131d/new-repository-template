@@ -1,5 +1,5 @@
 ---
-description: "Find document authoring, frontmatter navigation and generated index maintenance guidance."
+description: "Find documentation standards, frontmatter guidance and generated index maintenance."
 ---
 
 # Documentation Practices
