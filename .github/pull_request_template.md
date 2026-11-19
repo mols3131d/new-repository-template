@@ -22,14 +22,14 @@ Remove unused optional sections, empty headings, placeholders, and authoring com
 
 ### Self-review
 
-- Reviewed HEAD: <full SHA>
+- Reviewed HEAD: FULL_SHA
 
 <!--
 After every push, uncheck Self-review items and compare the last reviewed HEAD to the new
 PR HEAD. Review the delta and its impact on the full PR diff, Goal, and Boundaries.
 Review the entire current PR diff if this is the first review, the prior SHA is unavailable,
 or the base changed. Recheck only after reviewing the current HEAD, then update
-the plain bullet `- Reviewed HEAD: <full SHA>` above. A stale SHA means review is pending.
+the plain bullet `- Reviewed HEAD: FULL_SHA` above. A stale SHA means review is pending.
 -->
 
 > [!WARNING]
