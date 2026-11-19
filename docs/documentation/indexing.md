@@ -1,5 +1,5 @@
 ---
-description: "Use when selecting a README navigation list or generated INDEX.tsv, or checking documentation index drift."
+description: "Use when generating and validating documentation indexes or diagnosing CI drift repair."
 ---
 
 # Document Indexing
@@ -38,4 +38,6 @@ node scripts/generate-docs-index.ts --root docs/tools --depth all --check
 
 The same script's standalone `--validate FILE...` mode checks named documents without generating an index. The maintained out-of-scope file list is `docs:frontmatter:check` in [`package.json`](../../package.json); update it when adding such a document.
 
-The [CI workflow](../../.github/workflows/docs-index.yml) checks metadata, tests, types and index drift without modifying generated output.
+The [CI workflow](../../.github/workflows/docs-index.yml) checks metadata, tests, types and index drift. When the index check fails on a same-repository PR, CI regenerates only `docs/INDEX.tsv`, commits it to the PR branch and explicitly reruns both CI workflows. Fork PRs and non-PR events remain read-only. Invalid source metadata or a failed generator is not auto-fixed.
+
+The repair job requires `contents: write` and `actions: write`. If repository policy prevents the bot from pushing, regenerate and commit locally. The explicit reruns are necessary because pushes made with `GITHUB_TOKEN` do not trigger normal workflows.
