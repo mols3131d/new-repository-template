@@ -31,6 +31,9 @@ permissions:
 
 jobs:
   validate:
+    concurrency:
+      group: docs-index-validate-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     outputs:
