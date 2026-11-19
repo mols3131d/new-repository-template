@@ -1,5 +1,5 @@
 ---
-description: "Find documentation standards, frontmatter guidance and generated index maintenance."
+description: "Find documentation standards, frontmatter guidance, and generated index maintenance."
 ---
 
 # Documentation Practices
