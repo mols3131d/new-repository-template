@@ -1,6 +1,6 @@
 <!--
 Keep Summary, Goal, Tasks, Checklist, and Boundaries as the five required H2 sections, in order.
-Split a long H2 into descriptive H3 subsections when distinct topics or workstreams make it easier to scan; otherwise omit H3. Keep the three fixed Checklist H3 groups.
+Split a long H2 into descriptive H3 subsections when distinct topics or workstreams make it easier to scan; otherwise omit H3. Keep the two fixed Checklist H3 groups.
 Remove unused optional sections, empty headings, placeholders, and authoring comments before submitting.
 -->
 
@@ -38,12 +38,6 @@ the plain bullet `- Reviewed HEAD: FULL_SHA` above. A stale SHA means review is 
 - [ ] Confirmed the Goal and Boundaries against the current PR diff.
 - [ ] Reviewed new changes since the last reviewed HEAD (or the full diff on initial review) for unintended changes and regressions.
 - [ ] No blocking findings from self-review remain.
-
-### Automated checks
-
-- [ ] Applicable formatting and lint checks passed.
-- [ ] Applicable automated tests passed.
-- [ ] Applicable GitHub CI checks passed.
 
 ### Verification
 
