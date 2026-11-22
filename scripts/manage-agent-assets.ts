@@ -133,6 +133,8 @@ function collectTargetFeatures(spec: unknown): unknown[] {
 
 /**
  * Derive --targets and --features for `rulesync gitignore` from rulesync.jsonc.
+ * Rulesync accepts one shared feature filter, so the union is the narrowest
+ * CLI approximation of per-target features; review shared ignored paths.
  */
 export function parseRulesyncSelection(root: string): RulesyncSelection {
   const configPath = join(root, "rulesync.jsonc");
@@ -374,7 +376,7 @@ export function main(
         parsed.targets,
         "--features",
         parsed.features,
-        ...(parsed.apply ? [] : ["--dry-run"]),
+        ...(parsed.apply ? [] : ["--dry-run", "--json"]),
       ],
       root,
       stderr,
@@ -403,7 +405,12 @@ export function main(
   if (command === "preview") {
     return (
       runRulesyncStep(runCommand, ["doctor", "--strict"], root, stderr) ||
-      runRulesyncStep(runCommand, ["generate", "--dry-run"], root, stderr)
+      runRulesyncStep(
+        runCommand,
+        ["generate", "--dry-run", "--json"],
+        root,
+        stderr,
+      )
     );
   }
 

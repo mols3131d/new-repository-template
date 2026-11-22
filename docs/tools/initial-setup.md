@@ -32,7 +32,7 @@ mise run agents-preview
 mise run check
 ```
 
-Inspect `rulesync.lock`, [`.gitignore`](../../.gitignore), `.git/info/exclude` and generated projections. `agents-preview` runs `agents-check` and previews generation once `setup` (or `restore`) has created `.rulesync/`; `check` validates formatting, lint and hooks without writing.
+Inspect `rulesync.lock`, [`.gitignore`](../../.gitignore), `.git/info/exclude` and generated projections. `agents-preview` runs `agents-check` and prints the Rulesync JSON write/delete plan without changing projections once `setup` (or `restore`) has created `.rulesync/`. Review proposed deletions (including directory contents) against hand-maintained files; a preview of currently installed sources does not predict changes from a later upstream refresh. `check` validates formatting, lint and hooks without writing.
 
 ## Subsequent use and recovery
 

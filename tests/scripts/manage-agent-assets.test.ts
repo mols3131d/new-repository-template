@@ -243,7 +243,7 @@ test("check, preview short-circuit, --help, and usage errors work cleanly", (t) 
   );
   assert.deepEqual(calls, [
     ["doctor", "--strict"],
-    ["generate", "--dry-run"],
+    ["generate", "--dry-run", "--json"],
   ]);
 
   calls.length = 0;
@@ -305,6 +305,7 @@ test("retire previews exact targets and features without installs or ignore writ
       "--features",
       "skills",
       "--dry-run",
+      "--json",
     ],
   ]);
 });
