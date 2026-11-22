@@ -27,10 +27,7 @@
       // Antigravity skips .gitignore entries; use Git's local exclude instead.
       "gitignoreDestination": "gitexclude"
     },
-    "agentsskills": {
-      "skills": true,
-      "gitignoreDestination": "gitexclude"
-    }
+    "agentsskills": ["skills"]
   },
   "outputRoots": ["."],
   "delete": true,
