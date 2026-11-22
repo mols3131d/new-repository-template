@@ -405,7 +405,12 @@ export function main(
   if (command === "preview") {
     return (
       runRulesyncStep(runCommand, ["doctor", "--strict"], root, stderr) ||
-      runRulesyncStep(runCommand, ["generate", "--dry-run", "--json"], root, stderr)
+      runRulesyncStep(
+        runCommand,
+        ["generate", "--dry-run", "--json"],
+        root,
+        stderr,
+      )
     );
   }
 
