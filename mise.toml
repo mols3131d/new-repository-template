@@ -28,7 +28,7 @@ description = "Validate Rulesync configuration without requiring installed .rule
 run = "node scripts/manage-agent-assets.ts check"
 
 [tasks.agents-preview]
-description = "Preview Rulesync target projections after setup or restore (requires .rulesync)"
+description = "Preview Rulesync write/delete plan after setup or restore (requires .rulesync)"
 run = "node scripts/manage-agent-assets.ts preview"
 
 [tasks.agents-refresh]
