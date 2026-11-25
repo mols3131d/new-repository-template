@@ -1,16 +1,12 @@
-<!--
-Keep Description, Tasks, and Checklist as the three default H2 sections.
-Add other sections, subsections, bullets, or free-form prose whenever useful.
-Remove unused writing guidance before submitting.
--->
+*(Keep Description, Tasks, and Checklist as the default sections. Add sections, subsections, bullets, or prose when useful. Remove all writing guidance before submitting.)*
 
 ## Description
 
-<!-- Explain what changed and why. Include context or limitations when relevant. -->
+*(Describe what changed and why, including relevant context or limitations.)*
 
 ## Tasks
 
-<!-- Track deliverables with checkboxes when useful; plain bullets or prose are also fine. -->
+*(List deliverables; use checkboxes, plain bullets, or prose as needed.)*
 
 ## Checklist
 
@@ -18,8 +14,4 @@ Remove unused writing guidance before submitting.
 - [ ] Considered relevant risks and compatibility impacts.
 - [ ] Updated affected documentation, if needed.
 
-<!--
-Adjust the checklist to fit the PR. Add plain bullets or paragraphs for explanations,
-evidence, exceptions, or unverified work. Not every statement needs a checkbox.
-Do not duplicate GitHub-native CI results, review approvals, or merge status.
--->
+*(Adjust checks to fit the PR. Use plain bullets or prose for explanations, evidence, exceptions, or unverified work. Do not duplicate GitHub-native CI results, review approvals, or merge status.)*
