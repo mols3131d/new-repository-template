@@ -1,6 +1,6 @@
 # New Repository Template
 
-A technology-agnostic starter for **agent-assisted development**. It provisions reusable Skills and prepares Rules, Commands and Subagents through Rulesync, shared tooling through mise, and GitHub Actions checks for repository tooling and documentation indexing. A derived project chooses its application language and CI workflow.
+A technology-agnostic starter for **agent-assisted development**. It prepares optional Skills, Rules, Commands and Subagents through Rulesync, shared tooling through mise, and GitHub Actions checks for repository tooling and documentation indexing. A derived project chooses its application language and CI workflow.
 
 ## Start a project
 
@@ -14,13 +14,13 @@ mise run setup
 mise run check
 ```
 
-`setup` resolves the first upstream asset lock (or reuses an existing one), generates enabled runtime projections and ignore entries, and configures the clone-local [Git commit template](docs/tools/git/README.md). Inspect and commit the resulting `rulesync.lock` only after reviewing its resolved sources. Follow [Project Setup](docs/guides/project-setup.md) to select the application stack, verify agent loading and check GitHub protection for the new repository.
+`setup` generates enabled runtime projections and ignore entries and configures the clone-local [Git commit template](docs/tools/git/README.md). No upstream Skills are selected by default. If you add sources, inspect and commit the resulting `rulesync.lock` only after reviewing its resolved sources. Follow [Project Setup](docs/guides/project-setup.md) to select the application stack, verify agent loading and check GitHub protection for the new repository.
 
 ## Included foundation
 
 | Area | Provisioning / entry |
 | --- | --- |
-| Upstream Agent Skills | [rulesync.jsonc](rulesync.jsonc) selects Skills from [mols-agent-assets](https://github.com/mols3131d/mols-agent-assets) and [Rulesync](https://github.com/dyoshikawa/rulesync) |
+| Upstream Agent Skills | [rulesync.jsonc](rulesync.jsonc) starts with no external sources; derived projects select their own Skills |
 | Agent asset projections | Claude Code, Codex CLI, GitHub Copilot, Copilot CLI, Antigravity IDE/CLI and AgentsSkills; [configured features](rulesync.jsonc) and [asset ownership](docs/development/agents/assets.md) vary per target |
 | General tooling | [mise.toml](mise.toml) selects rumdl, Biome, Lefthook, Rulesync and its Node runtime |
 | Documentation | [Documentation map](docs/README.md) routes goals, architecture, development and tools; [Tools](docs/tools/README.md) owns shared tool guidance |
