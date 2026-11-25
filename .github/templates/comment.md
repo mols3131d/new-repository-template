@@ -1,4 +1,4 @@
-<!-- Issue / PR conversation comment. State the conclusion first; omit empty sections and replace all notation before posting. -->
+(*Issue / PR conversation comment. State the conclusion first; omit empty sections and replace all notation before posting.*)
 
 {{ message }}
 
@@ -22,7 +22,7 @@
 {% endfor %}
 {% endif %}
 
-<!-- Required when an agent substantially authored or rewrote the comment. -->
+(*Required when an agent substantially authored or rewrote the comment.*)
 {% if author %}
 
 ```yaml

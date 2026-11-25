@@ -1,4 +1,4 @@
-<!-- GitHub already provides file and line context. One actionable finding per inline comment. -->
+(*GitHub already provides file and line context. One actionable finding per inline comment.*)
 
 {{ finding }}
 
@@ -14,7 +14,7 @@
 **Evidence:** {{ evidence }}
 {% endif %}
 
-<!-- Required when an agent substantially authored or rewrote the inline comment. -->
+(*Required when an agent substantially authored or rewrote the inline comment.*)
 {% if author %}
 
 ```yaml
