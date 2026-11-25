@@ -33,4 +33,4 @@ author:
 | PR review | [Review](pull-request-review.md) |
 | PR inline review comment | [Inline review](pull-request-inline-comment.md) |
 
-Comment/review authoring aids use illustrative `{{ value }}`, `{% if ... %}`, and `{% for ... %}` notation, not an installed template engine. For the Markdown Issue template, follow its HTML comments. In either case, omit unused sections and authoring directives before posting; do not duplicate GitHub-native statuses or review decisions.
+Comment/review authoring aids use illustrative `{{ value }}`, `{% if ... %}`, and `{% for ... %}` notation, not an installed template engine. Markdown templates use visible italic parenthetical writing guidance. Follow the relevant guidance, then remove it along with unused sections, examples, placeholders, and authoring notation before posting. Do not duplicate GitHub-native statuses or review decisions.
