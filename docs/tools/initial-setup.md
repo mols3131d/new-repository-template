@@ -10,7 +10,7 @@ Use this for shared development tools and Agent Skills, not an application build
 
 - Install [mise](https://mise.jdx.dev/) if needed. Inspect [`mise.toml`](../../mise.toml) and [`rulesync.jsonc`](../../rulesync.jsonc) for tasks, tools, external sources and targets.
 - Authorize installation, downloads and generated repository changes. Inspect mise configuration before approving trust.
-- The template does not ship `rulesync.lock`; the first install resolves upstream refs. Inspect and commit the real generated lock before expecting repeatable Skill revisions.
+- The template starts with no upstream sources or `rulesync.lock`. If you add sources, the first install resolves their refs; inspect and commit the generated lock before expecting repeatable Skill revisions.
 - Review the [version policy](README.md#version-management) if reproducible tool installs matter.
 
 ## First setup
@@ -22,7 +22,7 @@ mise install
 mise run setup
 ```
 
-`mise install` provisions CLI tools. `setup` installs and projects Skills, updates generated ignore entries and configures the clone-local [commit template](git/README.md). Run `setup` from a Git repository root (initialize Git first if starting from an extracted archive), because shared `.agents/skills/` targets write to clone-local `.git/info/exclude`. The commands may change tracked files; Git's local configuration is not committed. If `rulesync install` hits GitHub's unauthenticated API rate limit and leaves a partial `rulesync.lock`, provide `GITHUB_TOKEN` or `GH_TOKEN` and rerun `mise run setup` before proceeding (see [Rulesync](rulesync.md)).
+`mise install` provisions CLI tools. `setup` installs selected Skills (if any), generates projections, updates generated ignore entries and configures the clone-local [commit template](git/README.md). Run `setup` from a Git repository root (initialize Git first if starting from an extracted archive), because shared `.agents/skills/` targets write to clone-local `.git/info/exclude`. The commands may change tracked files; Git's local configuration is not committed. If `rulesync install` hits GitHub's unauthenticated API rate limit and leaves a partial `rulesync.lock`, provide `GITHUB_TOKEN` or `GH_TOKEN` and rerun `mise run setup` before proceeding (see [Rulesync](rulesync.md)).
 
 Review before committing:
 
@@ -32,7 +32,7 @@ mise run agents-preview
 mise run check
 ```
 
-Inspect `rulesync.lock`, [`.gitignore`](../../.gitignore), `.git/info/exclude` and generated projections. `agents-preview` runs `agents-check` and prints the Rulesync JSON write/delete plan without changing projections once `setup` (or `restore`) has created `.rulesync/`. Review proposed deletions (including directory contents) against hand-maintained files; a preview of currently installed sources does not predict changes from a later upstream refresh. `check` validates formatting, lint and hooks without writing.
+Inspect `rulesync.lock` if generated, [`.gitignore`](../../.gitignore), `.git/info/exclude` and generated projections. `agents-preview` runs `agents-check` and prints the Rulesync JSON write/delete plan without changing projections after `setup` (or `restore`). Review proposed deletions (including directory contents) against hand-maintained files; a preview of currently installed sources does not predict changes from a later upstream refresh. `check` validates formatting, lint and hooks without writing.
 
 ## Subsequent use and recovery
 
